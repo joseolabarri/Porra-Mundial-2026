@@ -1,0 +1,2866 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Porra Mundial 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rojo: #c8102e;
+    --rojo-oscuro: #8c0b1f;
+    --rojo-claro: #e8203f;
+    --dorado: #c9a227;
+    --dorado-claro: #f0c940;
+    --fondo: #faf7f7;
+    --gris-claro: #f0e8e9;
+    --negro: #180507;
+    --oro: #b8830f;
+    --plata: #7a7a7a;
+    --bronce: #7a4520;
+    --verde-premio: #156b38;
+    --azul-mundial: #003087;
+    --classify: #1a6b38;
+    --repechaje: #7a5c00;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--fondo);
+    min-height: 100vh;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--negro);
+    padding: 0 0 64px 0;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(150deg, #0a0a1a 0%, #1a1a3e 40%, #2d1a0a 70%, #3d0a0a 100%);
+    padding: 52px 20px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 6px 40px rgba(0,0,0,0.4);
+  }
+
+  .header::before {
+    content: 'FIFA WORLD CUP';
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 140px;
+    letter-spacing: 30px;
+    color: rgba(255,255,255,0.025);
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .header-trophy {
+    font-size: 44px;
+    display: block;
+    margin-bottom: 12px;
+    position: relative;
+    filter: drop-shadow(0 0 20px rgba(201,162,39,0.6));
+  }
+
+  .header-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(46px, 10vw, 90px);
+    letter-spacing: -2px;
+    color: white;
+    line-height: 0.9;
+    position: relative;
+  }
+
+  .header-title span {
+    color: var(--dorado-claro);
+    display: block;
+    font-size: clamp(28px, 6vw, 56px);
+    letter-spacing: 6px;
+    font-weight: 700;
+  }
+
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(201,162,39,0.15);
+    border: 1px solid rgba(201,162,39,0.4);
+    color: var(--dorado-claro);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    padding: 6px 20px;
+    border-radius: 20px;
+    margin-top: 18px;
+    text-transform: uppercase;
+    position: relative;
+  }
+
+  /* ── NAV ── */
+  .nav-bar {
+    background: white;
+    border-bottom: 1px solid rgba(200,16,46,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  .nav-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  .nav-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(24,5,7,0.4);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 16px 22px;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .nav-btn:hover { color: var(--rojo); }
+  .nav-btn.active { color: var(--rojo); border-bottom-color: var(--rojo); }
+
+  /* ── CONTAINER ── */
+  .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--rojo);
+    margin: 36px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(200,16,46,0.25), transparent);
+  }
+
+
+
+  /* ── STATS ROW ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .stat-box {
+    background: white;
+    border: 1px solid rgba(200,16,46,0.1);
+    border-radius: 14px;
+    padding: 16px 14px;
+    text-align: center;
+    box-shadow: 0 1px 6px rgba(200,16,46,0.05);
+  }
+
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    color: var(--rojo);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(24,5,7,0.38);
+    margin-top: 5px;
+    line-height: 1.4;
+  }
+
+  /* ── PARTIDO DEL DÍA ── */
+  .partido-card {
+    background: white;
+    border: 1px solid rgba(200,16,46,0.08);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  }
+
+  .partido-top {
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #2a0a0a 100%);
+    padding: 18px 18px 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .partido-top::before {
+    content: 'VS';
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 100px;
+    color: rgba(255,255,255,0.03);
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    pointer-events: none;
+    letter-spacing: -4px;
+  }
+
+  .partido-meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .partido-grupo-badge {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.07);
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  .partido-hora {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--dorado-claro);
+    letter-spacing: 1px;
+  }
+
+  .partido-enfrentamiento {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .partido-equipo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(16px, 4.5vw, 22px);
+    color: white;
+    line-height: 1.1;
+  }
+
+  .partido-equipo.derecha { text-align: right; }
+
+  .partido-marcador {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .marcador-resultado {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 28px;
+    color: var(--dorado-claro);
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+
+  .marcador-vs {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+  }
+
+  /* Chips de pronósticos */
+  .chips-container {
+    padding: 14px 14px 16px;
+  }
+
+  .chips-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: rgba(24,5,7,0.3);
+    margin-bottom: 10px;
+  }
+
+  .chips-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+  }
+
+  .chip {
+    border-radius: 12px;
+    padding: 8px 10px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid rgba(200,16,46,0.08);
+    background: var(--gris-claro);
+    transition: transform 0.1s;
+    min-width: 0;
+  }
+
+  .chip:active { transform: scale(0.97); }
+
+  .chip-avatar {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .chip-info {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .chip-nombre {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--negro);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+  }
+
+  .chip-prono {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    line-height: 1;
+    letter-spacing: 0.5px;
+  }
+
+  .chip-pendiente { background: var(--gris-claro); border-color: rgba(200,16,46,0.08); }
+
+  .chip-exacto   .chip-prono { color: var(--classify); }
+  .chip-acierto .chip-prono { color: #7a5c00; }
+  .chip-fallo   .chip-prono { color: var(--rojo-oscuro); }
+  .chip-pendiente .chip-prono { color: rgba(24,5,7,0.55); }
+
+  /* Partidazo del día */
+  .chip.es-partidazo {
+    border-color: var(--dorado) !important;
+    background: #fffbf0 !important;
+    position: relative;
+  }
+
+  .chip.es-partidazo .chip-prono { color: #7a5c00 !important; }
+
+  .chip-ball {
+    position: absolute;
+    top: 4px; right: 5px;
+    font-size: 11px;
+    line-height: 1;
+  }
+
+  /* Leyenda mini */
+  .chips-leyenda {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(200,16,46,0.06);
+  }
+
+  .leyenda-chip {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    color: rgba(24,5,7,0.4);
+  }
+
+  .leyenda-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+
+  /* ── TABLAS DE GRUPO ── */
+  .grupos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+  }
+
+  .grupo-card {
+    background: white;
+    border: 1px solid rgba(200,16,46,0.08);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  }
+
+  .grupo-header {
+    background: linear-gradient(135deg, #0a0a1a, #1a1a3e);
+    padding: 11px 16px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .grupo-letra {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--dorado-claro);
+    letter-spacing: 1px;
+  }
+
+  .grupo-sub {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .grupo-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  .grupo-table thead tr {
+    background: rgba(200,16,46,0.04);
+    border-bottom: 1px solid rgba(200,16,46,0.08);
+  }
+
+  .grupo-table th {
+    padding: 6px 10px;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(24,5,7,0.3);
+    text-align: center;
+  }
+
+  .grupo-table th:first-child { text-align: left; padding-left: 14px; }
+
+  .grupo-table td {
+    padding: 8px 10px;
+    text-align: center;
+    border-bottom: 1px solid rgba(200,16,46,0.04);
+    font-size: 12px;
+    color: rgba(24,5,7,0.6);
+  }
+
+  .grupo-table td:first-child {
+    text-align: left;
+    padding-left: 14px;
+    font-weight: 500;
+    color: var(--negro);
+    font-size: 13px;
+  }
+
+  .grupo-table tr:last-child td { border-bottom: none; }
+  .grupo-table tbody tr:hover { background: #fff8f8; }
+
+  .clasificado-row td:first-child { border-left: 3px solid var(--dorado); }
+  .repechaje-row td:first-child   { border-left: 3px solid rgba(200,16,46,0.35); }
+
+  .pts-cell {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--negro);
+  }
+
+  /* ── LEYENDA GRUPOS ── */
+  .leyenda {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 16px;
+    font-size: 11px;
+    color: rgba(24,5,7,0.5);
+    flex-wrap: wrap;
+  }
+
+  .leyenda-item { display: flex; align-items: center; gap: 6px; }
+  .leyenda-color {
+    width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0;
+  }
+
+  /* ── PRONÓSTICOS PREVIOS ── */
+  .previos-section { margin-bottom: 2rem; }
+
+  .previos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+  }
+
+  .previo-card {
+    background: white;
+    border: 1px solid rgba(200,16,46,0.08);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .previo-card:hover {
+    border-color: rgba(200,16,46,0.3);
+    box-shadow: 0 4px 14px rgba(200,16,46,0.08);
+  }
+
+  .previo-nombre {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(24,5,7,0.35);
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .previo-valor {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--negro);
+    line-height: 1.2;
+  }
+
+  /* ── CLASIFICACIÓN GENERAL ── */
+  .podium {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr 1fr;
+    gap: 12px;
+    align-items: end;
+    margin-bottom: 28px;
+  }
+
+  .podium-card {
+    border-radius: 14px 14px 0 0;
+    padding: 22px 14px 20px;
+    text-align: center;
+    border: 1.5px solid transparent;
+    background: white;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+  }
+
+  .podium-card:hover { transform: translateY(-4px); }
+
+  .podium-1 {
+    border-color: var(--dorado);
+    padding-top: 30px;
+    box-shadow: 0 6px 28px rgba(201,162,39,0.2);
+  }
+
+  .podium-2 { border-color: rgba(122,122,122,0.4); }
+  .podium-3 { border-color: rgba(122,69,32,0.35); }
+
+  .podium-medal { font-size: 24px; margin-bottom: 10px; display: block; }
+
+  .podium-pos {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(24,5,7,0.35);
+    margin-bottom: 6px;
+  }
+
+  .podium-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: clamp(17px, 3.5vw, 24px);
+    letter-spacing: -0.5px;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .podium-1 .podium-name { color: var(--dorado); }
+  .podium-2 .podium-name { color: var(--plata); }
+  .podium-3 .podium-name { color: var(--bronce); }
+
+  .podium-pts {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 1;
+    color: var(--negro);
+  }
+
+  .podium-pts-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(24,5,7,0.3);
+    margin-top: 3px;
+  }
+
+  /* ── TABLA CLASIFICACIÓN — nuevo diseño ── */
+  .tabla-clasif {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .clasif-card {
+    background: white;
+    border: 1px solid rgba(200,16,46,0.08);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transition: box-shadow 0.15s;
+  }
+
+  .clasif-card:hover { box-shadow: 0 4px 16px rgba(200,16,46,0.1); }
+  .clasif-card.pos-oro  { border-color: rgba(201,162,39,0.35); box-shadow: 0 4px 16px rgba(201,162,39,0.12); }
+  .clasif-card.pos-plata { border-color: rgba(122,122,122,0.3); }
+  .clasif-card.pos-bronce { border-color: rgba(122,69,32,0.25); }
+
+  .clasif-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px 10px;
+  }
+
+  .clasif-pos-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    line-height: 1;
+    min-width: 32px;
+    text-align: center;
+    color: rgba(24,5,7,0.2);
+  }
+
+  .pos-oro  .clasif-pos-num { color: var(--dorado); }
+  .pos-plata .clasif-pos-num { color: var(--plata); }
+  .pos-bronce .clasif-pos-num { color: var(--bronce); }
+
+  .clasif-nombre-wrap { flex: 1; min-width: 0; }
+
+  .clasif-nombre {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--negro);
+    line-height: 1;
+  }
+
+  .clasif-barra-wrap {
+    margin-top: 5px;
+    height: 3px;
+    background: rgba(200,16,46,0.07);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .clasif-barra {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(to right, #0a0a1a, var(--dorado));
+  }
+
+  .clasif-pts-total {
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .clasif-pts-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 1;
+    color: var(--negro);
+  }
+
+  .pos-oro .clasif-pts-num { color: var(--dorado); }
+
+  .clasif-pts-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(24,5,7,0.3);
+    text-align: right;
+  }
+
+  .clasif-desglose {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid rgba(200,16,46,0.06);
+  }
+
+  .clasif-col {
+    padding: 8px 10px;
+    text-align: center;
+    border-right: 1px solid rgba(200,16,46,0.06);
+  }
+
+  .clasif-col:last-child { border-right: none; }
+
+  .clasif-col-val {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1;
+    color: var(--negro);
+  }
+
+  .clasif-col-val.cero { color: rgba(24,5,7,0.18); font-weight: 400; font-size: 14px; }
+
+  .clasif-col-label {
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(24,5,7,0.3);
+    margin-top: 3px;
+    line-height: 1.3;
+  }
+
+  .col-1x2   .clasif-col-val { color: #1a5a6b; }
+  .col-exacto .clasif-col-val { color: var(--classify); }
+  .col-mungui .clasif-col-val { color: var(--dorado); }
+  .col-tablas .clasif-col-val { color: #6b1a5a; }
+
+  .col-1x2.cero-col   .clasif-col-val,
+  .col-exacto.cero-col .clasif-col-val,
+  .col-mungui.cero-col .clasif-col-val,
+  .col-tablas.cero-col .clasif-col-val { color: rgba(24,5,7,0.18); }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center; margin-top: 52px; padding-top: 20px;
+    border-top: 1px solid rgba(200,16,46,0.08);
+    font-size: 11px; color: rgba(24,5,7,0.2); letter-spacing: 1px;
+  }
+
+  /* ── SISTEMA DE PUNTOS INFO ── */
+  .puntos-info {
+    background: linear-gradient(135deg, #0a0a1a, #1a1a3e);
+    border-radius: 14px;
+    padding: 22px 24px;
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .puntos-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .puntos-desc { font-size: 12px; color: rgba(255,255,255,0.6); }
+  .puntos-val {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--dorado-claro);
+  }
+
+  .puntos-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--dorado-claro);
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    grid-column: span 2;
+  }
+
+  /* ── VISTA TOGGLE ── */
+  .vista-toggle {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .vista-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 7px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(200,16,46,0.2);
+    background: white;
+    color: rgba(24,5,7,0.4);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .vista-btn:hover { color: var(--rojo); border-color: var(--rojo); }
+  .vista-btn.active { background: var(--rojo); color: white; border-color: var(--rojo); }
+
+  /* ── PICHICHI — diseño tipo partido ── */
+  .pichichi-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 4px;
+  }
+
+  .pichichi-card {
+    background: white;
+    border: 1px solid rgba(200,16,46,0.08);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  }
+
+  .pichichi-top {
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #2a0a0a 100%);
+    padding: 14px 18px 12px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pichichi-top::before {
+    content: attr(data-icono);
+    font-size: 80px;
+    position: absolute;
+    right: -8px; top: -10px;
+    opacity: 0.07;
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  .pichichi-top-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 4px;
+  }
+
+  .pichichi-top-titulo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    color: white;
+    letter-spacing: -0.5px;
+    line-height: 1;
+  }
+
+  .pichichi-chips-wrap {
+    padding: 12px 12px 14px;
+  }
+
+  .pichichi-chips-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(24,5,7,0.3);
+    margin-bottom: 8px;
+  }
+
+  .pichichi-chips-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+
+  .pichichi-chip {
+    border-radius: 10px;
+    padding: 8px 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gris-claro);
+    border: 1px solid rgba(200,16,46,0.07);
+    min-width: 0;
+  }
+
+  .pichichi-chip-info { min-width: 0; flex: 1; }
+
+  .pichichi-chip-nombre {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--negro);
+    line-height: 1.3;
+  }
+
+  .pichichi-chip-valor {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--rojo);
+    line-height: 1.2;
+  }
+
+  @media (max-width: 680px) {
+    .pichichi-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── GRUPOS POR GRUPO ── */
+  .grupos-previos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+
+  .grupo-previo-card {
+    background: white;
+    border: 1px solid rgba(200,16,46,0.08);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  }
+
+  .grupo-previo-header {
+    background: linear-gradient(135deg, #0a0a1a, #1a1a3e);
+    padding: 10px 14px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .grupo-previo-letra {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--dorado-claro);
+    letter-spacing: 1px;
+  }
+
+  .grupo-previo-equipos {
+    font-size: 10px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.5px;
+  }
+
+  .grupo-previo-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  .grupo-previo-table thead tr {
+    background: rgba(200,16,46,0.04);
+    border-bottom: 1px solid rgba(200,16,46,0.08);
+  }
+
+  .grupo-previo-table th {
+    padding: 5px 8px;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(24,5,7,0.3);
+    text-align: center;
+  }
+
+  .grupo-previo-table th:first-child { text-align: left; padding-left: 12px; }
+
+  .grupo-previo-table td {
+    padding: 6px 8px;
+    text-align: center;
+    border-bottom: 1px solid rgba(200,16,46,0.04);
+    color: rgba(24,5,7,0.5);
+    font-size: 11px;
+  }
+
+  .grupo-previo-table td:first-child {
+    text-align: left;
+    padding-left: 12px;
+    font-weight: 600;
+    color: var(--negro);
+    font-size: 12px;
+  }
+
+  .grupo-previo-table tr:last-child td { border-bottom: none; }
+
+  .pos-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .pos-1 { background: rgba(201,162,39,0.2); color: var(--dorado); }
+  .pos-2 { background: rgba(122,122,122,0.15); color: var(--plata); }
+  .pos-3 { background: rgba(200,16,46,0.1); color: var(--rojo); }
+  .pos-4 { background: rgba(24,5,7,0.06); color: rgba(24,5,7,0.3); }
+
+  /* ── GRUPOS POR PARTICIPANTE ── */
+  .participante-selector {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .part-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 16px;
+    border: 1px solid rgba(200,16,46,0.15);
+    background: white;
+    color: rgba(24,5,7,0.45);
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .part-btn:hover { border-color: var(--rojo); color: var(--rojo); }
+  .part-btn.active { background: var(--rojo); color: white; border-color: var(--rojo); }
+
+  .part-avatar-mini {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7px;
+    font-weight: 700;
+  }
+
+  .persona-grupos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+  }
+
+  .persona-grupo-card {
+    background: white;
+    border: 1px solid rgba(200,16,46,0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+  }
+
+  .persona-grupo-header {
+    background: linear-gradient(135deg, #0a0a1a, #1a1a3e);
+    padding: 6px 12px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    color: var(--dorado-claro);
+    letter-spacing: 1px;
+  }
+
+  .persona-grupo-lista {
+    padding: 6px 0;
+  }
+
+  .persona-grupo-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--negro);
+    border-bottom: 1px solid rgba(200,16,46,0.04);
+  }
+
+  .persona-grupo-item:last-child { border-bottom: none; }
+
+  /* ── FASES POPULARIDAD ── */
+  .fase-bloque {
+    margin-bottom: 20px;
+  }
+
+  .fase-titulo {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(24,5,7,0.35);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .fase-titulo::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(200,16,46,0.1);
+  }
+
+  .equipos-popularidad-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 8px;
+  }
+
+  .equipo-pop-card {
+    background: white;
+    border: 1px solid rgba(200,16,46,0.08);
+    border-radius: 10px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.04);
+    transition: border-color 0.15s;
+  }
+
+  .equipo-pop-card:hover { border-color: rgba(200,16,46,0.25); }
+
+  .equipo-pop-votos {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--rojo);
+    line-height: 1;
+    min-width: 28px;
+    text-align: center;
+  }
+
+  .equipo-pop-nombre {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--negro);
+    line-height: 1.2;
+  }
+
+  .equipo-pop-barra-wrap {
+    height: 3px;
+    background: rgba(200,16,46,0.08);
+    border-radius: 2px;
+    margin-top: 3px;
+  }
+
+  .equipo-pop-barra {
+    height: 3px;
+    background: var(--rojo);
+    border-radius: 2px;
+  }
+
+  /* ── FASES POR PARTICIPANTE — nuevo diseño ── */
+  .fases-persona-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+  }
+
+  .fases-persona-card {
+    background: white;
+    border: 1px solid rgba(200,16,46,0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+
+  .fases-persona-header {
+    background: linear-gradient(135deg, #0a0a1a, #1a1a3e);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .fases-persona-nombre {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: white;
+  }
+
+  .fases-persona-body {
+    padding: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .fase-bloque-card {
+    border-radius: 10px;
+    padding: 10px 12px;
+    border: 1px solid rgba(200,16,46,0.07);
+    background: var(--fondo);
+  }
+
+  .fase-bloque-titulo {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .fase-bloque-octavos .fase-bloque-titulo { color: rgba(24,5,7,0.35); }
+  .fase-bloque-cuartos .fase-bloque-titulo { color: #1a5a6b; }
+  .fase-bloque-semis   .fase-bloque-titulo { color: var(--dorado); }
+  .fase-bloque-final   .fase-bloque-titulo { color: var(--rojo); }
+
+  .fase-bloque-octavos { background: rgba(24,5,7,0.02); border-color: rgba(24,5,7,0.06); grid-column: span 2; }
+  .fase-bloque-cuartos { background: rgba(26,90,107,0.05); border-color: rgba(26,90,107,0.12); grid-column: span 2; }
+  .fase-bloque-semis   { background: rgba(201,162,39,0.06); border-color: rgba(201,162,39,0.18); }
+  .fase-bloque-final   { background: rgba(200,16,46,0.05); border-color: rgba(200,16,46,0.14); }
+
+  .fase-equipos-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .fase-equipo-tag {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .fase-bloque-octavos .fase-equipo-tag { background: rgba(24,5,7,0.07); color: var(--negro); }
+  .fase-bloque-cuartos .fase-equipo-tag { background: rgba(26,90,107,0.1); color: #1a5a6b; }
+  .fase-bloque-semis   .fase-equipo-tag { background: rgba(201,162,39,0.15); color: #7a5c00; }
+  .fase-bloque-final   .fase-equipo-tag { background: rgba(200,16,46,0.1); color: var(--rojo-oscuro); font-size: 13px; }
+
+  @media (max-width: 480px) {
+    .previos-doble-grid { grid-template-columns: 1fr; }
+    .grupos-previos-grid { grid-template-columns: 1fr; }
+    .persona-grupos-grid { grid-template-columns: repeat(2, 1fr); }
+    .equipos-popularidad-grid { grid-template-columns: repeat(2, 1fr); }
+    .fases-persona-grid { grid-template-columns: 1fr; }
+  }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .grupos-grid { grid-template-columns: 1fr; }
+    .previos-grid { grid-template-columns: repeat(2, 1fr); }
+    .puntos-info { grid-template-columns: 1fr; }
+    .puntos-title { grid-column: span 1; }
+    .chips-grid { grid-template-columns: repeat(3, 1fr); }
+
+    .podium {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+    }
+    .podium-card { border-radius: 14px; }
+    .podium-card.podium-2 { order: 2; }
+    .podium-card.podium-1 { order: 1; grid-column: span 2; border-radius: 14px; }
+    .podium-card.podium-3 { order: 3; }
+
+    .table-header-row, .table-row {
+      grid-template-columns: 30px 1fr 50px 52px;
+      padding: 10px 14px;
+    }
+
+    .table-header-row > *:nth-child(5),
+    .table-header-row > *:nth-child(6),
+    .table-row > *:nth-child(5),
+    .table-row > *:nth-child(6) { display: none; }
+  }
+
+  /* ── INSTRUCCIONES ── */
+  .inst-card {
+    background: white;
+    border: 1px solid rgba(200,16,46,0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    margin-bottom: 14px;
+  }
+
+  .inst-card-header {
+    background: linear-gradient(135deg, #0a0a1a, #1a1a3e);
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .inst-card-icono { font-size: 22px; flex-shrink: 0; }
+
+  .inst-card-titulo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: white;
+  }
+
+  .inst-card-sub {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 2px;
+  }
+
+  .inst-card-body { padding: 16px 18px; }
+
+  .inst-pts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .inst-pts-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--fondo);
+    border: 1px solid rgba(200,16,46,0.07);
+    border-radius: 10px;
+    padding: 9px 12px;
+    gap: 8px;
+  }
+
+  .inst-pts-desc { font-size: 12px; font-weight: 500; color: var(--negro); line-height: 1.3; }
+
+  .inst-pts-val {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .inst-pts-item.destacado {
+    background: linear-gradient(135deg, #0a0a1a, #1a1a3e);
+    border-color: transparent;
+  }
+
+  .inst-pts-item.destacado .inst-pts-desc { color: rgba(255,255,255,0.7); }
+  .inst-pts-item.destacado .inst-pts-val  { color: var(--dorado-claro); }
+
+  .inst-nota {
+    font-size: 12px;
+    color: rgba(24,5,7,0.55);
+    line-height: 1.65;
+    padding: 10px 14px;
+    background: var(--fondo);
+    border-radius: 10px;
+    border-left: 3px solid var(--dorado);
+    margin-top: 10px;
+  }
+
+  .inst-nota strong { color: var(--negro); font-weight: 600; }
+  .inst-nota + .inst-nota { margin-top: 8px; }
+
+  .inst-separador { height: 1px; background: rgba(200,16,46,0.07); margin: 14px 0; }
+
+  .inst-desempate-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .inst-desempate-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 11px 14px;
+    background: var(--fondo);
+    border-radius: 10px;
+    border: 1px solid rgba(200,16,46,0.07);
+  }
+
+  .inst-desempate-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    color: var(--rojo);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 28px;
+  }
+
+  .inst-desempate-txt {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--negro);
+    line-height: 1.4;
+    padding-top: 4px;
+  }
+
+  .inst-desempate-txt span {
+    display: block;
+    font-size: 11px;
+    color: rgba(24,5,7,0.45);
+    font-weight: 400;
+    margin-top: 3px;
+  }
+
+  .inst-premio-banner {
+    background: linear-gradient(135deg, #0a0a1a, #1a1a3e);
+    border-radius: 16px;
+    padding: 22px 22px;
+    text-align: center;
+    margin-bottom: 14px;
+  }
+
+  .inst-premio-icono { font-size: 40px; display: block; margin-bottom: 10px; }
+
+  .inst-premio-titulo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--dorado-claro);
+    margin-bottom: 8px;
+  }
+
+  .inst-premio-txt { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.65; }
+
+  @media (max-width: 480px) { .inst-pts-grid { grid-template-columns: 1fr; } }
+
+  /* ── BANNER MUNGUI ── */
+  .mungui-banner {
+    background: #0a0a1a;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .mungui-top {
+    padding: 13px 16px 11px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mungui-fuego { font-size: 18px; line-height: 1; flex-shrink: 0; }
+
+  .mungui-top-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .mungui-top-sub {
+    font-size: 10px;
+    color: rgba(255,255,255,0.2);
+    margin-top: 1px;
+  }
+
+  .mungui-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 16px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    flex-wrap: wrap;
+  }
+
+  .mungui-persona-izq {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-shrink: 0;
+    min-width: 86px;
+  }
+
+  .mungui-persona-nombre {
+    font-size: 13px;
+    font-weight: 500;
+    color: white;
+  }
+
+  .mungui-flecha {
+    font-size: 11px;
+    color: rgba(255,255,255,0.15);
+    flex-shrink: 0;
+  }
+
+  .mungui-goles-lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    flex: 1;
+  }
+
+  .mungui-gol-tag {
+    background: rgba(201,162,39,0.13);
+    border: 1px solid rgba(201,162,39,0.25);
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #f0c940;
+  }
+
+  .mungui-sin-goles {
+    font-size: 11px;
+    color: rgba(255,255,255,0.18);
+    font-style: italic;
+  }
+
+  .mungui-footer {
+    padding: 8px 16px;
+    background: rgba(201,162,39,0.07);
+    border-top: 1px solid rgba(201,162,39,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .mungui-footer-txt { font-size: 10px; color: rgba(255,255,255,0.25); }
+  .mungui-footer-pts { font-size: 11px; font-weight: 600; color: rgba(240,201,64,0.65); }
+
+  /* ── PERFIL MODAL ── */
+  .perfil-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,10,26,0.6);
+    z-index: 200;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .perfil-overlay.abierto {
+    display: flex;
+  }
+
+  .perfil-panel {
+    background: var(--fondo);
+    border-radius: 22px 22px 0 0;
+    width: 100%;
+    max-width: 960px;
+    max-height: 88vh;
+    overflow-y: auto;
+    padding: 0 0 40px;
+    animation: subirPanel 0.28s ease;
+  }
+
+  @keyframes subirPanel {
+    from { transform: translateY(100%); }
+    to   { transform: translateY(0); }
+  }
+
+  .perfil-handle {
+    width: 36px; height: 4px;
+    background: rgba(24,5,7,0.15);
+    border-radius: 2px;
+    margin: 12px auto 0;
+  }
+
+  .perfil-header {
+    background: linear-gradient(135deg, #0a0a1a, #1a1a3e);
+    padding: 16px 20px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .perfil-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .perfil-nombre {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: white;
+    flex: 1;
+  }
+
+  .perfil-pos {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 28px;
+    color: var(--dorado-claro);
+  }
+
+  .perfil-cerrar {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: rgba(255,255,255,0.6);
+    font-size: 18px;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .perfil-body { padding: 20px 20px 0; }
+
+  .perfil-section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--rojo);
+    margin: 20px 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .perfil-section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(200,16,46,0.2), transparent);
+  }
+
+  .perfil-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .perfil-stat {
+    background: white;
+    border: 1px solid rgba(200,16,46,0.08);
+    border-radius: 12px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+
+  .perfil-stat-val {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    color: var(--negro);
+    line-height: 1;
+  }
+
+  .perfil-stat-val.dorado { color: var(--dorado); }
+
+  .perfil-stat-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(24,5,7,0.35);
+    margin-top: 4px;
+  }
+
+  .perfil-desglose {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+
+  .perfil-desglose-item {
+    background: white;
+    border: 1px solid rgba(200,16,46,0.06);
+    border-radius: 10px;
+    padding: 8px 6px;
+    text-align: center;
+  }
+
+  .perfil-desglose-val {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .perfil-desglose-label {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(24,5,7,0.3);
+    margin-top: 3px;
+    line-height: 1.3;
+  }
+
+  .perfil-previos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .perfil-previo-item {
+    background: white;
+    border: 1px solid rgba(200,16,46,0.08);
+    border-radius: 10px;
+    padding: 10px 12px;
+  }
+
+  .perfil-previo-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(24,5,7,0.3);
+    margin-bottom: 4px;
+  }
+
+  .perfil-previo-val {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--negro);
+    line-height: 1.2;
+  }
+
+  .perfil-fases-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .perfil-fase-card {
+    background: white;
+    border: 1px solid rgba(200,16,46,0.07);
+    border-radius: 10px;
+    padding: 10px 12px;
+  }
+
+  .perfil-fase-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(24,5,7,0.3);
+    margin-bottom: 6px;
+  }
+
+  .perfil-fase-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .perfil-fase-tag {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 6px;
+  }
+
+  .perfil-fase-cuartos { background: rgba(26,90,107,0.08); color: #1a5a6b; }
+  .perfil-fase-semis   { background: rgba(201,162,39,0.1); color: #7a5c00; }
+  .perfil-fase-final   { background: rgba(200,16,46,0.08); color: var(--rojo-oscuro); }
+  .perfil-fase-campeon { background: linear-gradient(135deg,#0a0a1a,#1a1a3e); color: var(--dorado-claro); font-weight: 600; }</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+
+<!-- PERFIL MODAL -->
+<div class="perfil-overlay" id="perfil-overlay" onclick="cerrarPerfil(event)">
+  <div class="perfil-panel" id="perfil-panel">
+    <div class="perfil-handle"></div>
+    <div class="perfil-header">
+      <div class="perfil-avatar" id="perfil-avatar"></div>
+      <div class="perfil-nombre" id="perfil-nombre"></div>
+      <div class="perfil-pos" id="perfil-pos"></div>
+      <button class="perfil-cerrar" onclick="cerrarPerfil()">✕</button>
+    </div>
+    <div class="perfil-body" id="perfil-body"></div>
+  </div>
+</div>
+  <span class="header-trophy">🏆</span>
+  <div class="header-title">
+    PORRA
+    <span>MUNDIAL 2026</span>
+  </div>
+  <div class="header-badge">USA · CAN · MEX · Junio–Julio 2026</div>
+</div>
+
+<!-- NAV -->
+<div class="nav-bar">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="showSection('inicio', this)">Inicio</button>
+    <button class="nav-btn" onclick="showSection('previos', this)">Pronósticos previos</button>
+    <button class="nav-btn" onclick="showSection('clasificacion', this)">Clasificación</button>
+    <button class="nav-btn" onclick="showSection('instrucciones', this)">Instrucciones</button>
+  </div>
+</div>
+
+<!-- ══════════ SECCIÓN INICIO ══════════ -->
+<div id="sec-inicio" class="section active">
+<div class="container">
+
+  <div id="mungui-banner-wrap"></div>
+
+  <div class="section-label">Pronósticos del día</div>
+  <div id="partidos-container"></div>
+
+</div>
+</div>
+
+
+<!-- ══════════ SECCIÓN PRONÓSTICOS PREVIOS ══════════ -->
+<div id="sec-previos" class="section">
+<div class="container">
+
+  <!-- Pichichi + goleador arriba -->
+  <div class="section-label" style="margin-top:28px">Pichichi y goleador</div>
+  <div class="pichichi-grid" id="prev-pichichi-wrap"></div>
+
+  <!-- ── GRUPOS: solo vista por participante ── -->
+  <div class="section-label" style="margin-top:28px">Pronósticos de grupo</div>
+
+  <div class="participante-selector" id="participante-selector"></div>
+  <div id="grupos-porPersona"></div>
+
+  <!-- ── FASES ELIMINATORIAS ── -->
+  <div class="section-label" style="margin-top:32px">Fases eliminatorias</div>
+  <div class="participante-selector" id="fases-participante-selector"></div>
+  <div id="fases-porPersona"></div>
+
+</div>
+</div>
+
+<!-- ══════════ SECCIÓN CLASIFICACIÓN ══════════ -->
+<div id="sec-clasificacion" class="section">
+<div class="container">
+
+  <div class="section-label" style="margin-top:28px">Podio</div>
+  <div class="podium">
+    <div class="podium-card podium-2">
+      <span class="podium-medal">🥈</span>
+      <div class="podium-pos">2.º Puesto</div>
+      <div class="podium-name">—</div>
+      <div class="podium-pts">0</div>
+      <div class="podium-pts-label">puntos</div>
+    </div>
+    <div class="podium-card podium-1">
+      <span class="podium-medal">🏆</span>
+      <div class="podium-pos">1.er Puesto</div>
+      <div class="podium-name">—</div>
+      <div class="podium-pts">0</div>
+      <div class="podium-pts-label">puntos</div>
+    </div>
+    <div class="podium-card podium-3">
+      <span class="podium-medal">🥉</span>
+      <div class="podium-pos">3.er Puesto</div>
+      <div class="podium-name">—</div>
+      <div class="podium-pts">0</div>
+      <div class="podium-pts-label">puntos</div>
+    </div>
+  </div>
+
+  <div class="section-label">Clasificación individual</div>
+
+  <!-- Leyenda columnas -->
+  <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px;">
+    <span style="font-size:10px;font-weight:600;letter-spacing:1px;color:#1a5a6b;text-transform:uppercase;">■ 1X2</span>
+    <span style="font-size:10px;font-weight:600;letter-spacing:1px;color:var(--classify);text-transform:uppercase;">■ Resultado exacto</span>
+    <span style="font-size:10px;font-weight:600;letter-spacing:1px;color:var(--dorado);text-transform:uppercase;">■ Mungui</span>
+    <span style="font-size:10px;font-weight:600;letter-spacing:1px;color:#6b1a5a;text-transform:uppercase;">■ Tablas</span>
+  </div>
+
+  <div class="tabla-clasif" id="tabla-clasificacion"></div>
+
+</div>
+</div>
+
+<!-- ══════════ SECCIÓN INSTRUCCIONES ══════════ -->
+<div id="sec-instrucciones" class="section">
+<div class="container">
+
+  <div class="section-label" style="margin-top:28px">Cómo funciona</div>
+
+  <!-- Premio -->
+  <div class="inst-premio-banner">
+    <span class="inst-premio-icono">🏆</span>
+    <div class="inst-premio-titulo">Premio sorpresa</div>
+    <div class="inst-premio-txt">Solo habrá premio para el <strong style="color:var(--dorado-claro)">primer clasificado</strong>. ¡Mucha suerte a todos!</div>
+  </div>
+
+  <!-- Pronósticos del día -->
+  <div class="inst-card">
+    <div class="inst-card-header">
+      <span class="inst-card-icono">📲</span>
+      <div>
+        <div class="inst-card-titulo">Pronósticos del día</div>
+        <div class="inst-card-sub">Formulario diario por WhatsApp</div>
+      </div>
+    </div>
+    <div class="inst-card-body">
+      <div class="inst-nota">Cada día se enviará un <strong>formulario de Google por WhatsApp</strong> que los participantes deberán rellenar con sus pronósticos de los partidos de esa jornada.</div>
+      <div class="inst-separador"></div>
+      <div class="inst-pts-grid">
+        <div class="inst-pts-item">
+          <span class="inst-pts-desc">Acertar 1X2</span>
+          <span class="inst-pts-val" style="color:#1a5a6b">1</span>
+        </div>
+        <div class="inst-pts-item">
+          <span class="inst-pts-desc">Resultado exacto</span>
+          <span class="inst-pts-val" style="color:var(--classify)">3</span>
+        </div>
+        <div class="inst-pts-item destacado">
+          <span class="inst-pts-desc">1X2 en partidazo ⚽</span>
+          <span class="inst-pts-val">2</span>
+        </div>
+        <div class="inst-pts-item destacado">
+          <span class="inst-pts-desc">Exacto en partidazo ⚽</span>
+          <span class="inst-pts-val">6</span>
+        </div>
+      </div>
+      <div class="inst-nota">Cada día hay que elegir un <strong>Partidazo del día</strong> ⚽ — un único partido cuya puntuación se dobla. Si aciertas el 1X2 en el partidazo sumas 2 pts; si aciertas el resultado exacto, 6 pts.</div>
+      <div class="inst-nota">💡 <strong>Exclusividad:</strong> si eres el único participante en acertar un resultado exacto en los pronósticos del día, ganas <strong>+2 puntos extra</strong>.</div>
+    </div>
+  </div>
+
+  <!-- El Mungui -->
+  <div class="inst-card">
+    <div class="inst-card-header">
+      <span class="inst-card-icono">🔥</span>
+      <div>
+        <div class="inst-card-titulo">El Mungui</div>
+        <div class="inst-card-sub">Todo o nada</div>
+      </div>
+    </div>
+    <div class="inst-card-body">
+      <div class="inst-nota">El <strong>Mungui</strong> recae sobre el participante (o participantes) que más puntos consiguió la jornada anterior, teniendo en cuenta tanto los pronósticos del día como los puntos de tablas. Si varios participantes empataron, todos son Mungui.</div>
+      <div class="inst-separador"></div>
+      <div class="inst-nota">El Mungui puede predecir los <strong>goleadores de la siguiente jornada</strong>. Puede decir los que quiera, sin límite.</div>
+      <div class="inst-pts-grid" style="margin-top:12px">
+        <div class="inst-pts-item destacado">
+          <span class="inst-pts-desc">Por cada goleador acertado</span>
+          <span class="inst-pts-val">+2</span>
+        </div>
+        <div class="inst-pts-item" style="background:#fff0f1;border-color:rgba(200,16,46,0.2)">
+          <span class="inst-pts-desc" style="color:var(--rojo-oscuro)">Si falla alguno...</span>
+          <span class="inst-pts-val" style="color:var(--rojo)">0</span>
+        </div>
+      </div>
+      <div class="inst-nota">⚠️ Es <strong>todo o nada</strong>: si el Mungui predice 3 goleadores y acierta solo 2, no se lleva 4 puntos, se lleva <strong>0</strong>. Hay que acertar todos los que ha dicho.</div>
+    </div>
+  </div>
+
+  <!-- Tablas previas -->
+  <div class="inst-card">
+    <div class="inst-card-header">
+      <span class="inst-card-icono">📋</span>
+      <div>
+        <div class="inst-card-titulo">Pronósticos previos</div>
+        <div class="inst-card-sub">Grupos y fases eliminatorias</div>
+      </div>
+    </div>
+    <div class="inst-card-body">
+      <div class="inst-nota" style="margin-bottom:12px">Los pronósticos de tablas se rellenan <strong>antes del torneo</strong> y dan puntos a medida que avanza la competición. No es necesario que el orden de los grupos coincida con los equipos que pones en las fases posteriores.</div>
+
+      <div style="font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(24,5,7,0.35);margin-bottom:8px">Fase de grupos</div>
+      <div class="inst-pts-grid">
+        <div class="inst-pts-item"><span class="inst-pts-desc">1.º clasificado del grupo</span><span class="inst-pts-val" style="color:var(--dorado)">4</span></div>
+        <div class="inst-pts-item"><span class="inst-pts-desc">2.º clasificado del grupo</span><span class="inst-pts-val" style="color:var(--plata)">3</span></div>
+        <div class="inst-pts-item"><span class="inst-pts-desc">3.º clasificado del grupo</span><span class="inst-pts-val" style="color:var(--bronce)">2</span></div>
+        <div class="inst-pts-item"><span class="inst-pts-desc">4.º clasificado del grupo</span><span class="inst-pts-val" style="color:rgba(24,5,7,0.4)">1</span></div>
+      </div>
+      <div class="inst-nota">Hay que acertar el <strong>puesto exacto</strong>. Si un equipo queda 2.º y lo tenías en 1.º, no se otorga ningún punto.</div>
+
+      <div class="inst-separador"></div>
+      <div style="font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(24,5,7,0.35);margin-bottom:8px">Fases eliminatorias</div>
+      <div class="inst-pts-grid">
+        <div class="inst-pts-item"><span class="inst-pts-desc">Clasificado a cuartos</span><span class="inst-pts-val" style="color:#1a5a6b">5</span></div>
+        <div class="inst-pts-item"><span class="inst-pts-desc">Clasificado a semifinales</span><span class="inst-pts-val" style="color:#6b1a5a">7</span></div>
+        <div class="inst-pts-item"><span class="inst-pts-desc">Clasificado a la final</span><span class="inst-pts-val" style="color:var(--dorado)">8</span></div>
+        <div class="inst-pts-item destacado"><span class="inst-pts-desc">Subcampeón del mundo</span><span class="inst-pts-val">10</span></div>
+        <div class="inst-pts-item destacado" style="grid-column:span 2"><span class="inst-pts-desc">🏆 Campeón del mundo</span><span class="inst-pts-val">12</span></div>
+      </div>
+      <div class="inst-nota">Puntuación por <strong>país acertado</strong> en cada ronda. Un país puede sumar puntos en cuartos, semis y final de forma acumulativa.</div>
+
+      <div class="inst-separador"></div>
+      <div style="font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(24,5,7,0.35);margin-bottom:8px">Pichichi y goleador</div>
+      <div class="inst-pts-grid">
+        <div class="inst-pts-item destacado"><span class="inst-pts-desc">⚽ Pichichi acertado</span><span class="inst-pts-val">10</span></div>
+        <div class="inst-pts-item destacado"><span class="inst-pts-desc">🏟️ País más goleador</span><span class="inst-pts-val">10</span></div>
+      </div>
+
+      <div class="inst-separador"></div>
+      <div class="inst-nota">💎 <strong>Exclusividad en tablas:</strong> si eres el único participante en acertar cualquier pronóstico de tablas (grupos o fases), ganas <strong>+5 puntos extra</strong>.</div>
+    </div>
+  </div>
+
+  <!-- Desempate -->
+  <div class="inst-card">
+    <div class="inst-card-header">
+      <span class="inst-card-icono">⚖️</span>
+      <div>
+        <div class="inst-card-titulo">Criterios de desempate</div>
+        <div class="inst-card-sub">En caso de igualdad en la clasificación final</div>
+      </div>
+    </div>
+    <div class="inst-card-body">
+      <div class="inst-desempate-list">
+        <div class="inst-desempate-item">
+          <div class="inst-desempate-num">1</div>
+          <div class="inst-desempate-txt">
+            Mayor número de veces como Mungui
+            <span>El que más veces haya liderado la jornada anterior gana el desempate</span>
+          </div>
+        </div>
+        <div class="inst-desempate-item">
+          <div class="inst-desempate-num">2</div>
+          <div class="inst-desempate-txt">
+            Mayor número de resultados exactos
+            <span>Gana quien más resultados exactos haya acertado a lo largo del torneo</span>
+          </div>
+        </div>
+        <div class="inst-desempate-item">
+          <div class="inst-desempate-num">3</div>
+          <div class="inst-desempate-txt">
+            Mayor puntuación en tablas
+            <span>Gana quien más puntos haya acumulado en los pronósticos previos de grupos y fases</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<div class="container">
+  <div class="footer">
+    <p>Porra Mundial 2026 · USA · CANADA · MEXICO · Actualizado automáticamente</p>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+//  ▼▼▼  CAMBIA SOLO ESTO CADA DÍA DE PARTIDO  ▼▼▼
+// ═══════════════════════════════════════════════════════════════
+
+const SHEETS_ID_HOY = 'TU_SHEETS_ID_AQUI';
+// Cómo obtenerlo:
+// 1. Abre la Google Sheet de respuestas del Form de hoy
+// 2. Copia el ID de la URL: docs.google.com/spreadsheets/d/ →ESTE← /edit
+// 3. Pégalo arriba sustituyendo TU_SHEETS_ID_AQUI
+// 4. Cambia USE_SHEETS a true
+
+const USE_SHEETS = false;
+// ↑ Cambiar a true cuando pegues el ID real
+
+// Partidos del día: nombre exacto tal como aparece en el Form
+// La columna del Form debe llamarse igual (ej: "México vs Sudáfrica")
+const PARTIDOS_HOY = [
+  { columna: 'México vs Sudáfrica',       equipoA: 'México',       equipoB: 'Sudáfrica',   hora: '17:00', grupo: 'A', resultado: null },
+  { columna: 'Corea del Sur vs República Checa', equipoA: 'Corea del Sur', equipoB: 'Rep. Checa', hora: '20:00', grupo: 'B', resultado: null },
+];
+// Para añadir o quitar partidos, añade o borra líneas de este array.
+// "resultado" déjalo null mientras no haya jugado; cuando acabe pon: resultado: '2-1'
+
+// Mungui: se detecta automáticamente desde el formulario.
+// Quien haya rellenado la pregunta de goleadores = es el Mungui ese día.
+// Solo hay que indicar los puntos que hizo el Mungui la jornada anterior.
+const MUNGUI_HOY = {
+  ptsDia: 18
+};
+
+// ═══════════════════════════════════════════════════════════════
+//  A PARTIR DE AQUÍ NO HACE FALTA TOCAR NADA
+// ═══════════════════════════════════════════════════════════════
+
+const PARTICIPANTES = [
+  'Mamá','Javi','Dani','Leti','Andrés','Tomás',
+  'Luis','Jorge','José','Cristina','Fernando','Javito','Luki','Pablete','Edu'
+];
+
+const COLORES = [
+  '#c8102e','#003087','#1a7a3a','#b8830f','#6b1a5a',
+  '#1a5a6b','#5a3a1a','#3a1a6b','#8b1a1a','#1a3a6b',
+  '#6b3a1a','#1a6b5a','#5a1a1a','#3a6b1a','#6b6b1a'
+];
+
+// Pronósticos y partidazo se rellenan desde Sheets
+// partidazos[nombre] = 'México vs Sudáfrica' (el valor exacto del Form)
+let PARTIDOS_DIA = PARTIDOS_HOY.map(p => ({ ...p, pronosticos: {} }));
+let PARTIDAZOS = {}; // { 'Mamá': 'México vs Sudáfrica', 'Javi': 'Corea del Sur vs República Checa', ... }
+
+const GRUPOS_DATA = [
+  { letra:'A', equipos:['México','Sudáfrica','Corea del Sur','República Checa'] },
+  { letra:'B', equipos:['Canadá','Bosnia-Herzegovina','Qatar','Suiza'] },
+  { letra:'C', equipos:['Brasil','Marruecos','Haití','Escocia'] },
+  { letra:'D', equipos:['Estados Unidos','Paraguay','Australia','Turquía'] },
+  { letra:'E', equipos:['Alemania','Curazao','Costa de Marfil','Ecuador'] },
+  { letra:'F', equipos:['Países Bajos','Japón','Suecia','Túnez'] },
+  { letra:'G', equipos:['Bélgica','Egipto','Irán','Nueva Zelanda'] },
+  { letra:'H', equipos:['España','Cabo Verde','Arabia Saudí','Uruguay'] },
+  { letra:'I', equipos:['Francia','Senegal','Irak','Noruega'] },
+  { letra:'J', equipos:['Argentina','Argelia','Austria','Jordania'] },
+  { letra:'K', equipos:['Portugal','Rep. D. del Congo','Uzbekistán','Colombia'] },
+  { letra:'L', equipos:['Inglaterra','Croacia','Ghana','Panamá'] }
+];
+
+// Datos de ejemplo para pronósticos previos (se cargarán desde Sheets)
+const PREVIOS_DATA = {
+  pichichi: {
+    'Mamá':'Mbappé','Javi':'Messi','Dani':'Vinicius','Leti':'Mbappé','Andrés':'Lewandowski',
+    'Tomás':'Kane','Luis':'Mbappé','Jorge':'Messi','José':'Benzema','Cristina':'Vinicius',
+    'Fernando':'Mbappé','Javito':'Messi','Luki':'Salah','Pablete':'Benzema','Edu':'Messi'
+  },
+  equipoGoleador: {
+    'Mamá':'Brasil','Javi':'Francia','Dani':'España','Leti':'Argentina','Andrés':'Alemania',
+    'Tomás':'Brasil','Luis':'Francia','Jorge':'España','José':'Brasil','Cristina':'Francia',
+    'Fernando':'España','Javito':'Brasil','Luki':'Argentina','Pablete':'Francia','Edu':'Brasil'
+  },
+  // Orden de grupos: array de 4 equipos ordenados 1º→4º
+  grupos: {
+    'Mamá':    { A:['México','Corea del Sur','Sudáfrica','República Checa'], B:['Canadá','Suiza','Qatar','Bosnia-Herzegovina'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Estados Unidos','Australia','Paraguay','Turquía'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Países Bajos','Japón','Suecia','Túnez'], G:['Bélgica','Egipto','Irán','Nueva Zelanda'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Senegal','Noruega','Irak'], J:['Argentina','Austria','Argelia','Jordania'], K:['Portugal','Colombia','Uzbekistán','Rep. D. del Congo'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
+    'Javi':    { A:['México','Sudáfrica','Corea del Sur','República Checa'], B:['Canadá','Bosnia-Herzegovina','Suiza','Qatar'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Estados Unidos','Paraguay','Turquía','Australia'], E:['Alemania','Costa de Marfil','Ecuador','Curazao'], F:['Países Bajos','Japón','Túnez','Suecia'], G:['Bélgica','Irán','Egipto','Nueva Zelanda'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Noruega','Senegal','Irak'], J:['Argentina','Austria','Argelia','Jordania'], K:['Portugal','Colombia','Uzbekistán','Rep. D. del Congo'], L:['Inglaterra','Croacia','Panamá','Ghana'] },
+    'Dani':    { A:['Corea del Sur','México','Sudáfrica','República Checa'], B:['Canadá','Suiza','Bosnia-Herzegovina','Qatar'], C:['Brasil','Escocia','Marruecos','Haití'], D:['Estados Unidos','Australia','Turquía','Paraguay'], E:['Alemania','Ecuador','Curazao','Costa de Marfil'], F:['Países Bajos','Suecia','Japón','Túnez'], G:['Bélgica','Egipto','Nueva Zelanda','Irán'], H:['España','Arabia Saudí','Uruguay','Cabo Verde'], I:['Francia','Senegal','Irak','Noruega'], J:['Argentina','Argelia','Austria','Jordania'], K:['Portugal','Colombia','Rep. D. del Congo','Uzbekistán'], L:['Inglaterra','Ghana','Croacia','Panamá'] },
+    'Leti':    { A:['México','Corea del Sur','República Checa','Sudáfrica'], B:['Suiza','Canadá','Bosnia-Herzegovina','Qatar'], C:['Brasil','Marruecos','Haití','Escocia'], D:['Estados Unidos','Paraguay','Australia','Turquía'], E:['Alemania','Costa de Marfil','Ecuador','Curazao'], F:['Países Bajos','Japón','Suecia','Túnez'], G:['Bélgica','Irán','Egipto','Nueva Zelanda'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Senegal','Noruega','Irak'], J:['Argentina','Austria','Argelia','Jordania'], K:['Portugal','Colombia','Uzbekistán','Rep. D. del Congo'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
+    'Andrés':  { A:['México','Sudáfrica','Corea del Sur','República Checa'], B:['Canadá','Suiza','Qatar','Bosnia-Herzegovina'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Estados Unidos','Australia','Paraguay','Turquía'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Países Bajos','Japón','Túnez','Suecia'], G:['Bélgica','Egipto','Irán','Nueva Zelanda'], H:['España','Uruguay','Cabo Verde','Arabia Saudí'], I:['Francia','Senegal','Noruega','Irak'], J:['Argentina','Austria','Jordania','Argelia'], K:['Portugal','Colombia','Uzbekistán','Rep. D. del Congo'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
+    'Tomás':   { A:['México','Corea del Sur','Sudáfrica','República Checa'], B:['Canadá','Bosnia-Herzegovina','Suiza','Qatar'], C:['Brasil','Marruecos','Haití','Escocia'], D:['Estados Unidos','Paraguay','Australia','Turquía'], E:['Alemania','Costa de Marfil','Ecuador','Curazao'], F:['Países Bajos','Suecia','Japón','Túnez'], G:['Bélgica','Irán','Egipto','Nueva Zelanda'], H:['España','Arabia Saudí','Uruguay','Cabo Verde'], I:['Francia','Noruega','Senegal','Irak'], J:['Argentina','Austria','Argelia','Jordania'], K:['Portugal','Colombia','Rep. D. del Congo','Uzbekistán'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
+    'Luis':    { A:['México','Sudáfrica','República Checa','Corea del Sur'], B:['Canadá','Suiza','Bosnia-Herzegovina','Qatar'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Estados Unidos','Australia','Paraguay','Turquía'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Países Bajos','Japón','Suecia','Túnez'], G:['Bélgica','Egipto','Irán','Nueva Zelanda'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Senegal','Noruega','Irak'], J:['Argentina','Argelia','Austria','Jordania'], K:['Portugal','Colombia','Uzbekistán','Rep. D. del Congo'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
+    'Jorge':   { A:['México','Corea del Sur','Sudáfrica','República Checa'], B:['Canadá','Bosnia-Herzegovina','Suiza','Qatar'], C:['Brasil','Marruecos','Haití','Escocia'], D:['Estados Unidos','Paraguay','Turquía','Australia'], E:['Alemania','Costa de Marfil','Ecuador','Curazao'], F:['Países Bajos','Japón','Túnez','Suecia'], G:['Bélgica','Egipto','Nueva Zelanda','Irán'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Senegal','Irak','Noruega'], J:['Argentina','Austria','Argelia','Jordania'], K:['Portugal','Colombia','Uzbekistán','Rep. D. del Congo'], L:['Inglaterra','Ghana','Croacia','Panamá'] },
+    'José':    { A:['México','Sudáfrica','Corea del Sur','República Checa'], B:['Suiza','Canadá','Qatar','Bosnia-Herzegovina'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Estados Unidos','Australia','Paraguay','Turquía'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Países Bajos','Suecia','Japón','Túnez'], G:['Bélgica','Irán','Egipto','Nueva Zelanda'], H:['España','Arabia Saudí','Uruguay','Cabo Verde'], I:['Francia','Noruega','Senegal','Irak'], J:['Argentina','Argelia','Austria','Jordania'], K:['Portugal','Colombia','Rep. D. del Congo','Uzbekistán'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
+    'Cristina':{ A:['Corea del Sur','México','Sudáfrica','República Checa'], B:['Canadá','Suiza','Bosnia-Herzegovina','Qatar'], C:['Brasil','Escocia','Marruecos','Haití'], D:['Estados Unidos','Australia','Turquía','Paraguay'], E:['Alemania','Ecuador','Curazao','Costa de Marfil'], F:['Países Bajos','Japón','Suecia','Túnez'], G:['Bélgica','Egipto','Irán','Nueva Zelanda'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Senegal','Irak','Noruega'], J:['Argentina','Austria','Argelia','Jordania'], K:['Portugal','Colombia','Uzbekistán','Rep. D. del Congo'], L:['Inglaterra','Croacia','Panamá','Ghana'] },
+    'Fernando':{ A:['México','Corea del Sur','República Checa','Sudáfrica'], B:['Canadá','Bosnia-Herzegovina','Suiza','Qatar'], C:['Brasil','Marruecos','Haití','Escocia'], D:['Estados Unidos','Paraguay','Australia','Turquía'], E:['Alemania','Costa de Marfil','Ecuador','Curazao'], F:['Países Bajos','Japón','Suecia','Túnez'], G:['Bélgica','Irán','Egipto','Nueva Zelanda'], H:['España','Uruguay','Cabo Verde','Arabia Saudí'], I:['Francia','Senegal','Noruega','Irak'], J:['Argentina','Austria','Jordania','Argelia'], K:['Portugal','Colombia','Uzbekistán','Rep. D. del Congo'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
+    'Javito':  { A:['México','Sudáfrica','Corea del Sur','República Checa'], B:['Canadá','Suiza','Qatar','Bosnia-Herzegovina'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Estados Unidos','Australia','Paraguay','Turquía'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Países Bajos','Japón','Túnez','Suecia'], G:['Bélgica','Egipto','Irán','Nueva Zelanda'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Senegal','Noruega','Irak'], J:['Argentina','Argelia','Austria','Jordania'], K:['Portugal','Colombia','Uzbekistán','Rep. D. del Congo'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
+    'Luki':    { A:['México','Corea del Sur','Sudáfrica','República Checa'], B:['Canadá','Bosnia-Herzegovina','Suiza','Qatar'], C:['Brasil','Marruecos','Haití','Escocia'], D:['Estados Unidos','Paraguay','Australia','Turquía'], E:['Alemania','Costa de Marfil','Ecuador','Curazao'], F:['Países Bajos','Suecia','Japón','Túnez'], G:['Bélgica','Irán','Egipto','Nueva Zelanda'], H:['España','Arabia Saudí','Uruguay','Cabo Verde'], I:['Francia','Noruega','Senegal','Irak'], J:['Argentina','Austria','Argelia','Jordania'], K:['Portugal','Colombia','Rep. D. del Congo','Uzbekistán'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
+    'Pablete': { A:['México','Sudáfrica','República Checa','Corea del Sur'], B:['Suiza','Canadá','Bosnia-Herzegovina','Qatar'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Estados Unidos','Australia','Paraguay','Turquía'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Países Bajos','Japón','Suecia','Túnez'], G:['Bélgica','Egipto','Irán','Nueva Zelanda'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Senegal','Noruega','Irak'], J:['Argentina','Argelia','Austria','Jordania'], K:['Portugal','Colombia','Uzbekistán','Rep. D. del Congo'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
+    'Edu':     { A:['Corea del Sur','México','Sudáfrica','República Checa'], B:['Canadá','Suiza','Bosnia-Herzegovina','Qatar'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Estados Unidos','Australia','Turquía','Paraguay'], E:['Alemania','Ecuador','Curazao','Costa de Marfil'], F:['Países Bajos','Japón','Suecia','Túnez'], G:['Bélgica','Egipto','Nueva Zelanda','Irán'], H:['España','Arabia Saudí','Uruguay','Cabo Verde'], I:['Francia','Senegal','Irak','Noruega'], J:['Argentina','Austria','Argelia','Jordania'], K:['Portugal','Colombia','Rep. D. del Congo','Uzbekistán'], L:['Inglaterra','Ghana','Croacia','Panamá'] }
+  },
+  fases: {
+    'Mamá':    { octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Corea del Sur','Suiza','Marruecos','Australia'], cuartos:['México','Brasil','Alemania','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','España','Francia','Argentina'], final:['Brasil','Francia'] },
+    'Javi':    { octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Sudáfrica','Bosnia-Herzegovina','Escocia','Paraguay'], cuartos:['México','Brasil','Alemania','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','Alemania','Francia','Argentina'], final:['Brasil','Argentina'] },
+    'Dani':    { octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Corea del Sur','Suiza','Marruecos','Australia'], cuartos:['Brasil','España','Francia','Argentina','Alemania','Portugal','México','Inglaterra'], semis:['España','Francia','Argentina','Portugal'], final:['España','Argentina'] },
+    'Leti':    { octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','República Checa','Suiza','Marruecos','Australia'], cuartos:['Brasil','España','Francia','Argentina','Alemania','Portugal','Países Bajos','Inglaterra'], semis:['Brasil','Francia','Argentina','España'], final:['Brasil','Francia'] },
+    'Andrés':  { octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Corea del Sur','Suiza','Marruecos','Australia'], cuartos:['México','Brasil','Alemania','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','España','Francia','Portugal'], final:['Brasil','España'] },
+    'Tomás':   { octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Corea del Sur','Bosnia-Herzegovina','Marruecos','Paraguay'], cuartos:['México','Brasil','Alemania','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','Alemania','Francia','Argentina'], final:['Alemania','Francia'] },
+    'Luis':    { octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Corea del Sur','Suiza','Marruecos','Australia'], cuartos:['Brasil','España','Francia','Argentina','Alemania','Portugal','Países Bajos','Inglaterra'], semis:['Brasil','Francia','Argentina','España'], final:['Francia','Argentina'] },
+    'Jorge':   { octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Corea del Sur','Suiza','Escocia','Australia'], cuartos:['México','Brasil','Alemania','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','España','Francia','Argentina'], final:['España','Argentina'] },
+    'José':    { octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Corea del Sur','Suiza','Marruecos','Australia'], cuartos:['Brasil','España','Francia','Argentina','Alemania','Portugal','México','Países Bajos'], semis:['Brasil','Francia','Argentina','España'], final:['Brasil','Argentina'] },
+    'Cristina':{ octavos:['Corea del Sur','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','México','Suiza','Marruecos','Australia'], cuartos:['Corea del Sur','Brasil','Alemania','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','España','Francia','Argentina'], final:['Brasil','España'] },
+    'Fernando':{ octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Corea del Sur','Suiza','Marruecos','Paraguay'], cuartos:['México','Brasil','Alemania','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','Alemania','Francia','Portugal'], final:['Brasil','Francia'] },
+    'Javito':  { octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Corea del Sur','Suiza','Marruecos','Australia'], cuartos:['México','Brasil','Alemania','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','España','Argentina','Portugal'], final:['Brasil','Argentina'] },
+    'Luki':    { octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Corea del Sur','Bosnia-Herzegovina','Marruecos','Australia'], cuartos:['México','Brasil','Alemania','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','Francia','Argentina','España'], final:['Francia','España'] },
+    'Pablete': { octavos:['México','Suiza','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Sudáfrica','Canadá','Marruecos','Australia'], cuartos:['Brasil','España','Francia','Argentina','Alemania','Portugal','Países Bajos','Inglaterra'], semis:['Brasil','Francia','Argentina','España'], final:['Brasil','Francia'] },
+    'Edu':     { octavos:['Corea del Sur','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','México','Suiza','Marruecos','Australia'], cuartos:['Corea del Sur','Brasil','Alemania','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','España','Francia','Argentina'], final:['España','Francia'] }
+  }
+};
+
+const CLASIFICACION_DATA = PARTICIPANTES.map(n => ({
+  nombre: n,
+  pts: 0,        // Pts Totales
+  pts1x2: 0,     // Pts 1X2
+  ptsExacto: 0,  // Pts Resultado Exacto
+  ptsMungui: 0,  // Pts Mungui (bonus)
+  ptsTablas: 0   // Pts Tablas
+}));
+
+// ─────────────────────────────────────────────
+//  SHEETS ID para pronósticos previos
+// ─────────────────────────────────────────────
+const SHEETS_ID_PREVIOS = 'TU_SHEETS_ID_PREVIOS_AQUI';
+const USE_SHEETS_PREVIOS = false;
+
+// ─────────────────────────────────────────────
+//  HELPERS
+// ─────────────────────────────────────────────
+function initials(name) {
+  return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+}
+
+function evaluarPronostico(prono, resultado) {
+  if (!resultado) return 'pendiente';
+  if (prono === resultado) return 'exacto';
+  const [ga, gb] = prono.split('-').map(Number);
+  const [ra, rb] = resultado.split('-').map(Number);
+  const ganoA = ga > gb, ganoRA = ra > rb;
+  const empate = ga === gb, empateR = ra === rb;
+  if ((empate && empateR) || (ganoA && ganoRA) || (!ganoA && !empate && !ganoRA && !empateR)) return 'acierto';
+  return 'fallo';
+}
+
+// ─────────────────────────────────────────────
+//  RENDER BANNER MUNGUI
+// ─────────────────────────────────────────────
+function renderMungui() {
+  const wrap = document.getElementById('mungui-banner-wrap');
+  const lista = MUNGUI_HOY.munguis || [];
+  if (!lista.length) { wrap.innerHTML = ''; return; }
+
+  const filas = lista.map(m => {
+    const i = PARTICIPANTES.indexOf(m.nombre);
+    const color = i >= 0 ? COLORES[i] : '#888';
+    const golesHTML = m.goleadores.length
+      ? m.goleadores.map(g => `<span class="mungui-gol-tag">${g}</span>`).join('')
+      : `<span class="mungui-sin-goles">Sin predicción</span>`;
+    return `<div class="mungui-row">
+      <div class="mungui-persona-izq">
+        <div class="chip-avatar" style="background:${color}33;color:${color};width:26px;height:26px;font-size:9px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">${initials(m.nombre)}</div>
+        <span class="mungui-persona-nombre">${m.nombre}</span>
+      </div>
+      <span class="mungui-flecha">→</span>
+      <div class="mungui-goles-lista">${golesHTML}</div>
+    </div>`;
+  }).join('');
+
+  wrap.innerHTML = `<div class="mungui-banner">
+    <div class="mungui-top">
+      <span class="mungui-fuego">🔥</span>
+      <div>
+        <div class="mungui-top-label">El Mungui de hoy</div>
+        <div class="mungui-top-sub">Mejor jornada ayer · ${MUNGUI_HOY.ptsDia} pts</div>
+      </div>
+    </div>
+    ${filas}
+    <div class="mungui-footer">
+      <span class="mungui-footer-txt">Todo o nada · hay que acertar todos los dichos</span>
+      <span class="mungui-footer-pts">+2 pts por goleador</span>
+    </div>
+  </div>`;
+}
+
+// ─────────────────────────────────────────────
+//  RENDER PARTIDOS
+// ─────────────────────────────────────────────
+function renderPartidos() {
+  const container = document.getElementById('partidos-container');
+  container.innerHTML = '';
+
+  if (!PARTIDOS_DIA.length) {
+    container.innerHTML = '<p style="color:rgba(24,5,7,0.3);font-size:14px;padding:20px 0;">No hay partidos programados para hoy.</p>';
+    return;
+  }
+
+  PARTIDOS_DIA.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'partido-card';
+
+    const marcadorHTML = p.resultado
+      ? `<div class="marcador-resultado">${p.resultado}</div>`
+      : `<div class="marcador-vs">vs</div>`;
+
+    const chips = PARTICIPANTES.map((nombre, i) => {
+      const prono = p.pronosticos[nombre] || '?';
+      const estado = evaluarPronostico(prono, p.resultado);
+      // Comprobar si este participante eligió este partido como partidazo
+      const esPartidazo = PARTIDAZOS[nombre] &&
+        PARTIDAZOS[nombre].trim().toLowerCase() === p.columna.trim().toLowerCase();
+      return `<div class="chip chip-${estado}${esPartidazo ? ' es-partidazo' : ''}">
+        <div class="chip-avatar" style="background:${COLORES[i]}22;color:${COLORES[i]}">${initials(nombre)}</div>
+        <div class="chip-info">
+          <div class="chip-nombre">${nombre}</div>
+          <div class="chip-prono">${prono}</div>
+        </div>
+        ${esPartidazo ? '<span class="chip-ball">⚽</span>' : ''}
+      </div>`;
+    }).join('');
+
+    card.innerHTML = `
+      <div class="partido-top">
+        <div class="partido-meta-row">
+          <span class="partido-grupo-badge">Grupo ${p.grupo}</span>
+          <span class="partido-hora">${p.hora}</span>
+        </div>
+        <div class="partido-enfrentamiento">
+          <div class="partido-equipo">${p.equipoA}</div>
+          <div class="partido-marcador">${marcadorHTML}</div>
+          <div class="partido-equipo derecha">${p.equipoB}</div>
+        </div>
+      </div>
+      <div class="chips-container">
+        <div class="chips-label">Pronósticos</div>
+        <div class="chips-grid">${chips}</div>
+        <div class="chips-leyenda">
+          <div class="leyenda-chip"><div class="leyenda-dot" style="background:#1a7a3a"></div>Exacto</div>
+          <div class="leyenda-chip"><div class="leyenda-dot" style="background:#c9a227"></div>Acierto</div>
+          <div class="leyenda-chip"><div class="leyenda-dot" style="background:#c8102e"></div>Fallo</div>
+          <div class="leyenda-chip"><div class="leyenda-dot" style="background:#ccc"></div>Pendiente</div>
+          <div class="leyenda-chip"><div class="leyenda-dot" style="background:#fffbf0;border:1px solid #c9a227"></div>⚽ Partidazo</div>
+        </div>
+      </div>`;
+
+    container.appendChild(card);
+  });
+}
+
+// ─────────────────────────────────────────────
+//  RENDER GRUPOS
+// ─────────────────────────────────────────────
+function renderGrupos() {
+  const grid = document.getElementById('grupos-grid');
+  grid.innerHTML = '';
+
+  GRUPOS_DATA.forEach(g => {
+    const card = document.createElement('div');
+    card.className = 'grupo-card';
+
+    const filas = g.equipos.map((eq, i) => {
+      const cls = i < 2 ? 'clasificado-row' : i === 2 ? 'repechaje-row' : '';
+      return `<tr class="${cls}">
+        <td>${eq}</td>
+        <td>0</td><td>0</td><td>0</td><td>0</td>
+        <td>0</td>
+        <td class="pts-cell">0</td>
+      </tr>`;
+    }).join('');
+
+    card.innerHTML = `
+      <div class="grupo-header">
+        <span class="grupo-letra">GRUPO ${g.letra}</span>
+        <span class="grupo-sub">${g.equipos.length} equipos</span>
+      </div>
+      <table class="grupo-table">
+        <thead><tr>
+          <th>Equipo</th><th>J</th><th>G</th><th>E</th><th>P</th><th>GD</th><th>Pts</th>
+        </tr></thead>
+        <tbody>${filas}</tbody>
+      </table>`;
+
+    grid.appendChild(card);
+  });
+}
+
+// ─────────────────────────────────────────────
+//  RENDER PRONÓSTICOS PREVIOS
+// ─────────────────────────────────────────────
+
+function renderPichichi() {
+  const wrap = document.getElementById('prev-pichichi-wrap');
+
+  const mkCard = (titulo, subtitulo, campo, icono) => {
+    const chips = PARTICIPANTES.map((n, i) => `
+      <div class="pichichi-chip">
+        <div class="chip-avatar" style="background:${COLORES[i]}22;color:${COLORES[i]};width:24px;height:24px;font-size:9px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">${initials(n)}</div>
+        <div class="pichichi-chip-info">
+          <div class="pichichi-chip-nombre">${n}</div>
+          <div class="pichichi-chip-valor">${PREVIOS_DATA[campo][n] || '—'}</div>
+        </div>
+      </div>`).join('');
+
+    return `<div class="pichichi-card">
+      <div class="pichichi-top" data-icono="${icono}">
+        <div class="pichichi-top-label">${subtitulo}</div>
+        <div class="pichichi-top-titulo">${titulo}</div>
+      </div>
+      <div class="pichichi-chips-wrap">
+        <div class="pichichi-chips-label">Pronósticos</div>
+        <div class="pichichi-chips-grid">${chips}</div>
+      </div>
+    </div>`;
+  };
+
+  wrap.innerHTML =
+    mkCard('Pichichi', 'Máximo goleador individual', 'pichichi', '⚽') +
+    mkCard('Equipo goleador', 'Equipo con más goles', 'equipoGoleador', '🏟️');
+}
+
+// ── Grupos: vista por grupo
+function renderGruposPorGrupo() {
+  const grid = document.getElementById('grupos-porGrupo');
+  grid.innerHTML = GRUPOS_DATA.map(g => {
+    // Para cada posición (1º-4º), contar cuántos participantes ponen cada equipo
+    const votos = [0,1,2,3].map(pos => {
+      const conteo = {};
+      PARTICIPANTES.forEach(n => {
+        const eq = PREVIOS_DATA.grupos[n]?.[g.letra]?.[pos];
+        if (eq) conteo[eq] = (conteo[eq]||0) + 1;
+      });
+      return conteo;
+    });
+
+    const filas = g.equipos.map(eq => {
+      const celdas = votos.map((conteo, pos) => {
+        const v = conteo[eq] || 0;
+        const cls = pos === 0 ? 'pos-1' : pos === 1 ? 'pos-2' : pos === 2 ? 'pos-3' : 'pos-4';
+        return `<td><span class="pos-num ${cls}">${v || '·'}</span></td>`;
+      }).join('');
+      return `<tr><td>${eq}</td>${celdas}</tr>`;
+    }).join('');
+
+    return `<div class="grupo-previo-card">
+      <div class="grupo-previo-header">
+        <span class="grupo-previo-letra">GRUPO ${g.letra}</span>
+        <span class="grupo-previo-equipos">${g.equipos.join(' · ')}</span>
+      </div>
+      <table class="grupo-previo-table">
+        <thead><tr><th>Equipo</th><th>1º</th><th>2º</th><th>3º</th><th>4º</th></tr></thead>
+        <tbody>${filas}</tbody>
+      </table>
+    </div>`;
+  }).join('');
+}
+
+// ── Grupos: vista por participante
+let participanteActivoGrupos = PARTICIPANTES[0];
+
+function renderGruposPorPersona(nombre) {
+  participanteActivoGrupos = nombre;
+  const cont = document.getElementById('grupos-porPersona');
+  const gruposPersona = PREVIOS_DATA.grupos[nombre] || {};
+
+  const cards = GRUPOS_DATA.map(g => {
+    const orden = gruposPersona[g.letra] || g.equipos;
+    const items = orden.map((eq, i) => {
+      const cls = i === 0 ? 'pos-1' : i === 1 ? 'pos-2' : i === 2 ? 'pos-3' : 'pos-4';
+      return `<div class="persona-grupo-item">
+        <span class="pos-num ${cls}">${i+1}</span>
+        ${eq}
+      </div>`;
+    }).join('');
+    return `<div class="persona-grupo-card">
+      <div class="persona-grupo-header">GRUPO ${g.letra}</div>
+      <div class="persona-grupo-lista">${items}</div>
+    </div>`;
+  }).join('');
+
+  cont.innerHTML = `<div class="persona-grupos-grid">${cards}</div>`;
+
+  // Actualizar botones
+  document.querySelectorAll('#participante-selector .part-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.nombre === nombre);
+  });
+}
+
+function buildPartSelector() {
+  const sel = document.getElementById('participante-selector');
+  sel.innerHTML = PARTICIPANTES.map((n, i) => `
+    <button class="part-btn ${n === participanteActivoGrupos ? 'active' : ''}" data-nombre="${n}" onclick="renderGruposPorPersona('${n}')">
+      <span class="part-avatar-mini" style="background:${COLORES[i]}22;color:${COLORES[i]}">${initials(n)}</span>
+      ${n}
+    </button>`).join('');
+}
+
+// ── Fases: vista popularidad
+function renderFasesPopularidad() {
+  const cont = document.getElementById('fases-popularidad');
+  const fases = [
+    { key: 'octavos', label: 'Octavos de final', n: 16 },
+    { key: 'cuartos', label: 'Cuartos de final', n: 8 },
+    { key: 'semis',   label: 'Semifinales', n: 4 },
+    { key: 'final',   label: 'Final', n: 2 }
+  ];
+
+  cont.innerHTML = fases.map(fase => {
+    // Contar votos por equipo
+    const conteo = {};
+    PARTICIPANTES.forEach(n => {
+      (PREVIOS_DATA.fases[n]?.[fase.key] || []).forEach(eq => {
+        conteo[eq] = (conteo[eq]||0) + 1;
+      });
+    });
+    const sorted = Object.entries(conteo).sort((a,b) => b[1]-a[1]);
+    const maxVotos = sorted[0]?.[1] || 1;
+
+    const cards = sorted.map(([eq, v]) => `
+      <div class="equipo-pop-card">
+        <div class="equipo-pop-votos">${v}</div>
+        <div style="flex:1;min-width:0">
+          <div class="equipo-pop-nombre">${eq}</div>
+          <div class="equipo-pop-barra-wrap">
+            <div class="equipo-pop-barra" style="width:${Math.round(v/maxVotos*100)}%"></div>
+          </div>
+        </div>
+      </div>`).join('');
+
+    return `<div class="fase-bloque">
+      <div class="fase-titulo">${fase.label}</div>
+      <div class="equipos-popularidad-grid">${cards}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── Fases: por participante (única vista)
+function renderFasesPorPersona() {
+  const sel = document.getElementById('fases-participante-selector');
+  sel.innerHTML = PARTICIPANTES.map((n, i) => `
+    <button class="part-btn" data-nombre="${n}" onclick="renderFasePersona('${n}')">
+      <span class="part-avatar-mini" style="background:${COLORES[i]}22;color:${COLORES[i]}">${initials(n)}</span>
+      ${n}
+    </button>`).join('');
+  renderFasePersona(null);
+}
+
+function renderFasePersona(nombre) {
+  const cont = document.getElementById('fases-porPersona');
+
+  document.querySelectorAll('#fases-participante-selector .part-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.nombre === nombre);
+  });
+
+  const fases = [
+    { key:'octavos', label:'Octavos de final', cls:'fase-bloque-octavos', icono:'⚽' },
+    { key:'cuartos', label:'Cuartos de final', cls:'fase-bloque-cuartos', icono:'🔵' },
+    { key:'semis',   label:'Semifinales',      cls:'fase-bloque-semis',   icono:'⭐' },
+    { key:'final',   label:'Final',            cls:'fase-bloque-final',   icono:'🏆' }
+  ];
+
+  const lista = nombre ? [nombre] : PARTICIPANTES;
+
+  const cards = lista.map(n => {
+    const i = PARTICIPANTES.indexOf(n);
+    const faseData = PREVIOS_DATA.fases[n] || {};
+
+    const bloquesHTML = fases.map(f => {
+      const equipos = faseData[f.key] || [];
+      const tags = equipos.map(eq =>
+        `<span class="fase-equipo-tag">${eq}</span>`
+      ).join('');
+      return `<div class="fase-bloque-card ${f.cls}">
+        <div class="fase-bloque-titulo">${f.icono} ${f.label}</div>
+        <div class="fase-equipos-wrap">${tags || '<span style="font-size:11px;color:rgba(24,5,7,0.25)">—</span>'}</div>
+      </div>`;
+    }).join('');
+
+    return `<div class="fases-persona-card">
+      <div class="fases-persona-header">
+        <span class="chip-avatar" style="background:${COLORES[i]}44;color:white;width:26px;height:26px;font-size:10px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">${initials(n)}</span>
+        <span class="fases-persona-nombre">${n}</span>
+      </div>
+      <div class="fases-persona-body">${bloquesHTML}</div>
+    </div>`;
+  }).join('');
+
+  cont.innerHTML = `<div class="fases-persona-grid">${cards}</div>`;
+}
+
+function renderPrevios() {
+  renderPichichi();
+  buildPartSelector();
+  renderGruposPorPersona(PARTICIPANTES[0]);
+  renderFasesPorPersona();
+}
+
+// ─────────────────────────────────────────────
+//  RENDER CLASIFICACIÓN
+// ─────────────────────────────────────────────
+function renderClasificacion() {
+  const datos = [...CLASIFICACION_DATA].sort((a, b) => b.pts - a.pts);
+  const maxPts = datos[0]?.pts || 1;
+
+  // Podio
+  const podioNames = document.querySelectorAll('.podium-name');
+  const podioPts   = document.querySelectorAll('.podium-pts');
+  const orden = [1, 0, 2];
+  orden.forEach((idx, pos) => {
+    if (datos[idx]) {
+      podioNames[pos].textContent = datos[idx].nombre;
+      podioPts[pos].textContent   = datos[idx].pts;
+    }
+  });
+
+  // Tabla de tarjetas
+  const tabla = document.getElementById('tabla-clasificacion');
+  tabla.innerHTML = datos.map((p, i) => {
+    const pct     = maxPts > 0 ? Math.round((p.pts / maxPts) * 100) : 0;
+    const posClass = i === 0 ? 'pos-oro' : i === 1 ? 'pos-plata' : i === 2 ? 'pos-bronce' : '';
+    const posLabel = i === 0 ? '🏆' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i+1}º`;
+
+    const col = (val, label, cls) => {
+      const esCero = !val || val === 0;
+      return `<div class="clasif-col ${cls}${esCero ? ' cero-col' : ''}">
+        <div class="clasif-col-val${esCero ? ' cero' : ''}">${esCero ? '—' : val}</div>
+        <div class="clasif-col-label">${label}</div>
+      </div>`;
+    };
+
+    return `<div class="clasif-card ${posClass}" onclick="abrirPerfil('${p.nombre}')" style="cursor:pointer">
+      <div class="clasif-top">
+        <div class="clasif-pos-num">${posLabel}</div>
+        <div class="clasif-nombre-wrap">
+          <div class="clasif-nombre">${p.nombre}</div>
+          <div class="clasif-barra-wrap">
+            <div class="clasif-barra" style="width:${pct}%"></div>
+          </div>
+        </div>
+        <div class="clasif-pts-total">
+          <div class="clasif-pts-num">${p.pts}</div>
+          <div class="clasif-pts-label">Pts totales</div>
+        </div>
+      </div>
+      <div class="clasif-desglose">
+        ${col(p.pts1x2,    '1X2',      'col-1x2')}
+        ${col(p.ptsExacto, 'Exacto',   'col-exacto')}
+        ${col(p.ptsMungui, 'Mungui',   'col-mungui')}
+        ${col(p.ptsTablas, 'Tablas',   'col-tablas')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ─────────────────────────────────────────────
+//  NAVEGACIÓN
+// ─────────────────────────────────────────────
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─────────────────────────────────────────────
+//  NORMALIZAR PRONÓSTICO (texto libre → X-Y)
+// ─────────────────────────────────────────────
+function normalizar(texto) {
+  if (!texto) return null;
+  // Acepta: "2-1", "2 - 1", "2/1", "2 1", "2:1", "2,1"
+  const limpio = texto.trim().replace(/\s*[-/:,]\s*|\s+/g, '-');
+  const match = limpio.match(/^(\d+)-(\d+)$/);
+  return match ? `${match[1]}-${match[2]}` : texto.trim();
+}
+
+// ─────────────────────────────────────────────
+//  GOOGLE SHEETS — lectura dinámica de columnas
+// ─────────────────────────────────────────────
+async function cargarDesdeSheets() {
+  if (!USE_SHEETS || !SHEETS_ID_HOY || SHEETS_ID_HOY === 'TU_SHEETS_ID_AQUI') return;
+
+  try {
+    const url = `https://docs.google.com/spreadsheets/d/${SHEETS_ID_HOY}/gviz/tq?tqx=out:csv`;
+    const res = await fetch(url);
+    const csv = await res.text();
+
+    // Parsear CSV respetando comillas
+    const filas = csv.trim().split('\n').map(fila => {
+      const cols = [];
+      let actual = '', enComilla = false;
+      for (const c of fila) {
+        if (c === '"') { enComilla = !enComilla; }
+        else if (c === ',' && !enComilla) { cols.push(actual.trim()); actual = ''; }
+        else { actual += c; }
+      }
+      cols.push(actual.trim());
+      return cols;
+    });
+
+    if (filas.length < 2) return;
+
+    // Primera fila = cabeceras
+    // Columnas esperadas: Marca de tiempo | Nombre | Partido1 | Partido2 | ... | Partidazo del día
+    const cabeceras = filas[0].map(h => h.replace(/"/g,'').trim());
+    const colNombre = cabeceras.findIndex(h => h.toLowerCase().includes('nombre'));
+    const colPartidazo = cabeceras.findIndex(h => h.toLowerCase().includes('partidazo'));
+
+    // Mapear cada partido definido en PARTIDOS_HOY a su columna en la Sheet
+    PARTIDOS_DIA.forEach(partido => {
+      partido.pronosticos = {};
+      const colPartido = cabeceras.findIndex(h =>
+        h.replace(/"/g,'').trim().toLowerCase() === partido.columna.toLowerCase()
+      );
+      if (colPartido === -1) return;
+
+      filas.slice(1).forEach(fila => {
+        const nombre = fila[colNombre]?.replace(/"/g,'').trim();
+        const prono  = fila[colPartido]?.replace(/"/g,'').trim();
+        if (nombre && prono) {
+          partido.pronosticos[nombre] = normalizar(prono);
+        }
+      });
+    });
+
+    // Leer partidazos
+    PARTIDAZOS = {};
+    if (colPartidazo !== -1) {
+      filas.slice(1).forEach(fila => {
+        const nombre    = fila[colNombre]?.replace(/"/g,'').trim();
+        const partidazo = fila[colPartidazo]?.replace(/"/g,'').trim();
+        if (nombre && partidazo) PARTIDAZOS[nombre] = partidazo;
+      });
+    }
+
+    // Leer goleadores del Mungui: quien haya rellenado esa columna ES el Mungui
+    const colMungui = cabeceras.findIndex(h => h.toLowerCase().includes('mungui'));
+    MUNGUI_HOY.munguis = [];
+    if (colMungui !== -1) {
+      filas.slice(1).forEach(fila => {
+        const nombre = fila[colNombre]?.replace(/"/g,'').trim();
+        const raw    = fila[colMungui]?.replace(/"/g,'').trim();
+        if (nombre && raw) {
+          const goleadores = raw
+            .split(/[,;\n]+/)
+            .map(g => g.trim())
+            .filter(g => g.length > 0);
+          if (goleadores.length > 0) {
+            MUNGUI_HOY.munguis.push({ nombre, goleadores });
+          }
+        }
+      });
+    }
+
+    console.log('Sheets cargado:', new Date().toLocaleTimeString('es-ES'));
+  } catch(e) {
+    console.warn('Error cargando Sheets:', e);
+  }
+}
+
+async function actualizarDatos() {
+  await cargarDesdeSheets();
+  renderMungui();
+  renderPartidos();
+  renderClasificacion();
+}
+
+// ─────────────────────────────────────────────
+//  STATS
+// ─────────────────────────────────────────────
+function renderStats() {
+  const lider = [...CLASIFICACION_DATA].sort((a,b) => b.pts - a.pts)[0];
+  document.getElementById('stat-lider').textContent = lider?.pts > 0 ? lider.nombre.split(' ')[0] : '—';
+}
+
+// ─────────────────────────────────────────────
+//  PERFIL DE PARTICIPANTE
+// ─────────────────────────────────────────────
+function abrirPerfil(nombre) {
+  const datos = [...CLASIFICACION_DATA].sort((a,b) => b.pts - a.pts);
+  const p = datos.find(d => d.nombre === nombre);
+  const pos = datos.indexOf(p) + 1;
+  const i = PARTICIPANTES.indexOf(nombre);
+  const color = COLORES[i] || '#888';
+  const posLabel = pos === 1 ? '🏆' : pos === 2 ? '🥈' : pos === 3 ? '🥉' : `${pos}º`;
+
+  // Header
+  document.getElementById('perfil-avatar').textContent = initials(nombre);
+  document.getElementById('perfil-avatar').style.background = color;
+  document.getElementById('perfil-nombre').textContent = nombre;
+  document.getElementById('perfil-pos').textContent = posLabel;
+
+  // Datos previos
+  const prev = PREVIOS_DATA;
+  const fases = PREVIOS_DATA.fases[nombre] || {};
+
+  const cero = v => (!v || v === 0);
+
+  document.getElementById('perfil-body').innerHTML = `
+
+    <div class="perfil-section-label">Clasificación</div>
+    <div class="perfil-stats-grid">
+      <div class="perfil-stat">
+        <div class="perfil-stat-val dorado">${p.pts}</div>
+        <div class="perfil-stat-label">Pts totales</div>
+      </div>
+      <div class="perfil-stat">
+        <div class="perfil-stat-val">${pos}º</div>
+        <div class="perfil-stat-label">Posición</div>
+      </div>
+    </div>
+    <div class="perfil-desglose">
+      <div class="perfil-desglose-item">
+        <div class="perfil-desglose-val" style="color:#1a5a6b">${cero(p.pts1x2) ? '—' : p.pts1x2}</div>
+        <div class="perfil-desglose-label">1X2</div>
+      </div>
+      <div class="perfil-desglose-item">
+        <div class="perfil-desglose-val" style="color:var(--classify)">${cero(p.ptsExacto) ? '—' : p.ptsExacto}</div>
+        <div class="perfil-desglose-label">Exacto</div>
+      </div>
+      <div class="perfil-desglose-item">
+        <div class="perfil-desglose-val" style="color:var(--dorado)">${cero(p.ptsMungui) ? '—' : p.ptsMungui}</div>
+        <div class="perfil-desglose-label">Mungui</div>
+      </div>
+      <div class="perfil-desglose-item">
+        <div class="perfil-desglose-val" style="color:#6b1a5a">${cero(p.ptsTablas) ? '—' : p.ptsTablas}</div>
+        <div class="perfil-desglose-label">Tablas</div>
+      </div>
+    </div>
+
+    <div class="perfil-section-label">Pronósticos previos</div>
+    <div class="perfil-previos-grid">
+      <div class="perfil-previo-item">
+        <div class="perfil-previo-label">Pichichi</div>
+        <div class="perfil-previo-val">${prev.pichichi[nombre] || '—'}</div>
+      </div>
+      <div class="perfil-previo-item">
+        <div class="perfil-previo-label">País goleador</div>
+        <div class="perfil-previo-val">${prev.equipoGoleador[nombre] || '—'}</div>
+      </div>
+    </div>
+
+    <div class="perfil-section-label">Fases eliminatorias</div>
+    <div class="perfil-fases-grid">
+      <div class="perfil-fase-card" style="grid-column:span 2">
+        <div class="perfil-fase-label">Octavos de final</div>
+        <div class="perfil-fase-tags">${(fases.octavos||[]).map(e=>`<span class="perfil-fase-tag" style="background:rgba(24,5,7,0.06);color:rgba(24,5,7,0.6)">${e}</span>`).join('') || '<span style="font-size:12px;color:rgba(24,5,7,0.25)">—</span>'}</div>
+      </div>
+      <div class="perfil-fase-card" style="grid-column:span 2">
+        <div class="perfil-fase-label">Cuartos de final</div>
+        <div class="perfil-fase-tags">${(fases.cuartos||[]).map(e=>`<span class="perfil-fase-tag perfil-fase-cuartos">${e}</span>`).join('') || '<span style="font-size:12px;color:rgba(24,5,7,0.25)">—</span>'}</div>
+      </div>
+      <div class="perfil-fase-card" style="grid-column:span 2">
+        <div class="perfil-fase-label">Semifinales</div>
+        <div class="perfil-fase-tags">${(fases.semis||[]).map(e=>`<span class="perfil-fase-tag perfil-fase-semis">${e}</span>`).join('') || '<span style="font-size:12px;color:rgba(24,5,7,0.25)">—</span>'}</div>
+      </div>
+      <div class="perfil-fase-card">
+        <div class="perfil-fase-label">Final</div>
+        <div class="perfil-fase-tags">${(fases.final||[]).map(e=>`<span class="perfil-fase-tag perfil-fase-final">${e}</span>`).join('') || '<span style="font-size:12px;color:rgba(24,5,7,0.25)">—</span>'}</div>
+      </div>
+      <div class="perfil-fase-card">
+        <div class="perfil-fase-label">Campeón</div>
+        <div class="perfil-fase-tags">${(fases.final||[]).slice(0,1).map(e=>`<span class="perfil-fase-tag perfil-fase-campeon">${prev.campeon?.[nombre] || e}</span>`).join('') || (prev.campeon?.[nombre] ? `<span class="perfil-fase-tag perfil-fase-campeon">${prev.campeon[nombre]}</span>` : '<span style="font-size:12px;color:rgba(24,5,7,0.25)">—</span>')}</div>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('perfil-overlay').classList.add('abierto');
+  document.body.style.overflow = 'hidden';
+}
+
+function cerrarPerfil(e) {
+  if (e && e.target !== document.getElementById('perfil-overlay')) return;
+  document.getElementById('perfil-overlay').classList.remove('abierto');
+  document.body.style.overflow = '';
+}
+
+// ─────────────────────────────────────────────
+//  INIT
+// ─────────────────────────────────────────────
+async function init() {
+  await cargarDesdeSheets();
+  renderMungui();
+  renderPartidos();
+  renderPrevios();
+  renderClasificacion();
+  renderStats();
+}
+
+init();
+</script>
+</body>
+</html>

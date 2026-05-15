@@ -2004,11 +2004,25 @@
       <div class="inst-separador"></div>
       <div style="font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(24,5,7,0.35);margin-bottom:8px">Fases eliminatorias</div>
       <div class="inst-pts-grid">
-        <div class="inst-pts-item"><span class="inst-pts-desc">Clasificado a cuartos</span><span class="inst-pts-val" style="color:#1a5a6b">5</span></div>
+        <div class="inst-pts-item"><span class="inst-pts-desc">Clasificado a octavos</span><span class="inst-pts-val" style="color:rgba(24,5,7,0.5)">5</span></div>
+        <div class="inst-pts-item"><span class="inst-pts-desc">Clasificado a cuartos</span><span class="inst-pts-val" style="color:#1a5a6b">6</span></div>
         <div class="inst-pts-item"><span class="inst-pts-desc">Clasificado a semifinales</span><span class="inst-pts-val" style="color:#6b1a5a">7</span></div>
         <div class="inst-pts-item"><span class="inst-pts-desc">Clasificado a la final</span><span class="inst-pts-val" style="color:var(--dorado)">8</span></div>
-        <div class="inst-pts-item destacado"><span class="inst-pts-desc">Subcampeón del mundo</span><span class="inst-pts-val">10</span></div>
-        <div class="inst-pts-item destacado" style="grid-column:span 2"><span class="inst-pts-desc">🏆 Campeón del mundo</span><span class="inst-pts-val">12</span></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+        <div style="background:linear-gradient(135deg,#1a1a3e,#2a1a0a);border-radius:12px;padding:16px 14px;text-align:center;border:1px solid rgba(201,162,39,0.2)">
+          <div style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:6px">Subcampeón</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.25);margin-bottom:2px">🥈</div>
+          <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:40px;color:#c0c0c0;line-height:1">10</div>
+          <div style="font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-top:4px">puntos</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#0a0a1a,#1a1a3e);border-radius:12px;padding:16px 14px;text-align:center;border:1px solid rgba(201,162,39,0.4);box-shadow:0 4px 20px rgba(201,162,39,0.15)">
+          <div style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--dorado-claro);margin-bottom:6px">Campeón</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-bottom:2px">🏆</div>
+          <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:40px;color:var(--dorado-claro);line-height:1">12</div>
+          <div style="font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-top:4px">puntos</div>
+        </div>
       </div>
       <div class="inst-nota">Puntuación por <strong>país acertado</strong> en cada ronda. Un país puede sumar puntos en cuartos, semis y final de forma acumulativa.</div>
 
@@ -2038,15 +2052,15 @@
         <div class="inst-desempate-item">
           <div class="inst-desempate-num">1</div>
           <div class="inst-desempate-txt">
-            Mayor número de veces como Mungui
-            <span>El que más veces haya liderado la jornada anterior gana el desempate</span>
+            Mayor puntuación Mungui
+            <span>Gana quien más puntos haya acumulado ejerciendo de Mungui a lo largo del torneo</span>
           </div>
         </div>
         <div class="inst-desempate-item">
           <div class="inst-desempate-num">2</div>
           <div class="inst-desempate-txt">
-            Mayor número de resultados exactos
-            <span>Gana quien más resultados exactos haya acertado a lo largo del torneo</span>
+            Mayor puntuación en resultados exactos
+            <span>Gana quien más puntos haya sumado por acertar resultados exactos en los pronósticos del día</span>
           </div>
         </div>
         <div class="inst-desempate-item">
@@ -2378,7 +2392,10 @@ function renderPichichi() {
     return `<div class="pichichi-card">
       <div class="pichichi-top" data-icono="${icono}">
         <div class="pichichi-top-label">${subtitulo}</div>
-        <div class="pichichi-top-titulo">${titulo}</div>
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+          <div class="pichichi-top-titulo">${titulo}</div>
+          <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:var(--dorado-claro);letter-spacing:-0.5px;white-space:nowrap">10 pts</div>
+        </div>
       </div>
       <div class="pichichi-chips-wrap">
         <div class="pichichi-chips-label">Pronósticos</div>
@@ -2537,12 +2554,18 @@ function renderFasePersona(nombre) {
   const cards = lista.map(n => {
     const i = PARTICIPANTES.indexOf(n);
     const faseData = PREVIOS_DATA.fases[n] || {};
+    const final = faseData.final || [];
+    const campeon    = final[0] || null;
+    const subcampeon = final[1] || null;
 
     const bloquesHTML = fases.map(f => {
       const equipos = faseData[f.key] || [];
-      const tags = equipos.map(eq =>
-        `<span class="fase-equipo-tag">${eq}</span>`
-      ).join('');
+      const tags = equipos.map(eq => {
+        const esCampeon    = f.key === 'final' && eq === campeon;
+        const esSubcampeon = f.key === 'final' && eq === subcampeon;
+        const badge = esCampeon ? ' 🏆' : esSubcampeon ? ' 🥈' : '';
+        return `<span class="fase-equipo-tag">${eq}${badge}</span>`;
+      }).join('');
       return `<div class="fase-bloque-card ${f.cls}">
         <div class="fase-bloque-titulo">${f.icono} ${f.label}</div>
         <div class="fase-equipos-wrap">${tags || '<span style="font-size:11px;color:rgba(24,5,7,0.25)">—</span>'}</div>
@@ -2827,13 +2850,12 @@ function abrirPerfil(nombre) {
         <div class="perfil-fase-label">Semifinales</div>
         <div class="perfil-fase-tags">${(fases.semis||[]).map(e=>`<span class="perfil-fase-tag perfil-fase-semis">${e}</span>`).join('') || '<span style="font-size:12px;color:rgba(24,5,7,0.25)">—</span>'}</div>
       </div>
-      <div class="perfil-fase-card">
+      <div class="perfil-fase-card" style="grid-column:span 2">
         <div class="perfil-fase-label">Final</div>
-        <div class="perfil-fase-tags">${(fases.final||[]).map(e=>`<span class="perfil-fase-tag perfil-fase-final">${e}</span>`).join('') || '<span style="font-size:12px;color:rgba(24,5,7,0.25)">—</span>'}</div>
-      </div>
-      <div class="perfil-fase-card">
-        <div class="perfil-fase-label">Campeón</div>
-        <div class="perfil-fase-tags">${(fases.final||[]).slice(0,1).map(e=>`<span class="perfil-fase-tag perfil-fase-campeon">${prev.campeon?.[nombre] || e}</span>`).join('') || (prev.campeon?.[nombre] ? `<span class="perfil-fase-tag perfil-fase-campeon">${prev.campeon[nombre]}</span>` : '<span style="font-size:12px;color:rgba(24,5,7,0.25)">—</span>')}</div>
+        <div class="perfil-fase-tags">${(fases.final||[]).map((e,idx)=>{
+          const badge = idx===0?' 🏆':idx===1?' 🥈':'';
+          return `<span class="perfil-fase-tag perfil-fase-final">${e}${badge}</span>`;
+        }).join('') || '<span style="font-size:12px;color:rgba(24,5,7,0.25)">—</span>'}</div>
       </div>
     </div>
   `;

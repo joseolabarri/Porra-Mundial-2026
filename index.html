@@ -1818,16 +1818,16 @@
 
 <!-- NAV -->
 <div class="nav-bar">
-  <div class="nav-inner">
-    <button class="nav-btn active" onclick="showSection('inicio', this)">Inicio</button>
-    <button class="nav-btn" onclick="showSection('previos', this)">Pronósticos previos</button>
-    <button class="nav-btn" onclick="showSection('clasificacion', this)">Clasificación</button>
-    <button class="nav-btn" onclick="showSection('instrucciones', this)">Instrucciones</button>
+  <div class="nav-inner" id="nav-inner">
+    <button class="nav-btn" id="nav-inicio" onclick="showSection('inicio', this)" style="display:none">Inicio</button>
+    <button class="nav-btn" id="nav-previos" onclick="showSection('previos', this)" style="display:none">Pronósticos previos</button>
+    <button class="nav-btn" id="nav-clasificacion" onclick="showSection('clasificacion', this)" style="display:none">Clasificación</button>
+    <button class="nav-btn active" id="nav-instrucciones" onclick="showSection('instrucciones', this)">Instrucciones</button>
   </div>
 </div>
 
 <!-- ══════════ SECCIÓN INICIO ══════════ -->
-<div id="sec-inicio" class="section active">
+<div id="sec-inicio" class="section">
 <div class="container">
 
   <div id="mungui-banner-wrap"></div>
@@ -2873,7 +2873,33 @@ function cerrarPerfil(e) {
 // ─────────────────────────────────────────────
 //  INIT
 // ─────────────────────────────────────────────
+
+// ═══════════════════════════════════════════════════════════════
+//  ▼▼▼  PESTAÑAS VISIBLES — activa cada una cuando toque  ▼▼▼
+// ═══════════════════════════════════════════════════════════════
+const PESTANAS_VISIBLES = {
+  inicio:        false,  // ← true el día que empiece el torneo
+  previos:       false,  // ← true cuando todos hayan rellenado el form previo
+  clasificacion: false,  // ← true cuando haya puntos que mostrar
+};
+// Instrucciones siempre visible
+// ═══════════════════════════════════════════════════════════════
+
 async function init() {
+  // Aplicar visibilidad de pestañas
+  Object.entries(PESTANAS_VISIBLES).forEach(([id, visible]) => {
+    const btn = document.getElementById(`nav-${id}`);
+    if (btn) btn.style.display = visible ? '' : 'none';
+  });
+
+  // Sección activa por defecto: la primera visible
+  const orden = ['inicio', 'previos', 'clasificacion', 'instrucciones'];
+  const primera = orden.find(id =>
+    id === 'instrucciones' || PESTANAS_VISIBLES[id]
+  ) || 'instrucciones';
+  document.getElementById(`sec-${primera}`)?.classList.add('active');
+  document.getElementById(`nav-${primera}`)?.classList.add('active');
+
   await cargarDesdeSheets();
   renderMungui();
   renderPartidos();

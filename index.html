@@ -1598,7 +1598,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
+    font-size: 24px;
     font-weight: 700;
     color: white;
     flex-shrink: 0;
@@ -2084,6 +2084,111 @@
 </div>
 
 <script>
+
+// ═══════════════════════════════════════════════════════════════
+//  CALENDARIO OFICIAL FASE DE GRUPOS (horas España, desde FIFA)
+//  No hace falta tocar esto. El sistema empareja cada partido del
+//  formulario con su hora y grupo automáticamente.
+// ═══════════════════════════════════════════════════════════════
+const CALENDARIO_GRUPOS = [
+  { equipoA:'México', equipoB:'Sudáfrica', grupo:'A', hora:'21:00', dia:11 },
+  { equipoA:'Corea del Sur', equipoB:'República Checa', grupo:'A', hora:'04:00', dia:12 },
+  { equipoA:'República Checa', equipoB:'Sudáfrica', grupo:'A', hora:'18:00', dia:18 },
+  { equipoA:'México', equipoB:'Corea del Sur', grupo:'A', hora:'03:00', dia:19 },
+  { equipoA:'República Checa', equipoB:'México', grupo:'A', hora:'03:00', dia:25 },
+  { equipoA:'Sudáfrica', equipoB:'Corea del Sur', grupo:'A', hora:'03:00', dia:25 },
+  { equipoA:'Canadá', equipoB:'Bosnia-Herzegovina', grupo:'B', hora:'21:00', dia:12 },
+  { equipoA:'Catar', equipoB:'Suiza', grupo:'B', hora:'21:00', dia:13 },
+  { equipoA:'Suiza', equipoB:'Bosnia-Herzegovina', grupo:'B', hora:'21:00', dia:18 },
+  { equipoA:'Canadá', equipoB:'Catar', grupo:'B', hora:'00:00', dia:19 },
+  { equipoA:'Suiza', equipoB:'Canadá', grupo:'B', hora:'21:00', dia:24 },
+  { equipoA:'Bosnia-Herzegovina', equipoB:'Catar', grupo:'B', hora:'21:00', dia:24 },
+  { equipoA:'Brasil', equipoB:'Marruecos', grupo:'C', hora:'00:00', dia:14 },
+  { equipoA:'Haití', equipoB:'Escocia', grupo:'C', hora:'03:00', dia:14 },
+  { equipoA:'Escocia', equipoB:'Marruecos', grupo:'C', hora:'00:00', dia:20 },
+  { equipoA:'Brasil', equipoB:'Haití', grupo:'C', hora:'03:00', dia:20 },
+  { equipoA:'Escocia', equipoB:'Brasil', grupo:'C', hora:'00:00', dia:25 },
+  { equipoA:'Marruecos', equipoB:'Haití', grupo:'C', hora:'00:00', dia:25 },
+  { equipoA:'Estados Unidos', equipoB:'Paraguay', grupo:'D', hora:'03:00', dia:13 },
+  { equipoA:'Australia', equipoB:'Turquía', grupo:'D', hora:'06:00', dia:14 },
+  { equipoA:'Turquía', equipoB:'Paraguay', grupo:'D', hora:'06:00', dia:20 },
+  { equipoA:'Estados Unidos', equipoB:'Australia', grupo:'D', hora:'21:00', dia:19 },
+  { equipoA:'Turquía', equipoB:'Estados Unidos', grupo:'D', hora:'04:00', dia:26 },
+  { equipoA:'Paraguay', equipoB:'Australia', grupo:'D', hora:'04:00', dia:26 },
+  { equipoA:'Alemania', equipoB:'Curazao', grupo:'E', hora:'19:00', dia:14 },
+  { equipoA:'Costa de Marfil', equipoB:'Ecuador', grupo:'E', hora:'01:00', dia:15 },
+  { equipoA:'Alemania', equipoB:'Costa de Marfil', grupo:'E', hora:'22:00', dia:20 },
+  { equipoA:'Ecuador', equipoB:'Curazao', grupo:'E', hora:'02:00', dia:21 },
+  { equipoA:'Ecuador', equipoB:'Alemania', grupo:'E', hora:'22:00', dia:25 },
+  { equipoA:'Curazao', equipoB:'Costa de Marfil', grupo:'E', hora:'22:00', dia:25 },
+  { equipoA:'Países Bajos', equipoB:'Japón', grupo:'F', hora:'22:00', dia:14 },
+  { equipoA:'Suecia', equipoB:'Túnez', grupo:'F', hora:'04:00', dia:15 },
+  { equipoA:'Países Bajos', equipoB:'Suecia', grupo:'F', hora:'19:00', dia:20 },
+  { equipoA:'Túnez', equipoB:'Japón', grupo:'F', hora:'06:00', dia:21 },
+  { equipoA:'Japón', equipoB:'Suecia', grupo:'F', hora:'01:00', dia:26 },
+  { equipoA:'Túnez', equipoB:'Países Bajos', grupo:'F', hora:'01:00', dia:26 },
+  { equipoA:'Irán', equipoB:'Nueva Zelanda', grupo:'G', hora:'03:00', dia:16 },
+  { equipoA:'Bélgica', equipoB:'Egipto', grupo:'G', hora:'21:00', dia:15 },
+  { equipoA:'Bélgica', equipoB:'Irán', grupo:'G', hora:'21:00', dia:21 },
+  { equipoA:'Nueva Zelanda', equipoB:'Egipto', grupo:'G', hora:'03:00', dia:22 },
+  { equipoA:'Egipto', equipoB:'Irán', grupo:'G', hora:'05:00', dia:27 },
+  { equipoA:'Nueva Zelanda', equipoB:'Bélgica', grupo:'G', hora:'05:00', dia:27 },
+  { equipoA:'España', equipoB:'Cabo Verde', grupo:'H', hora:'18:00', dia:15 },
+  { equipoA:'Arabia Saudí', equipoB:'Uruguay', grupo:'H', hora:'00:00', dia:16 },
+  { equipoA:'España', equipoB:'Arabia Saudí', grupo:'H', hora:'18:00', dia:21 },
+  { equipoA:'Uruguay', equipoB:'Cabo Verde', grupo:'H', hora:'00:00', dia:22 },
+  { equipoA:'Cabo Verde', equipoB:'Arabia Saudí', grupo:'H', hora:'02:00', dia:27 },
+  { equipoA:'Uruguay', equipoB:'España', grupo:'H', hora:'02:00', dia:27 },
+  { equipoA:'Francia', equipoB:'Senegal', grupo:'I', hora:'21:00', dia:16 },
+  { equipoA:'Irak', equipoB:'Noruega', grupo:'I', hora:'00:00', dia:17 },
+  { equipoA:'Francia', equipoB:'Irak', grupo:'I', hora:'23:00', dia:22 },
+  { equipoA:'Noruega', equipoB:'Senegal', grupo:'I', hora:'02:00', dia:23 },
+  { equipoA:'Noruega', equipoB:'Francia', grupo:'I', hora:'21:00', dia:26 },
+  { equipoA:'Senegal', equipoB:'Irak', grupo:'I', hora:'21:00', dia:26 },
+  { equipoA:'Argentina', equipoB:'Argelia', grupo:'J', hora:'03:00', dia:17 },
+  { equipoA:'Austria', equipoB:'Jordania', grupo:'J', hora:'06:00', dia:17 },
+  { equipoA:'Argentina', equipoB:'Austria', grupo:'J', hora:'19:00', dia:22 },
+  { equipoA:'Jordania', equipoB:'Argelia', grupo:'J', hora:'05:00', dia:23 },
+  { equipoA:'Argelia', equipoB:'Austria', grupo:'J', hora:'04:00', dia:28 },
+  { equipoA:'Jordania', equipoB:'Argentina', grupo:'J', hora:'04:00', dia:28 },
+  { equipoA:'Portugal', equipoB:'República Democrática del Congo', grupo:'K', hora:'19:00', dia:17 },
+  { equipoA:'Uzbekistán', equipoB:'Colombia', grupo:'K', hora:'04:00', dia:18 },
+  { equipoA:'Portugal', equipoB:'Uzbekistán', grupo:'K', hora:'19:00', dia:23 },
+  { equipoA:'Colombia', equipoB:'República Democrática del Congo', grupo:'K', hora:'04:00', dia:24 },
+  { equipoA:'Colombia', equipoB:'Portugal', grupo:'K', hora:'01:30', dia:28 },
+  { equipoA:'República Democrática del Congo', equipoB:'Uzbekistán', grupo:'K', hora:'01:30', dia:28 },
+  { equipoA:'Inglaterra', equipoB:'Croacia', grupo:'L', hora:'22:00', dia:17 },
+  { equipoA:'Ghana', equipoB:'Panamá', grupo:'L', hora:'01:00', dia:18 },
+  { equipoA:'Inglaterra', equipoB:'Ghana', grupo:'L', hora:'22:00', dia:23 },
+  { equipoA:'Panamá', equipoB:'Croacia', grupo:'L', hora:'01:00', dia:24 },
+  { equipoA:'Panamá', equipoB:'Inglaterra', grupo:'L', hora:'23:00', dia:27 },
+  { equipoA:'Croacia', equipoB:'Ghana', grupo:'L', hora:'23:00', dia:27 },
+];
+
+// Normaliza un nombre de equipo para emparejar (quita acentos, minúsculas, abreviaturas)
+function normEquipo(s) {
+  if (!s) return '';
+  return s.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/rep\.?\s*checa|republica checa|chequia/g, 'republica checa')
+    .replace(/rep\.?\s*d\.?\s*del?\s*congo|republica democratica del congo|rd congo|rdc/g, 'republica democratica del congo')
+    .replace(/corea del sur|corea/g, 'corea del sur')
+    .replace(/catar|qatar/g, 'catar')
+    .replace(/arabia saudi|arabia saudita/g, 'arabia saudi')
+    .replace(/estados unidos|eeuu|usa/g, 'estados unidos')
+    .replace(/[^a-z ]/g, '').trim();
+}
+
+// Busca en el calendario la hora y grupo de un partido dado su nombre "A vs B"
+function infoPartido(equipoA, equipoB) {
+  const a = normEquipo(equipoA), b = normEquipo(equipoB);
+  const m = CALENDARIO_GRUPOS.find(p => {
+    const pa = normEquipo(p.equipoA), pb = normEquipo(p.equipoB);
+    return (pa === a && pb === b) || (pa === b && pb === a);
+  });
+  return m ? { hora: m.hora, grupo: m.grupo } : null;
+}
+
 // ═══════════════════════════════════════════════════════════════
 //  ▼▼▼  CAMBIA SOLO ESTO CADA DÍA DE PARTIDO  ▼▼▼
 // ═══════════════════════════════════════════════════════════════
@@ -2098,20 +2203,21 @@ const SHEETS_ID_HOY = 'TU_SHEETS_ID_AQUI';
 const USE_SHEETS = false;
 // ↑ Cambiar a true cuando pegues el ID real
 
-// Partidos del día: nombre exacto tal como aparece en el Form
-// La columna del Form debe llamarse igual (ej: "México vs Sudáfrica")
+// Partidos del día: nombre exacto tal como aparece en el Form (campo "columna").
+// La hora y el grupo se sacan AUTOMÁTICAMENTE del calendario oficial.
+// Solo hay que indicar equipoA y equipoB. El "resultado" déjalo null
+// hasta que acabe el partido; entonces pon: resultado: '2-1'
 const PARTIDOS_HOY = [
-  { columna: 'México vs Sudáfrica',       equipoA: 'México',       equipoB: 'Sudáfrica',   hora: '17:00', grupo: 'A', resultado: null },
-  { columna: 'Corea del Sur vs República Checa', equipoA: 'Corea del Sur', equipoB: 'Rep. Checa', hora: '20:00', grupo: 'B', resultado: null },
+  { columna: 'México vs Sudáfrica',             equipoA: 'México',       equipoB: 'Sudáfrica',     resultado: null },
+  { columna: 'Corea del Sur vs República Checa', equipoA: 'Corea del Sur', equipoB: 'República Checa', resultado: null },
 ];
 // Para añadir o quitar partidos, añade o borra líneas de este array.
-// "resultado" déjalo null mientras no haya jugado; cuando acabe pon: resultado: '2-1'
 
 // Mungui: se detecta automáticamente desde el formulario.
 // Quien haya rellenado la pregunta de goleadores = es el Mungui ese día.
 // Solo hay que indicar los puntos que hizo el Mungui la jornada anterior.
 const MUNGUI_HOY = {
-  ptsDia: 18
+  ptsDia: 0
 };
 
 // ═══════════════════════════════════════════════════════════════
@@ -2119,82 +2225,109 @@ const MUNGUI_HOY = {
 // ═══════════════════════════════════════════════════════════════
 
 const PARTICIPANTES = [
-  'Mamá','Javi','Dani','Leti','Andrés','Tomás',
-  'Luis','Jorge','José','Cristina','Fernando','Javito','Luki','Pablete','Edu'
+  'Mamá','Javi II','Dani y Espe Jr.','Leti I','Andrés IV',
+  'Tomás II','Jorge II','Josito I','Cristina','Fernando II',
+  'Edu I','Javito Jr.','Anita','Pablete','Luki',
+  'Iñiguín','Mateo',
 ];
 
 const COLORES = [
-  '#c8102e','#003087','#1a7a3a','#b8830f','#6b1a5a',
+  '#003087','#c8102e','#1a7a3a','#b8830f','#6b1a5a',
   '#1a5a6b','#5a3a1a','#3a1a6b','#8b1a1a','#1a3a6b',
-  '#6b3a1a','#1a6b5a','#5a1a1a','#3a6b1a','#6b6b1a'
+  '#6b3a1a','#1a6b5a','#5a1a1a','#3a6b1a','#6b6b1a',
+  '#2a4a8b','#7a1a4a',
 ];
+
+// Avatar (emoji animal) por participante
+const AVATARES = {
+  'Mamá': '🦁',
+  'Javi II': '🐯',
+  'Dani y Espe Jr.': '🐺',
+  'Leti I': '🦊',
+  'Andrés IV': '🐻',
+  'Tomás II': '🐼',
+  'Jorge II': '🐨',
+  'Josito I': '🐮',
+  'Cristina': '🐷',
+  'Fernando II': '🐸',
+  'Edu I': '🐵',
+  'Javito Jr.': '🦅',
+  'Anita': '🦉',
+  'Pablete': '🦈',
+  'Luki': '🐢',
+  'Iñiguín': '🐝',
+  'Mateo': '🦂',
+};
 
 // Pronósticos y partidazo se rellenan desde Sheets
 // partidazos[nombre] = 'México vs Sudáfrica' (el valor exacto del Form)
-let PARTIDOS_DIA = PARTIDOS_HOY.map(p => ({ ...p, pronosticos: {} }));
-let PARTIDAZOS = {}; // { 'Mamá': 'México vs Sudáfrica', 'Javi': 'Corea del Sur vs República Checa', ... }
+let PARTIDOS_DIA = PARTIDOS_HOY.map(p => {
+  // Completar hora y grupo desde el calendario oficial si no están puestos a mano
+  const info = (typeof infoPartido === 'function') ? infoPartido(p.equipoA, p.equipoB) : null;
+  return {
+    ...p,
+    hora:  p.hora  || (info ? info.hora  : '—'),
+    grupo: p.grupo || (info ? info.grupo : '—'),
+    pronosticos: {}
+  };
+});
+let PARTIDAZOS = {};
 
 const GRUPOS_DATA = [
-  { letra:'A', equipos:['México','Sudáfrica','Corea del Sur','República Checa'] },
-  { letra:'B', equipos:['Canadá','Bosnia-Herzegovina','Qatar','Suiza'] },
-  { letra:'C', equipos:['Brasil','Marruecos','Haití','Escocia'] },
-  { letra:'D', equipos:['Estados Unidos','Paraguay','Australia','Turquía'] },
-  { letra:'E', equipos:['Alemania','Curazao','Costa de Marfil','Ecuador'] },
+  { letra:'A', equipos:['Corea del Sur','República Checa','México','Sudáfrica'] },
+  { letra:'B', equipos:['Canadá','Bosnia-Herzegovina','Suiza','Qatar'] },
+  { letra:'C', equipos:['Brasil','Marruecos','Escocia','Haití'] },
+  { letra:'D', equipos:['Turquía','Estados Unidos','Australia','Paraguay'] },
+  { letra:'E', equipos:['Alemania','Ecuador','Costa de Marfil','Curazao'] },
   { letra:'F', equipos:['Países Bajos','Japón','Suecia','Túnez'] },
   { letra:'G', equipos:['Bélgica','Egipto','Irán','Nueva Zelanda'] },
-  { letra:'H', equipos:['España','Cabo Verde','Arabia Saudí','Uruguay'] },
-  { letra:'I', equipos:['Francia','Senegal','Irak','Noruega'] },
+  { letra:'H', equipos:['España','Uruguay','Arabia Saudí','Cabo Verde'] },
+  { letra:'I', equipos:['Francia','Noruega','Senegal','Irak'] },
   { letra:'J', equipos:['Argentina','Argelia','Austria','Jordania'] },
-  { letra:'K', equipos:['Portugal','Rep. D. del Congo','Uzbekistán','Colombia'] },
-  { letra:'L', equipos:['Inglaterra','Croacia','Ghana','Panamá'] }
+  { letra:'K', equipos:['Portugal','Colombia','República Democrática del Congo','Uzbekistán'] },
+  { letra:'L', equipos:['Croacia','Inglaterra','Ghana','Panamá'] },
 ];
 
-// Datos de ejemplo para pronósticos previos (se cargarán desde Sheets)
 const PREVIOS_DATA = {
-  pichichi: {
-    'Mamá':'Mbappé','Javi':'Messi','Dani':'Vinicius','Leti':'Mbappé','Andrés':'Lewandowski',
-    'Tomás':'Kane','Luis':'Mbappé','Jorge':'Messi','José':'Benzema','Cristina':'Vinicius',
-    'Fernando':'Mbappé','Javito':'Messi','Luki':'Salah','Pablete':'Benzema','Edu':'Messi'
-  },
-  equipoGoleador: {
-    'Mamá':'Brasil','Javi':'Francia','Dani':'España','Leti':'Argentina','Andrés':'Alemania',
-    'Tomás':'Brasil','Luis':'Francia','Jorge':'España','José':'Brasil','Cristina':'Francia',
-    'Fernando':'España','Javito':'Brasil','Luki':'Argentina','Pablete':'Francia','Edu':'Brasil'
-  },
-  // Orden de grupos: array de 4 equipos ordenados 1º→4º
+  pichichi: { 'Tomás II':'Raphinha','Fernando II':'Mbappé','Edu I':'Mbappé','Jorge II':'Harry Kane','Cristina':'Mbappé','Josito I':'Vinicius Junior','Pablete':'Cristiano Ronaldo','Anita':'Harry Kane','Dani y Espe Jr.':'Harry Kane','Javi II':'Oyarzábal','Luki':'Cristiano Ronaldo','Javito Jr.':'Mbappé','Iñiguín':'Mbappé','Mateo':'Oyarzábal','Leti I':'Mbappé','Andrés IV':'Mbappe','Mamá':'Kylian Mbappé' },
+  equipoGoleador: { 'Tomás II':'Brasil','Fernando II':'Portugal','Edu I':'Brasil','Jorge II':'Alemania','Cristina':'Francia','Josito I':'Alemania','Pablete':'Francia','Anita':'Brasil','Dani y Espe Jr.':'España','Javi II':'España','Luki':'Francia','Javito Jr.':'Argentina','Iñiguín':'España','Mateo':'España','Leti I':'Francia','Andrés IV':'España','Mamá':'Brasil' },
   grupos: {
-    'Mamá':    { A:['México','Corea del Sur','Sudáfrica','República Checa'], B:['Canadá','Suiza','Qatar','Bosnia-Herzegovina'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Estados Unidos','Australia','Paraguay','Turquía'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Países Bajos','Japón','Suecia','Túnez'], G:['Bélgica','Egipto','Irán','Nueva Zelanda'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Senegal','Noruega','Irak'], J:['Argentina','Austria','Argelia','Jordania'], K:['Portugal','Colombia','Uzbekistán','Rep. D. del Congo'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
-    'Javi':    { A:['México','Sudáfrica','Corea del Sur','República Checa'], B:['Canadá','Bosnia-Herzegovina','Suiza','Qatar'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Estados Unidos','Paraguay','Turquía','Australia'], E:['Alemania','Costa de Marfil','Ecuador','Curazao'], F:['Países Bajos','Japón','Túnez','Suecia'], G:['Bélgica','Irán','Egipto','Nueva Zelanda'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Noruega','Senegal','Irak'], J:['Argentina','Austria','Argelia','Jordania'], K:['Portugal','Colombia','Uzbekistán','Rep. D. del Congo'], L:['Inglaterra','Croacia','Panamá','Ghana'] },
-    'Dani':    { A:['Corea del Sur','México','Sudáfrica','República Checa'], B:['Canadá','Suiza','Bosnia-Herzegovina','Qatar'], C:['Brasil','Escocia','Marruecos','Haití'], D:['Estados Unidos','Australia','Turquía','Paraguay'], E:['Alemania','Ecuador','Curazao','Costa de Marfil'], F:['Países Bajos','Suecia','Japón','Túnez'], G:['Bélgica','Egipto','Nueva Zelanda','Irán'], H:['España','Arabia Saudí','Uruguay','Cabo Verde'], I:['Francia','Senegal','Irak','Noruega'], J:['Argentina','Argelia','Austria','Jordania'], K:['Portugal','Colombia','Rep. D. del Congo','Uzbekistán'], L:['Inglaterra','Ghana','Croacia','Panamá'] },
-    'Leti':    { A:['México','Corea del Sur','República Checa','Sudáfrica'], B:['Suiza','Canadá','Bosnia-Herzegovina','Qatar'], C:['Brasil','Marruecos','Haití','Escocia'], D:['Estados Unidos','Paraguay','Australia','Turquía'], E:['Alemania','Costa de Marfil','Ecuador','Curazao'], F:['Países Bajos','Japón','Suecia','Túnez'], G:['Bélgica','Irán','Egipto','Nueva Zelanda'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Senegal','Noruega','Irak'], J:['Argentina','Austria','Argelia','Jordania'], K:['Portugal','Colombia','Uzbekistán','Rep. D. del Congo'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
-    'Andrés':  { A:['México','Sudáfrica','Corea del Sur','República Checa'], B:['Canadá','Suiza','Qatar','Bosnia-Herzegovina'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Estados Unidos','Australia','Paraguay','Turquía'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Países Bajos','Japón','Túnez','Suecia'], G:['Bélgica','Egipto','Irán','Nueva Zelanda'], H:['España','Uruguay','Cabo Verde','Arabia Saudí'], I:['Francia','Senegal','Noruega','Irak'], J:['Argentina','Austria','Jordania','Argelia'], K:['Portugal','Colombia','Uzbekistán','Rep. D. del Congo'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
-    'Tomás':   { A:['México','Corea del Sur','Sudáfrica','República Checa'], B:['Canadá','Bosnia-Herzegovina','Suiza','Qatar'], C:['Brasil','Marruecos','Haití','Escocia'], D:['Estados Unidos','Paraguay','Australia','Turquía'], E:['Alemania','Costa de Marfil','Ecuador','Curazao'], F:['Países Bajos','Suecia','Japón','Túnez'], G:['Bélgica','Irán','Egipto','Nueva Zelanda'], H:['España','Arabia Saudí','Uruguay','Cabo Verde'], I:['Francia','Noruega','Senegal','Irak'], J:['Argentina','Austria','Argelia','Jordania'], K:['Portugal','Colombia','Rep. D. del Congo','Uzbekistán'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
-    'Luis':    { A:['México','Sudáfrica','República Checa','Corea del Sur'], B:['Canadá','Suiza','Bosnia-Herzegovina','Qatar'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Estados Unidos','Australia','Paraguay','Turquía'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Países Bajos','Japón','Suecia','Túnez'], G:['Bélgica','Egipto','Irán','Nueva Zelanda'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Senegal','Noruega','Irak'], J:['Argentina','Argelia','Austria','Jordania'], K:['Portugal','Colombia','Uzbekistán','Rep. D. del Congo'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
-    'Jorge':   { A:['México','Corea del Sur','Sudáfrica','República Checa'], B:['Canadá','Bosnia-Herzegovina','Suiza','Qatar'], C:['Brasil','Marruecos','Haití','Escocia'], D:['Estados Unidos','Paraguay','Turquía','Australia'], E:['Alemania','Costa de Marfil','Ecuador','Curazao'], F:['Países Bajos','Japón','Túnez','Suecia'], G:['Bélgica','Egipto','Nueva Zelanda','Irán'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Senegal','Irak','Noruega'], J:['Argentina','Austria','Argelia','Jordania'], K:['Portugal','Colombia','Uzbekistán','Rep. D. del Congo'], L:['Inglaterra','Ghana','Croacia','Panamá'] },
-    'José':    { A:['México','Sudáfrica','Corea del Sur','República Checa'], B:['Suiza','Canadá','Qatar','Bosnia-Herzegovina'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Estados Unidos','Australia','Paraguay','Turquía'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Países Bajos','Suecia','Japón','Túnez'], G:['Bélgica','Irán','Egipto','Nueva Zelanda'], H:['España','Arabia Saudí','Uruguay','Cabo Verde'], I:['Francia','Noruega','Senegal','Irak'], J:['Argentina','Argelia','Austria','Jordania'], K:['Portugal','Colombia','Rep. D. del Congo','Uzbekistán'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
-    'Cristina':{ A:['Corea del Sur','México','Sudáfrica','República Checa'], B:['Canadá','Suiza','Bosnia-Herzegovina','Qatar'], C:['Brasil','Escocia','Marruecos','Haití'], D:['Estados Unidos','Australia','Turquía','Paraguay'], E:['Alemania','Ecuador','Curazao','Costa de Marfil'], F:['Países Bajos','Japón','Suecia','Túnez'], G:['Bélgica','Egipto','Irán','Nueva Zelanda'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Senegal','Irak','Noruega'], J:['Argentina','Austria','Argelia','Jordania'], K:['Portugal','Colombia','Uzbekistán','Rep. D. del Congo'], L:['Inglaterra','Croacia','Panamá','Ghana'] },
-    'Fernando':{ A:['México','Corea del Sur','República Checa','Sudáfrica'], B:['Canadá','Bosnia-Herzegovina','Suiza','Qatar'], C:['Brasil','Marruecos','Haití','Escocia'], D:['Estados Unidos','Paraguay','Australia','Turquía'], E:['Alemania','Costa de Marfil','Ecuador','Curazao'], F:['Países Bajos','Japón','Suecia','Túnez'], G:['Bélgica','Irán','Egipto','Nueva Zelanda'], H:['España','Uruguay','Cabo Verde','Arabia Saudí'], I:['Francia','Senegal','Noruega','Irak'], J:['Argentina','Austria','Jordania','Argelia'], K:['Portugal','Colombia','Uzbekistán','Rep. D. del Congo'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
-    'Javito':  { A:['México','Sudáfrica','Corea del Sur','República Checa'], B:['Canadá','Suiza','Qatar','Bosnia-Herzegovina'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Estados Unidos','Australia','Paraguay','Turquía'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Países Bajos','Japón','Túnez','Suecia'], G:['Bélgica','Egipto','Irán','Nueva Zelanda'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Senegal','Noruega','Irak'], J:['Argentina','Argelia','Austria','Jordania'], K:['Portugal','Colombia','Uzbekistán','Rep. D. del Congo'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
-    'Luki':    { A:['México','Corea del Sur','Sudáfrica','República Checa'], B:['Canadá','Bosnia-Herzegovina','Suiza','Qatar'], C:['Brasil','Marruecos','Haití','Escocia'], D:['Estados Unidos','Paraguay','Australia','Turquía'], E:['Alemania','Costa de Marfil','Ecuador','Curazao'], F:['Países Bajos','Suecia','Japón','Túnez'], G:['Bélgica','Irán','Egipto','Nueva Zelanda'], H:['España','Arabia Saudí','Uruguay','Cabo Verde'], I:['Francia','Noruega','Senegal','Irak'], J:['Argentina','Austria','Argelia','Jordania'], K:['Portugal','Colombia','Rep. D. del Congo','Uzbekistán'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
-    'Pablete': { A:['México','Sudáfrica','República Checa','Corea del Sur'], B:['Suiza','Canadá','Bosnia-Herzegovina','Qatar'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Estados Unidos','Australia','Paraguay','Turquía'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Países Bajos','Japón','Suecia','Túnez'], G:['Bélgica','Egipto','Irán','Nueva Zelanda'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Senegal','Noruega','Irak'], J:['Argentina','Argelia','Austria','Jordania'], K:['Portugal','Colombia','Uzbekistán','Rep. D. del Congo'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
-    'Edu':     { A:['Corea del Sur','México','Sudáfrica','República Checa'], B:['Canadá','Suiza','Bosnia-Herzegovina','Qatar'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Estados Unidos','Australia','Turquía','Paraguay'], E:['Alemania','Ecuador','Curazao','Costa de Marfil'], F:['Países Bajos','Japón','Suecia','Túnez'], G:['Bélgica','Egipto','Nueva Zelanda','Irán'], H:['España','Arabia Saudí','Uruguay','Cabo Verde'], I:['Francia','Senegal','Irak','Noruega'], J:['Argentina','Austria','Argelia','Jordania'], K:['Portugal','Colombia','Rep. D. del Congo','Uzbekistán'], L:['Inglaterra','Ghana','Croacia','Panamá'] }
+    'Tomás II': { A:['Corea del Sur','República Checa','México','Sudáfrica'], B:['Canadá','Bosnia-Herzegovina','Suiza','Qatar'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Turquía','Estados Unidos','Australia','Paraguay'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Países Bajos','Japón','Suecia','Túnez'], G:['Bélgica','Egipto','Irán','Nueva Zelanda'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Noruega','Senegal','Irak'], J:['Argentina','Argelia','Austria','Jordania'], K:['Portugal','Colombia','República Democrática del Congo','Uzbekistán'], L:['Croacia','Inglaterra','Ghana','Panamá'] },
+    'Fernando II': { A:['México','Corea del Sur','República Checa','Sudáfrica'], B:['Suiza','Canadá','Bosnia-Herzegovina','Qatar'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Turquía','Paraguay','Estados Unidos','Australia'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Japón','Países Bajos','Suecia','Túnez'], G:['Bélgica','Egipto','Irán','Nueva Zelanda'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Noruega','Senegal','Irak'], J:['Argentina','Austria','Argelia','Jordania'], K:['Portugal','Colombia','República Democrática del Congo','Uzbekistán'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
+    'Edu I': { A:['México','Corea del Sur','República Checa','Sudáfrica'], B:['Suiza','Canadá','Bosnia-Herzegovina','Qatar'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Estados Unidos','Turquía','Paraguay','Australia'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Países Bajos','Japón','Suecia','Túnez'], G:['Bélgica','Egipto','Irán','Nueva Zelanda'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Noruega','Senegal','Irak'], J:['Argentina','Austria','Argelia','Jordania'], K:['Portugal','Colombia','República Democrática del Congo','Uzbekistán'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
+    'Jorge II': { A:['México','República Checa','Corea del Sur','Sudáfrica'], B:['Suiza','Canadá','Bosnia-Herzegovina','Qatar'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Turquía','Estados Unidos','Paraguay','Australia'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Países Bajos','Túnez','Japón','Suecia'], G:['Bélgica','Egipto','Nueva Zelanda','Irán'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Noruega','Senegal','Irak'], J:['Argentina','Argelia','Austria','Jordania'], K:['Portugal','Colombia','República Democrática del Congo','Uzbekistán'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
+    'Cristina': { A:['México','República Checa','Sudáfrica','Corea del Sur'], B:['Suiza','Canadá','Bosnia-Herzegovina','Qatar'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Estados Unidos','Turquía','Paraguay','Australia'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Países Bajos','Japón','Suecia','Túnez'], G:['Bélgica','Egipto','Irán','Nueva Zelanda'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Senegal','Noruega','Irak'], J:['Argentina','Argelia','Austria','Jordania'], K:['Portugal','Colombia','República Democrática del Congo','Uzbekistán'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
+    'Josito I': { A:['Corea del Sur','Sudáfrica','México','República Checa'], B:['Bosnia-Herzegovina','Suiza','Canadá','Qatar'], C:['Marruecos','Brasil','Escocia','Haití'], D:['Turquía','Estados Unidos','Australia','Paraguay'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Japón','Países Bajos','Túnez','Suecia'], G:['Bélgica','Egipto','Nueva Zelanda','Irán'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Senegal','Noruega','Irak'], J:['Argentina','Argelia','Jordania','Austria'], K:['Portugal','Colombia','Uzbekistán','República Democrática del Congo'], L:['Croacia','Inglaterra','Ghana','Panamá'] },
+    'Pablete': { A:['Sudáfrica','México','República Checa','Corea del Sur'], B:['Canadá','Suiza','Bosnia-Herzegovina','Qatar'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Estados Unidos','Turquía','Paraguay','Australia'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Japón','Países Bajos','Suecia','Túnez'], G:['Bélgica','Egipto','Nueva Zelanda','Irán'], H:['España','Uruguay','Cabo Verde','Arabia Saudí'], I:['Francia','Senegal','Noruega','Irak'], J:['Argentina','Argelia','Austria','Jordania'], K:['Portugal','Colombia','Uzbekistán','República Democrática del Congo'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
+    'Anita': { A:['Corea del Sur','México','Sudáfrica','República Checa'], B:['Suiza','Canadá','Qatar','Bosnia-Herzegovina'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Turquía','Paraguay','Estados Unidos','Australia'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Japón','Países Bajos','Suecia','Túnez'], G:['Bélgica','Nueva Zelanda','Irán','Egipto'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Senegal','Noruega','Irak'], J:['Argentina','Austria','Jordania','Argelia'], K:['Portugal','Colombia','Uzbekistán','República Democrática del Congo'], L:['Inglaterra','Ghana','Croacia','Panamá'] },
+    'Dani y Espe Jr.': { A:['México','Corea del Sur','República Checa','Sudáfrica'], B:['Suiza','Canadá','Bosnia-Herzegovina','Qatar'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Estados Unidos','Australia','Paraguay','Turquía'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Suecia','Japón','Países Bajos','Túnez'], G:['Bélgica','Irán','Egipto','Nueva Zelanda'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Noruega','Senegal','Irak'], J:['Argentina','Austria','Argelia','Jordania'], K:['Portugal','Colombia','República Democrática del Congo','Uzbekistán'], L:['Inglaterra','Panamá','Croacia','Ghana'] },
+    'Javi II': { A:['República Checa','México','Corea del Sur','Sudáfrica'], B:['Suiza','Canadá','Bosnia-Herzegovina','Qatar'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Turquía','Estados Unidos','Paraguay','Australia'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Países Bajos','Japón','Suecia','Túnez'], G:['Bélgica','Egipto','Irán','Nueva Zelanda'], H:['España','Uruguay','Cabo Verde','Arabia Saudí'], I:['Francia','Noruega','Senegal','Irak'], J:['Argentina','Argelia','Austria','Jordania'], K:['Portugal','Colombia','Uzbekistán','República Democrática del Congo'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
+    'Luki': { A:['México','República Checa','Sudáfrica','Corea del Sur'], B:['Canadá','Suiza','Qatar','Bosnia-Herzegovina'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Paraguay','Turquía','Estados Unidos','Australia'], E:['Alemania','Ecuador','Curazao','Costa de Marfil'], F:['Países Bajos','Suecia','Túnez','Japón'], G:['Bélgica','Egipto','Irán','Nueva Zelanda'], H:['España','Uruguay','Cabo Verde','Arabia Saudí'], I:['Francia','Noruega','Irak','Senegal'], J:['Argentina','Jordania','Argelia','Austria'], K:['Portugal','Colombia','República Democrática del Congo','Uzbekistán'], L:['Inglaterra','Croacia','Panamá','Ghana'] },
+    'Javito Jr.': { A:['República Checa','México','Corea del Sur','Sudáfrica'], B:['Suiza','Canadá','Qatar','Bosnia-Herzegovina'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Turquía','Paraguay','Estados Unidos','Australia'], E:['Alemania','Ecuador','Curazao','Costa de Marfil'], F:['Países Bajos','Suecia','Japón','Túnez'], G:['Bélgica','Egipto','Irán','Nueva Zelanda'], H:['Uruguay','España','Cabo Verde','Arabia Saudí'], I:['Francia','Senegal','Noruega','Irak'], J:['Argentina','Austria','Jordania','Argelia'], K:['Portugal','Colombia','Uzbekistán','República Democrática del Congo'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
+    'Iñiguín': { A:['República Checa','México','Sudáfrica','Corea del Sur'], B:['Suiza','Canadá','Bosnia-Herzegovina','Qatar'], C:['Escocia','Haití','Marruecos','Brasil'], D:['Paraguay','Australia','Estados Unidos','Turquía'], E:['Costa de Marfil','Alemania','Curazao','Ecuador'], F:['Suecia','Países Bajos','Túnez','Japón'], G:['Bélgica','Nueva Zelanda','Irán','Egipto'], H:['España','Uruguay','Cabo Verde','Arabia Saudí'], I:['Francia','Senegal','Irak','Noruega'], J:['Argentina','Austria','Argelia','Jordania'], K:['Uzbekistán','Portugal','Colombia','República Democrática del Congo'], L:['Panamá','Croacia','Inglaterra','Ghana'] },
+    'Mateo': { A:['República Checa','Corea del Sur','Sudáfrica','México'], B:['Suiza','Canadá','Qatar','Bosnia-Herzegovina'], C:['Brasil','Escocia','Marruecos','Haití'], D:['Turquía','Australia','Paraguay','Estados Unidos'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Países Bajos','Japón','Túnez','Suecia'], G:['Nueva Zelanda','Irán','Egipto','Bélgica'], H:['España','Cabo Verde','Uruguay','Arabia Saudí'], I:['Noruega','Senegal','Francia','Irak'], J:['Argentina','Jordania','Argelia','Austria'], K:['Colombia','Portugal','República Democrática del Congo','Uzbekistán'], L:['Inglaterra','Panamá','Croacia','Ghana'] },
+    'Leti I': { A:['México','Sudáfrica','República Checa','Corea del Sur'], B:['Suiza','Canadá','Bosnia-Herzegovina','Qatar'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Turquía','Estados Unidos','Paraguay','Australia'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Países Bajos','Suecia','Japón','Túnez'], G:['Bélgica','Egipto','Nueva Zelanda','Irán'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Noruega','Irak','Senegal'], J:['Argentina','Austria','Argelia','Jordania'], K:['Portugal','Colombia','República Democrática del Congo','Uzbekistán'], L:['Croacia','Inglaterra','Panamá','Ghana'] },
+    'Andrés IV': { A:['México','Corea del Sur','República Checa','Sudáfrica'], B:['Suiza','Bosnia-Herzegovina','Canadá','Qatar'], C:['Marruecos','Brasil','Escocia','Haití'], D:['Turquía','Paraguay','Estados Unidos','Australia'], E:['Alemania','Costa de Marfil','Ecuador','Curazao'], F:['Países Bajos','Túnez','Japón','Suecia'], G:['Egipto','Bélgica','Irán','Nueva Zelanda'], H:['España','Uruguay','Cabo Verde','Arabia Saudí'], I:['Francia','Senegal','Noruega','Irak'], J:['Argentina','Argelia','Austria','Jordania'], K:['Portugal','Colombia','República Democrática del Congo','Uzbekistán'], L:['Inglaterra','Ghana','Croacia','Panamá'] },
+    'Mamá': { A:['Sudáfrica','México','República Checa','Corea del Sur'], B:['Suiza','Bosnia-Herzegovina','Canadá','Qatar'], C:['Brasil','Marruecos','Haití','Escocia'], D:['Paraguay','Estados Unidos','Turquía','Australia'], E:['Alemania','Costa de Marfil','Ecuador','Curazao'], F:['Países Bajos','Suecia','Túnez','Japón'], G:['Nueva Zelanda','Egipto','Bélgica','Irán'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Senegal','Irak','Noruega'], J:['Argentina','Austria','Argelia','Jordania'], K:['Portugal','Colombia','República Democrática del Congo','Uzbekistán'], L:['Inglaterra','Croacia','Panamá','Ghana'] },
   },
   fases: {
-    'Mamá':    { octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Corea del Sur','Suiza','Marruecos','Australia'], cuartos:['México','Brasil','Alemania','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','España','Francia','Argentina'], final:['Brasil','Francia'] },
-    'Javi':    { octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Sudáfrica','Bosnia-Herzegovina','Escocia','Paraguay'], cuartos:['México','Brasil','Alemania','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','Alemania','Francia','Argentina'], final:['Brasil','Argentina'] },
-    'Dani':    { octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Corea del Sur','Suiza','Marruecos','Australia'], cuartos:['Brasil','España','Francia','Argentina','Alemania','Portugal','México','Inglaterra'], semis:['España','Francia','Argentina','Portugal'], final:['España','Argentina'] },
-    'Leti':    { octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','República Checa','Suiza','Marruecos','Australia'], cuartos:['Brasil','España','Francia','Argentina','Alemania','Portugal','Países Bajos','Inglaterra'], semis:['Brasil','Francia','Argentina','España'], final:['Brasil','Francia'] },
-    'Andrés':  { octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Corea del Sur','Suiza','Marruecos','Australia'], cuartos:['México','Brasil','Alemania','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','España','Francia','Portugal'], final:['Brasil','España'] },
-    'Tomás':   { octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Corea del Sur','Bosnia-Herzegovina','Marruecos','Paraguay'], cuartos:['México','Brasil','Alemania','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','Alemania','Francia','Argentina'], final:['Alemania','Francia'] },
-    'Luis':    { octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Corea del Sur','Suiza','Marruecos','Australia'], cuartos:['Brasil','España','Francia','Argentina','Alemania','Portugal','Países Bajos','Inglaterra'], semis:['Brasil','Francia','Argentina','España'], final:['Francia','Argentina'] },
-    'Jorge':   { octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Corea del Sur','Suiza','Escocia','Australia'], cuartos:['México','Brasil','Alemania','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','España','Francia','Argentina'], final:['España','Argentina'] },
-    'José':    { octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Corea del Sur','Suiza','Marruecos','Australia'], cuartos:['Brasil','España','Francia','Argentina','Alemania','Portugal','México','Países Bajos'], semis:['Brasil','Francia','Argentina','España'], final:['Brasil','Argentina'] },
-    'Cristina':{ octavos:['Corea del Sur','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','México','Suiza','Marruecos','Australia'], cuartos:['Corea del Sur','Brasil','Alemania','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','España','Francia','Argentina'], final:['Brasil','España'] },
-    'Fernando':{ octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Corea del Sur','Suiza','Marruecos','Paraguay'], cuartos:['México','Brasil','Alemania','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','Alemania','Francia','Portugal'], final:['Brasil','Francia'] },
-    'Javito':  { octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Corea del Sur','Suiza','Marruecos','Australia'], cuartos:['México','Brasil','Alemania','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','España','Argentina','Portugal'], final:['Brasil','Argentina'] },
-    'Luki':    { octavos:['México','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Corea del Sur','Bosnia-Herzegovina','Marruecos','Australia'], cuartos:['México','Brasil','Alemania','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','Francia','Argentina','España'], final:['Francia','España'] },
-    'Pablete': { octavos:['México','Suiza','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Sudáfrica','Canadá','Marruecos','Australia'], cuartos:['Brasil','España','Francia','Argentina','Alemania','Portugal','Países Bajos','Inglaterra'], semis:['Brasil','Francia','Argentina','España'], final:['Brasil','Francia'] },
-    'Edu':     { octavos:['Corea del Sur','Canadá','Brasil','Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','México','Suiza','Marruecos','Australia'], cuartos:['Corea del Sur','Brasil','Alemania','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','España','Francia','Argentina'], final:['España','Francia'] }
+    'Tomás II': { octavos:['Corea del Sur','Canadá','Bosnia-Herzegovina','Brasil','Marruecos','Estados Unidos','Turquía','Alemania','Ecuador','Bélgica','España','Francia','Senegal','Argentina','Portugal','Inglaterra'], cuartos:['Brasil','Marruecos','Turquía','España','Francia','Senegal','Argentina','Portugal'], semis:['Brasil','España','Francia','Portugal'], final:['Brasil','España'], campeon:'España', subcampeon:'Brasil' },
+    'Fernando II': { octavos:['México','Corea del Sur','Suiza','Brasil','Marruecos','Turquía','Alemania','Bélgica','Egipto','España','Francia','Noruega','Argentina','Portugal','Inglaterra','Croacia'], cuartos:['Brasil','Marruecos','Turquía','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','España','Francia','Portugal'], final:['España','Portugal'], campeon:'España', subcampeon:'Portugal' },
+    'Edu I': { octavos:['México','Canadá','Brasil','Alemania','Ecuador','Países Bajos','Japón','Bélgica','España','Uruguay','Francia','Austria','Portugal','Colombia','Inglaterra','Croacia'], cuartos:['Brasil','Alemania','Países Bajos','Bélgica','España','Francia','Portugal','Inglaterra'], semis:['Brasil','España','Francia','Portugal'], final:['Brasil','España'], campeon:'España', subcampeon:'Brasil' },
+    'Jorge II': { octavos:['México','República Checa','Brasil','Marruecos','Estados Unidos','Turquía','Alemania','Bélgica','España','Francia','Noruega','Argentina','Portugal','Colombia','Inglaterra','Croacia'], cuartos:['Brasil','Marruecos','Alemania','Bélgica','España','Argentina','Portugal','Inglaterra'], semis:['Alemania','España','Portugal','Inglaterra'], final:['España','Portugal'], campeon:'España', subcampeon:'Portugal' },
+    'Cristina': { octavos:['México','Brasil','Marruecos','Turquía','Alemania','Ecuador','Países Bajos','Bélgica','Egipto','España','Francia','Argentina','Portugal','Colombia','Inglaterra','Croacia'], cuartos:['Brasil','Alemania','Países Bajos','España','Francia','Argentina','Portugal','Inglaterra'], semis:['España','Francia','Argentina','Portugal'], final:['España','Francia'], campeon:'España', subcampeon:'Francia' },
+    'Josito I': { octavos:['México','Corea del Sur','Brasil','Marruecos','Turquía','Alemania','Ecuador','Japón','España','Francia','Senegal','Argentina','Portugal','Colombia','Inglaterra','Croacia'], cuartos:['Brasil','Turquía','España','Francia','Senegal','Argentina','Portugal','Inglaterra'], semis:['Brasil','Turquía','España','Portugal'], final:['Brasil','Portugal'], campeon:'Brasil', subcampeon:'Portugal' },
+    'Pablete': { octavos:['México','Brasil','Marruecos','Alemania','Países Bajos','Japón','Bélgica','Egipto','España','Uruguay','Francia','Noruega','Argentina','Portugal','Colombia','Inglaterra'], cuartos:['Brasil','Alemania','España','Francia','Noruega','Argentina','Portugal','Inglaterra'], semis:['España','Francia','Argentina','Portugal'], final:['España','Francia'], campeon:'España', subcampeon:'Francia' },
+    'Anita': { octavos:['Corea del Sur','Brasil','Marruecos','Escocia','Turquía','Alemania','Países Bajos','Japón','Suecia','Bélgica','España','Uruguay','Francia','Argentina','Portugal','Inglaterra'], cuartos:['Brasil','Marruecos','Japón','Bélgica','España','Uruguay','Portugal','Inglaterra'], semis:['Brasil','Marruecos','España','Portugal'], final:['Brasil','España'], campeon:'España', subcampeon:'Brasil' },
+    'Dani y Espe Jr.': { octavos:['México','Brasil','Marruecos','Australia','Turquía','Alemania','Países Bajos','Japón','Bélgica','España','Uruguay','Francia','Argentina','Austria','Portugal','Inglaterra'], cuartos:['México','Brasil','Alemania','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','España','Argentina','Inglaterra'], final:['España','Inglaterra'], campeon:'España', subcampeon:'Inglaterra' },
+    'Javi II': { octavos:['Suiza','Brasil','Marruecos','Estados Unidos','Alemania','Ecuador','Países Bajos','Bélgica','España','Uruguay','Francia','Noruega','Argentina','Portugal','Colombia','Inglaterra'], cuartos:['Brasil','Marruecos','Alemania','España','Francia','Noruega','Portugal','Inglaterra'], semis:['Alemania','España','Francia','Argentina'], final:['España','Francia'], campeon:'España', subcampeon:'Francia' },
+    'Luki': { octavos:['México','Canadá','Brasil','Paraguay','Alemania','Países Bajos','Bélgica','Irán','España','Cabo Verde','Francia','Argentina','Portugal','Colombia','Inglaterra','Croacia'], cuartos:['Alemania','Bélgica','España','Francia','Argentina','Portugal','Inglaterra','Croacia'], semis:['Alemania','España','Francia','Inglaterra'], final:['España','Francia'], campeon:'Francia', subcampeon:'España' },
+    'Javito Jr.': { octavos:['México','Brasil','Marruecos','Paraguay','Alemania','Países Bajos','Bélgica','España','Uruguay','Francia','Senegal','Argentina','Portugal','Colombia','Inglaterra','Croacia'], cuartos:['Brasil','Alemania','Países Bajos','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','España','Francia','Argentina'], final:['España','Francia'], campeon:'España', subcampeon:'Francia' },
+    'Iñiguín': { octavos:['Brasil','Marruecos','Paraguay','Alemania','Ecuador','Países Bajos','Japón','Túnez','Egipto','España','Uruguay','Francia','Argentina','Austria','República Democrática del Congo','Inglaterra'], cuartos:['Paraguay','Turquía','Países Bajos','Túnez','España','Cabo Verde','Noruega','Portugal'], semis:['Paraguay','Países Bajos','España','Argentina'], final:['España','Portugal'], campeon:'Portugal', subcampeon:'España' },
+    'Mateo': { octavos:['Bosnia-Herzegovina','Qatar','Suiza','Brasil','Marruecos','Paraguay','Alemania','Bélgica','España','Francia','Argentina','Portugal','Colombia','Inglaterra','Croacia','Ghana'], cuartos:['República Checa','Alemania','Países Bajos','Bélgica','España','Senegal','Argentina','Portugal'], semis:['Brasil','Alemania','España','Portugal'], final:['Brasil','España'], campeon:'España', subcampeon:'Brasil' },
+    'Leti I': { octavos:['México','Canadá','Suiza','Brasil','Marruecos','Turquía','Alemania','Ecuador','Bélgica','Egipto','España','Francia','Argentina','Portugal','Colombia','Croacia'], cuartos:['Brasil','Marruecos','Turquía','España','Francia','Argentina','Portugal','Croacia'], semis:['Brasil','Marruecos','España','Portugal'], final:['Brasil','Marruecos'], campeon:'Brasil', subcampeon:'Marruecos' },
+    'Andrés IV': { octavos:['México','Brasil','Marruecos','Turquía','Alemania','Países Bajos','Bélgica','España','Uruguay','Francia','Senegal','Argentina','Portugal','Colombia','Croacia','Ghana'], cuartos:['Brasil','Marruecos','Alemania','Países Bajos','España','Francia','Portugal','Inglaterra'], semis:['Alemania','España','Francia','Argentina'], final:['España','Francia'], campeon:'España', subcampeon:'Francia' },
+    'Mamá': { octavos:['Sudáfrica','Canadá','Brasil','Marruecos','Estados Unidos','Paraguay','Alemania','Países Bajos','Egipto','España','Uruguay','Francia','Argentina','Portugal','Inglaterra','Croacia'], cuartos:['Sudáfrica','Brasil','Países Bajos','España','Francia','Argentina','Portugal','Inglaterra'], semis:['España','Francia','Portugal','Inglaterra'], final:['España','Portugal'], campeon:'España', subcampeon:'Portugal' },
   }
 };
 
@@ -2218,6 +2351,10 @@ const USE_SHEETS_PREVIOS = false;
 // ─────────────────────────────────────────────
 function initials(name) {
   return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+}
+
+function avatar(name) {
+  return AVATARES[name] || '⚽';
 }
 
 function evaluarPronostico(prono, resultado) {
@@ -2247,7 +2384,7 @@ function renderMungui() {
       : `<span class="mungui-sin-goles">Sin predicción</span>`;
     return `<div class="mungui-row">
       <div class="mungui-persona-izq">
-        <div class="chip-avatar" style="background:${color}33;color:${color};width:26px;height:26px;font-size:9px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">${initials(m.nombre)}</div>
+        <div class="chip-avatar" style="background:${color}1f;width:26px;height:26px;font-size:15px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">${avatar(m.nombre)}</div>
         <span class="mungui-persona-nombre">${m.nombre}</span>
       </div>
       <span class="mungui-flecha">→</span>
@@ -2298,7 +2435,7 @@ function renderPartidos() {
       const esPartidazo = PARTIDAZOS[nombre] &&
         PARTIDAZOS[nombre].trim().toLowerCase() === p.columna.trim().toLowerCase();
       return `<div class="chip chip-${estado}${esPartidazo ? ' es-partidazo' : ''}">
-        <div class="chip-avatar" style="background:${COLORES[i]}22;color:${COLORES[i]}">${initials(nombre)}</div>
+        <div class="chip-avatar" style="background:${COLORES[i]}1f;font-size:15px">${avatar(nombre)}</div>
         <div class="chip-info">
           <div class="chip-nombre">${nombre}</div>
           <div class="chip-prono">${prono}</div>
@@ -2382,7 +2519,7 @@ function renderPichichi() {
   const mkCard = (titulo, subtitulo, campo, icono) => {
     const chips = PARTICIPANTES.map((n, i) => `
       <div class="pichichi-chip">
-        <div class="chip-avatar" style="background:${COLORES[i]}22;color:${COLORES[i]};width:24px;height:24px;font-size:9px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">${initials(n)}</div>
+        <div class="chip-avatar" style="background:${COLORES[i]}1f;width:24px;height:24px;font-size:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">${avatar(n)}</div>
         <div class="pichichi-chip-info">
           <div class="pichichi-chip-nombre">${n}</div>
           <div class="pichichi-chip-valor">${PREVIOS_DATA[campo][n] || '—'}</div>
@@ -2480,7 +2617,7 @@ function buildPartSelector() {
   const sel = document.getElementById('participante-selector');
   sel.innerHTML = PARTICIPANTES.map((n, i) => `
     <button class="part-btn ${n === participanteActivoGrupos ? 'active' : ''}" data-nombre="${n}" onclick="renderGruposPorPersona('${n}')">
-      <span class="part-avatar-mini" style="background:${COLORES[i]}22;color:${COLORES[i]}">${initials(n)}</span>
+      <span class="part-avatar-mini" style="background:${COLORES[i]}1f;font-size:12px">${avatar(n)}</span>
       ${n}
     </button>`).join('');
 }
@@ -2529,7 +2666,7 @@ function renderFasesPorPersona() {
   const sel = document.getElementById('fases-participante-selector');
   sel.innerHTML = PARTICIPANTES.map((n, i) => `
     <button class="part-btn" data-nombre="${n}" onclick="renderFasePersona('${n}')">
-      <span class="part-avatar-mini" style="background:${COLORES[i]}22;color:${COLORES[i]}">${initials(n)}</span>
+      <span class="part-avatar-mini" style="background:${COLORES[i]}1f;font-size:12px">${avatar(n)}</span>
       ${n}
     </button>`).join('');
   renderFasePersona(null);
@@ -2555,11 +2692,15 @@ function renderFasePersona(nombre) {
     const i = PARTICIPANTES.indexOf(n);
     const faseData = PREVIOS_DATA.fases[n] || {};
     const final = faseData.final || [];
-    const campeon    = final[0] || null;
-    const subcampeon = final[1] || null;
+    const campeon    = faseData.campeon || final[0] || null;
+    const subcampeon = faseData.subcampeon || final[1] || null;
 
     const bloquesHTML = fases.map(f => {
-      const equipos = faseData[f.key] || [];
+      let equipos = faseData[f.key] || [];
+      // En la final, ordenar siempre campeón primero, subcampeón después
+      if (f.key === 'final' && campeon && subcampeon) {
+        equipos = [campeon, subcampeon];
+      }
       const tags = equipos.map(eq => {
         const esCampeon    = f.key === 'final' && eq === campeon;
         const esSubcampeon = f.key === 'final' && eq === subcampeon;
@@ -2574,7 +2715,7 @@ function renderFasePersona(nombre) {
 
     return `<div class="fases-persona-card">
       <div class="fases-persona-header">
-        <span class="chip-avatar" style="background:${COLORES[i]}44;color:white;width:26px;height:26px;font-size:10px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">${initials(n)}</span>
+        <span class="chip-avatar" style="background:${COLORES[i]}33;width:26px;height:26px;font-size:15px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">${avatar(n)}</span>
         <span class="fases-persona-nombre">${n}</span>
       </div>
       <div class="fases-persona-body">${bloquesHTML}</div>
@@ -2781,8 +2922,8 @@ function abrirPerfil(nombre) {
   const posLabel = pos === 1 ? '🏆' : pos === 2 ? '🥈' : pos === 3 ? '🥉' : `${pos}º`;
 
   // Header
-  document.getElementById('perfil-avatar').textContent = initials(nombre);
-  document.getElementById('perfil-avatar').style.background = color;
+  document.getElementById('perfil-avatar').textContent = avatar(nombre);
+  document.getElementById('perfil-avatar').style.background = color + '1f';
   document.getElementById('perfil-nombre').textContent = nombre;
   document.getElementById('perfil-pos').textContent = posLabel;
 
@@ -2852,8 +2993,8 @@ function abrirPerfil(nombre) {
       </div>
       <div class="perfil-fase-card" style="grid-column:span 2">
         <div class="perfil-fase-label">Final</div>
-        <div class="perfil-fase-tags">${(fases.final||[]).map((e,idx)=>{
-          const badge = idx===0?' 🏆':idx===1?' 🥈':'';
+        <div class="perfil-fase-tags">${((fases.campeon && fases.subcampeon) ? [fases.campeon, fases.subcampeon] : (fases.final||[])).map((e)=>{
+          const badge = e===fases.campeon?' 🏆':e===fases.subcampeon?' 🥈':'';
           return `<span class="perfil-fase-tag perfil-fase-final">${e}${badge}</span>`;
         }).join('') || '<span style="font-size:12px;color:rgba(24,5,7,0.25)">—</span>'}</div>
       </div>
@@ -2878,9 +3019,9 @@ function cerrarPerfil(e) {
 //  ▼▼▼  PESTAÑAS VISIBLES — activa cada una cuando toque  ▼▼▼
 // ═══════════════════════════════════════════════════════════════
 const PESTANAS_VISIBLES = {
-  inicio:        false,  // ← true el día que empiece el torneo
-  previos:       false,  // ← true cuando todos hayan rellenado el form previo
-  clasificacion: false,  // ← true cuando haya puntos que mostrar
+  inicio:        true,  // ← true el día que empiece el torneo
+  previos:       true,  // ← true cuando todos hayan rellenado el form previo
+  clasificacion: true,  // ← true cuando haya puntos que mostrar
 };
 // Instrucciones siempre visible
 // ═══════════════════════════════════════════════════════════════

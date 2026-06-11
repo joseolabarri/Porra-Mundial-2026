@@ -2208,8 +2208,10 @@ const USE_SHEETS = false;
 // Solo hay que indicar equipoA y equipoB. El "resultado" déjalo null
 // hasta que acabe el partido; entonces pon: resultado: '2-1'
 const PARTIDOS_HOY = [
-  { columna: 'México vs Sudáfrica',             equipoA: 'México',       equipoB: 'Sudáfrica',     resultado: null },
-  { columna: 'Corea del Sur vs República Checa', equipoA: 'Corea del Sur', equipoB: 'República Checa', resultado: null },
+  { columna: 'México vs Sudáfrica',             equipoA: 'México',       equipoB: 'Sudáfrica',     resultado: null,
+    pronosticos: { 'Mamá':'2-1', 'Javi II':'2-1', 'Dani y Espe Jr.':'2-1', 'Leti I':'2-0', 'Andrés IV':'2-0', 'Tomás II':'1-0', 'Luis II':'1-0', 'Jorge II':'2-0', 'Josito I':'1-1', 'Cristina':'2-0', 'Fernando II':'2-1', 'Edu I':'2-0', 'Javito Jr.':'2-0', 'Anita':'3-2', 'Pablete':'2-1', 'Luki':'2-1', 'Iñiguín':'2-0', 'Mateo':'2-1' } },
+  { columna: 'Corea del Sur vs República Checa', equipoA: 'Corea del Sur', equipoB: 'República Checa', resultado: null,
+    pronosticos: { 'Mamá':'0-1', 'Javi II':'0-1', 'Dani y Espe Jr.':'0-1', 'Leti I':'1-1', 'Andrés IV':'2-1', 'Tomás II':'2-1', 'Luis II':'0-2', 'Jorge II':'0-1', 'Josito I':'2-0', 'Cristina':'1-1', 'Fernando II':'2-1', 'Edu I':'1-1', 'Javito Jr.':'1-2', 'Anita':'1-2', 'Pablete':'2-2', 'Luki':'0-1', 'Iñiguín':'1-0', 'Mateo':'0-0' } },
 ];
 // Para añadir o quitar partidos, añade o borra líneas de este array.
 
@@ -2226,16 +2228,16 @@ const MUNGUI_HOY = {
 
 const PARTICIPANTES = [
   'Mamá','Javi II','Dani y Espe Jr.','Leti I','Andrés IV',
-  'Tomás II','Jorge II','Josito I','Cristina','Fernando II',
-  'Edu I','Javito Jr.','Anita','Pablete','Luki',
-  'Iñiguín','Mateo',
+  'Tomás II','Luis II','Jorge II','Josito I','Cristina',
+  'Fernando II','Edu I','Javito Jr.','Anita','Pablete',
+  'Luki','Iñiguín','Mateo',
 ];
 
 const COLORES = [
   '#003087','#c8102e','#1a7a3a','#b8830f','#6b1a5a',
-  '#1a5a6b','#5a3a1a','#3a1a6b','#8b1a1a','#1a3a6b',
+  '#1a5a6b','#2a6b2a','#3a1a6b','#8b1a1a','#1a3a6b',
   '#6b3a1a','#1a6b5a','#5a1a1a','#3a6b1a','#6b6b1a',
-  '#2a4a8b','#7a1a4a',
+  '#2a4a8b','#7a1a4a','#5a3a1a',
 ];
 
 // Avatar (emoji animal) por participante
@@ -2246,6 +2248,7 @@ const AVATARES = {
   'Leti I': '🦊',
   'Andrés IV': '🐻',
   'Tomás II': '🐼',
+  'Luis II': '🐔',
   'Jorge II': '🐨',
   'Josito I': '🐮',
   'Cristina': '🐷',
@@ -2268,10 +2271,10 @@ let PARTIDOS_DIA = PARTIDOS_HOY.map(p => {
     ...p,
     hora:  p.hora  || (info ? info.hora  : '—'),
     grupo: p.grupo || (info ? info.grupo : '—'),
-    pronosticos: {}
+    pronosticos: p.pronosticos || {}
   };
 });
-let PARTIDAZOS = {};
+let PARTIDAZOS = { 'Mamá':'Corea del Sur vs República Checa', 'Javi II':'Corea del Sur vs República Checa', 'Dani y Espe Jr.':'México vs Sudáfrica', 'Leti I':'México vs Sudáfrica', 'Andrés IV':'México vs Sudáfrica', 'Tomás II':'México vs Sudáfrica', 'Luis II':'México vs Sudáfrica', 'Jorge II':'México vs Sudáfrica', 'Josito I':'Corea del Sur vs República Checa', 'Cristina':'México vs Sudáfrica', 'Fernando II':'México vs Sudáfrica', 'Edu I':'México vs Sudáfrica', 'Javito Jr.':'México vs Sudáfrica', 'Anita':'Corea del Sur vs República Checa', 'Pablete':'México vs Sudáfrica', 'Luki':'México vs Sudáfrica', 'Iñiguín':'Corea del Sur vs República Checa', 'Mateo':'Corea del Sur vs República Checa' };
 
 const GRUPOS_DATA = [
   { letra:'A', equipos:['Corea del Sur','República Checa','México','Sudáfrica'] },
@@ -2289,10 +2292,11 @@ const GRUPOS_DATA = [
 ];
 
 const PREVIOS_DATA = {
-  pichichi: { 'Tomás II':'Raphinha','Fernando II':'Mbappé','Edu I':'Mbappé','Jorge II':'Harry Kane','Cristina':'Mbappé','Josito I':'Vinicius Junior','Pablete':'Cristiano Ronaldo','Anita':'Harry Kane','Dani y Espe Jr.':'Harry Kane','Javi II':'Oyarzábal','Luki':'Cristiano Ronaldo','Javito Jr.':'Mbappé','Iñiguín':'Mbappé','Mateo':'Oyarzábal','Leti I':'Mbappé','Andrés IV':'Mbappe','Mamá':'Kylian Mbappé' },
-  equipoGoleador: { 'Tomás II':'Brasil','Fernando II':'Portugal','Edu I':'Brasil','Jorge II':'Alemania','Cristina':'Francia','Josito I':'Alemania','Pablete':'Francia','Anita':'Brasil','Dani y Espe Jr.':'España','Javi II':'España','Luki':'Francia','Javito Jr.':'Argentina','Iñiguín':'España','Mateo':'España','Leti I':'Francia','Andrés IV':'España','Mamá':'Brasil' },
+  pichichi: { 'Tomás II':'Raphinha','Fernando II':'Mbappé','Edu I':'Mbappé','Jorge II':'Harry Kane','Cristina':'Mbappé','Josito I':'Vinicius Junior','Pablete':'Cristiano Ronaldo','Anita':'Harry Kane','Dani y Espe Jr.':'Harry Kane','Javi II':'Oyarzábal','Luki':'Cristiano Ronaldo','Javito Jr.':'Mbappé','Iñiguín':'Mbappé','Mateo':'Oyarzábal','Leti I':'Mbappé','Andrés IV':'Mbappé','Mamá':'Mbappé' ,'Luis II':'Mbappé'},
+  equipoGoleador: { 'Tomás II':'Brasil','Fernando II':'Portugal','Edu I':'Brasil','Jorge II':'Alemania','Cristina':'Francia','Josito I':'Alemania','Pablete':'Francia','Anita':'Brasil','Dani y Espe Jr.':'España','Javi II':'España','Luki':'Francia','Javito Jr.':'Argentina','Iñiguín':'España','Mateo':'España','Leti I':'Francia','Andrés IV':'España','Mamá':'Brasil' ,'Luis II':'Portugal'},
   grupos: {
     'Tomás II': { A:['Corea del Sur','República Checa','México','Sudáfrica'], B:['Canadá','Bosnia-Herzegovina','Suiza','Qatar'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Turquía','Estados Unidos','Australia','Paraguay'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Países Bajos','Japón','Suecia','Túnez'], G:['Bélgica','Egipto','Irán','Nueva Zelanda'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Noruega','Senegal','Irak'], J:['Argentina','Argelia','Austria','Jordania'], K:['Portugal','Colombia','República Democrática del Congo','Uzbekistán'], L:['Croacia','Inglaterra','Ghana','Panamá'] },
+    'Luis II': { A:['República Checa','México','Sudáfrica','Corea del Sur'], B:['Suiza','Canadá','Bosnia-Herzegovina','Qatar'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Estados Unidos','Turquía','Paraguay','Australia'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Países Bajos','Suecia','Japón','Túnez'], G:['Bélgica','Nueva Zelanda','Egipto','Irán'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Noruega','Senegal','Irak'], J:['Austria','Argentina','Jordania','Argelia'], K:['Portugal','Colombia','República Democrática del Congo','Uzbekistán'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
     'Fernando II': { A:['México','Corea del Sur','República Checa','Sudáfrica'], B:['Suiza','Canadá','Bosnia-Herzegovina','Qatar'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Turquía','Paraguay','Estados Unidos','Australia'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Japón','Países Bajos','Suecia','Túnez'], G:['Bélgica','Egipto','Irán','Nueva Zelanda'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Noruega','Senegal','Irak'], J:['Argentina','Austria','Argelia','Jordania'], K:['Portugal','Colombia','República Democrática del Congo','Uzbekistán'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
     'Edu I': { A:['México','Corea del Sur','República Checa','Sudáfrica'], B:['Suiza','Canadá','Bosnia-Herzegovina','Qatar'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Estados Unidos','Turquía','Paraguay','Australia'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Países Bajos','Japón','Suecia','Túnez'], G:['Bélgica','Egipto','Irán','Nueva Zelanda'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Noruega','Senegal','Irak'], J:['Argentina','Austria','Argelia','Jordania'], K:['Portugal','Colombia','República Democrática del Congo','Uzbekistán'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
     'Jorge II': { A:['México','República Checa','Corea del Sur','Sudáfrica'], B:['Suiza','Canadá','Bosnia-Herzegovina','Qatar'], C:['Brasil','Marruecos','Escocia','Haití'], D:['Turquía','Estados Unidos','Paraguay','Australia'], E:['Alemania','Ecuador','Costa de Marfil','Curazao'], F:['Países Bajos','Túnez','Japón','Suecia'], G:['Bélgica','Egipto','Nueva Zelanda','Irán'], H:['España','Uruguay','Arabia Saudí','Cabo Verde'], I:['Francia','Noruega','Senegal','Irak'], J:['Argentina','Argelia','Austria','Jordania'], K:['Portugal','Colombia','República Democrática del Congo','Uzbekistán'], L:['Inglaterra','Croacia','Ghana','Panamá'] },
@@ -2312,6 +2316,7 @@ const PREVIOS_DATA = {
   },
   fases: {
     'Tomás II': { octavos:['Corea del Sur','Canadá','Bosnia-Herzegovina','Brasil','Marruecos','Estados Unidos','Turquía','Alemania','Ecuador','Bélgica','España','Francia','Senegal','Argentina','Portugal','Inglaterra'], cuartos:['Brasil','Marruecos','Turquía','España','Francia','Senegal','Argentina','Portugal'], semis:['Brasil','España','Francia','Portugal'], final:['Brasil','España'], campeon:'España', subcampeon:'Brasil' },
+    'Luis II': { octavos:['México','República Checa','Canadá','Suiza','Brasil','Marruecos','Estados Unidos','Turquía','Alemania','Países Bajos','Bélgica','España','Francia','Austria','Portugal','Inglaterra'], cuartos:['Estados Unidos','Alemania','Países Bajos','Bélgica','España','Francia','Portugal','Inglaterra'], semis:['Alemania','España','Portugal','Inglaterra'], final:['Portugal','Inglaterra'], campeon:'Portugal', subcampeon:'Portugal' },
     'Fernando II': { octavos:['México','Corea del Sur','Suiza','Brasil','Marruecos','Turquía','Alemania','Bélgica','Egipto','España','Francia','Noruega','Argentina','Portugal','Inglaterra','Croacia'], cuartos:['Brasil','Marruecos','Turquía','España','Francia','Argentina','Portugal','Inglaterra'], semis:['Brasil','España','Francia','Portugal'], final:['España','Portugal'], campeon:'España', subcampeon:'Portugal' },
     'Edu I': { octavos:['México','Canadá','Brasil','Alemania','Ecuador','Países Bajos','Japón','Bélgica','España','Uruguay','Francia','Austria','Portugal','Colombia','Inglaterra','Croacia'], cuartos:['Brasil','Alemania','Países Bajos','Bélgica','España','Francia','Portugal','Inglaterra'], semis:['Brasil','España','Francia','Portugal'], final:['Brasil','España'], campeon:'España', subcampeon:'Brasil' },
     'Jorge II': { octavos:['México','República Checa','Brasil','Marruecos','Estados Unidos','Turquía','Alemania','Bélgica','España','Francia','Noruega','Argentina','Portugal','Colombia','Inglaterra','Croacia'], cuartos:['Brasil','Marruecos','Alemania','Bélgica','España','Argentina','Portugal','Inglaterra'], semis:['Alemania','España','Portugal','Inglaterra'], final:['España','Portugal'], campeon:'España', subcampeon:'Portugal' },

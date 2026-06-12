@@ -371,19 +371,25 @@
 
   .chip-pendiente { background: var(--gris-claro); border-color: rgba(200,16,46,0.08); }
 
+  .chip-exacto  { background: #e3f5ea; border-color: rgba(21,107,56,0.35); }
+  .chip-acierto { background: #fdf4d8; border-color: rgba(201,162,39,0.45); }
+  .chip-fallo   { background: #fbe4e4; border-color: rgba(160,26,26,0.3); }
+
   .chip-exacto   .chip-prono { color: var(--classify); }
   .chip-acierto .chip-prono { color: #7a5c00; }
-  .chip-fallo   .chip-prono { color: var(--rojo-oscuro); }
+  .chip-fallo   .chip-prono { color: #a01a1a; }
   .chip-pendiente .chip-prono { color: rgba(24,5,7,0.55); }
 
-  /* Partidazo del día */
+  .chip-exacto  .chip-nombre,
+  .chip-acierto .chip-nombre,
+  .chip-fallo   .chip-nombre { color: rgba(24,5,7,0.7); }
+
+  /* Partidazo del día — borde dorado destacado, conserva color de estado */
   .chip.es-partidazo {
     border-color: var(--dorado) !important;
-    background: #fffbf0 !important;
+    border-width: 1.5px;
     position: relative;
   }
-
-  .chip.es-partidazo .chip-prono { color: #7a5c00 !important; }
 
   .chip-ball {
     position: absolute;
@@ -2208,9 +2214,9 @@ const USE_SHEETS = false;
 // Solo hay que indicar equipoA y equipoB. El "resultado" déjalo null
 // hasta que acabe el partido; entonces pon: resultado: '2-1'
 const PARTIDOS_HOY = [
-  { columna: 'México vs Sudáfrica',             equipoA: 'México',       equipoB: 'Sudáfrica',     resultado: null,
+  { columna: 'México vs Sudáfrica',             equipoA: 'México',       equipoB: 'Sudáfrica',     resultado: '2-0',
     pronosticos: { 'Mamá':'2-1', 'Javi II':'2-1', 'Dani y Espe Jr.':'2-1', 'Leti I':'2-0', 'Andrés IV':'2-0', 'Tomás II':'1-0', 'Luis II':'1-0', 'Jorge II':'2-0', 'Josito I':'1-1', 'Cristina':'2-0', 'Fernando II':'2-1', 'Edu I':'2-0', 'Javito Jr.':'2-0', 'Anita':'3-2', 'Pablete':'2-1', 'Luki':'2-1', 'Iñiguín':'2-0', 'Mateo':'2-1' } },
-  { columna: 'Corea del Sur vs República Checa', equipoA: 'Corea del Sur', equipoB: 'República Checa', resultado: null,
+  { columna: 'Corea del Sur vs República Checa', equipoA: 'Corea del Sur', equipoB: 'República Checa', resultado: '2-1',
     pronosticos: { 'Mamá':'0-1', 'Javi II':'0-1', 'Dani y Espe Jr.':'0-1', 'Leti I':'1-1', 'Andrés IV':'2-1', 'Tomás II':'2-1', 'Luis II':'0-2', 'Jorge II':'0-1', 'Josito I':'2-0', 'Cristina':'1-1', 'Fernando II':'2-1', 'Edu I':'1-1', 'Javito Jr.':'1-2', 'Anita':'1-2', 'Pablete':'2-2', 'Luki':'0-1', 'Iñiguín':'1-0', 'Mateo':'0-0' } },
 ];
 // Para añadir o quitar partidos, añade o borra líneas de este array.
@@ -2219,7 +2225,7 @@ const PARTIDOS_HOY = [
 // Quien haya rellenado la pregunta de goleadores = es el Mungui ese día.
 // Solo hay que indicar los puntos que hizo el Mungui la jornada anterior.
 const MUNGUI_HOY = {
-  ptsDia: 0
+  ptsDia: 9
 };
 
 // ═══════════════════════════════════════════════════════════════
@@ -2336,14 +2342,26 @@ const PREVIOS_DATA = {
   }
 };
 
-const CLASIFICACION_DATA = PARTICIPANTES.map(n => ({
-  nombre: n,
-  pts: 0,        // Pts Totales
-  pts1x2: 0,     // Pts 1X2
-  ptsExacto: 0,  // Pts Resultado Exacto
-  ptsMungui: 0,  // Pts Mungui (bonus)
-  ptsTablas: 0   // Pts Tablas
-}));
+const CLASIFICACION_DATA = [
+  { nombre:'Mamá', pts:1, pts1x2:1, ptsExacto:0, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Javi II', pts:1, pts1x2:1, ptsExacto:0, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Dani y Espe Jr.', pts:2, pts1x2:2, ptsExacto:0, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Leti I', pts:8, pts1x2:2, ptsExacto:6, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Andrés IV', pts:12, pts1x2:3, ptsExacto:9, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Tomás II', pts:6, pts1x2:3, ptsExacto:3, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Luis II', pts:2, pts1x2:2, ptsExacto:0, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Jorge II', pts:8, pts1x2:2, ptsExacto:6, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Josito I', pts:2, pts1x2:2, ptsExacto:0, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Cristina', pts:8, pts1x2:2, ptsExacto:6, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Fernando II', pts:6, pts1x2:3, ptsExacto:3, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Edu I', pts:8, pts1x2:2, ptsExacto:6, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Javito Jr.', pts:8, pts1x2:2, ptsExacto:6, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Anita', pts:1, pts1x2:1, ptsExacto:0, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Pablete', pts:2, pts1x2:2, ptsExacto:0, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Luki', pts:2, pts1x2:2, ptsExacto:0, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Iñiguín', pts:6, pts1x2:3, ptsExacto:3, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Mateo', pts:1, pts1x2:1, ptsExacto:0, ptsMungui:0, ptsTablas:0 },
+];
 
 // ─────────────────────────────────────────────
 //  SHEETS ID para pronósticos previos

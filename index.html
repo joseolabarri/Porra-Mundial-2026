@@ -1478,12 +1478,12 @@
     font-weight: 600;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
+    color: #ffffff;
   }
 
   .mungui-top-sub {
     font-size: 10px;
-    color: rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.85);
     margin-top: 1px;
   }
 
@@ -1548,7 +1548,7 @@
     justify-content: space-between;
   }
 
-  .mungui-footer-txt { font-size: 10px; color: rgba(255,255,255,0.25); }
+  .mungui-footer-txt { font-size: 11px; font-weight: 600; color: #ffffff; }
   .mungui-footer-pts { font-size: 11px; font-weight: 600; color: rgba(240,201,64,0.65); }
 
   /* ── PERFIL MODAL ── */
@@ -2178,6 +2178,7 @@ function normEquipo(s) {
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     .replace(/rep\.?\s*checa|republica checa|chequia/g, 'republica checa')
     .replace(/rep\.?\s*d\.?\s*del?\s*congo|republica democratica del congo|rd congo|rdc/g, 'republica democratica del congo')
+    .replace(/bosnia[ -]?(y )?herzegovina|bosnia/g, 'bosnia herzegovina')
     .replace(/corea del sur|corea/g, 'corea del sur')
     .replace(/catar|qatar/g, 'catar')
     .replace(/arabia saudi|arabia saudita/g, 'arabia saudi')
@@ -2214,10 +2215,10 @@ const USE_SHEETS = false;
 // Solo hay que indicar equipoA y equipoB. El "resultado" déjalo null
 // hasta que acabe el partido; entonces pon: resultado: '2-1'
 const PARTIDOS_HOY = [
-  { columna: 'México vs Sudáfrica',             equipoA: 'México',       equipoB: 'Sudáfrica',     resultado: '2-0',
-    pronosticos: { 'Mamá':'2-1', 'Javi II':'2-1', 'Dani y Espe Jr.':'2-1', 'Leti I':'2-0', 'Andrés IV':'2-0', 'Tomás II':'1-0', 'Luis II':'1-0', 'Jorge II':'2-0', 'Josito I':'1-1', 'Cristina':'2-0', 'Fernando II':'2-1', 'Edu I':'2-0', 'Javito Jr.':'2-0', 'Anita':'3-2', 'Pablete':'2-1', 'Luki':'2-1', 'Iñiguín':'2-0', 'Mateo':'2-1' } },
-  { columna: 'Corea del Sur vs República Checa', equipoA: 'Corea del Sur', equipoB: 'República Checa', resultado: '2-1',
-    pronosticos: { 'Mamá':'0-1', 'Javi II':'0-1', 'Dani y Espe Jr.':'0-1', 'Leti I':'1-1', 'Andrés IV':'2-1', 'Tomás II':'2-1', 'Luis II':'0-2', 'Jorge II':'0-1', 'Josito I':'2-0', 'Cristina':'1-1', 'Fernando II':'2-1', 'Edu I':'1-1', 'Javito Jr.':'1-2', 'Anita':'1-2', 'Pablete':'2-2', 'Luki':'0-1', 'Iñiguín':'1-0', 'Mateo':'0-0' } },
+  { columna: 'Canadá vs Bosnia y Herzegovina',  equipoA: 'Canadá',        equipoB: 'Bosnia y Herzegovina', resultado: null,
+    pronosticos: { 'Mamá':'1-1', 'Javi II':'2-1', 'Dani y Espe Jr.':'1-1', 'Leti I':'1-0', 'Andrés IV':'1-1', 'Tomás II':'2-1', 'Luis II':'1-0', 'Jorge II':'2-1', 'Josito I':'1-1', 'Cristina':'1-0', 'Fernando II':'2-1', 'Edu I':'2-0', 'Javito Jr.':'2-0', 'Anita':'1-1', 'Pablete':'2-0', 'Luki':'2-0', 'Iñiguín':'2-3', 'Mateo':'2-0' } },
+  { columna: 'Estados Unidos vs Paraguay',       equipoA: 'Estados Unidos', equipoB: 'Paraguay',     resultado: null,
+    pronosticos: { 'Mamá':'0-1', 'Javi II':'1-1', 'Dani y Espe Jr.':'3-2', 'Leti I':'2-1', 'Andrés IV':'1-2', 'Tomás II':'2-0', 'Luis II':'2-1', 'Jorge II':'3-1', 'Josito I':'3-1', 'Cristina':'2-1', 'Fernando II':'1-2', 'Edu I':'1-0', 'Javito Jr.':'1-2', 'Anita':'1-2', 'Pablete':'3-2', 'Luki':'1-2', 'Iñiguín':'2-2', 'Mateo':'3-4' } },
 ];
 // Para añadir o quitar partidos, añade o borra líneas de este array.
 
@@ -2225,7 +2226,10 @@ const PARTIDOS_HOY = [
 // Quien haya rellenado la pregunta de goleadores = es el Mungui ese día.
 // Solo hay que indicar los puntos que hizo el Mungui la jornada anterior.
 const MUNGUI_HOY = {
-  ptsDia: 9
+  ptsDia: 12,
+  munguis: [
+    { nombre: 'Andrés IV', goleadores: ['Jonathan David'] },
+  ]
 };
 
 // ═══════════════════════════════════════════════════════════════
@@ -2280,7 +2284,7 @@ let PARTIDOS_DIA = PARTIDOS_HOY.map(p => {
     pronosticos: p.pronosticos || {}
   };
 });
-let PARTIDAZOS = { 'Mamá':'Corea del Sur vs República Checa', 'Javi II':'Corea del Sur vs República Checa', 'Dani y Espe Jr.':'México vs Sudáfrica', 'Leti I':'México vs Sudáfrica', 'Andrés IV':'México vs Sudáfrica', 'Tomás II':'México vs Sudáfrica', 'Luis II':'México vs Sudáfrica', 'Jorge II':'México vs Sudáfrica', 'Josito I':'Corea del Sur vs República Checa', 'Cristina':'México vs Sudáfrica', 'Fernando II':'México vs Sudáfrica', 'Edu I':'México vs Sudáfrica', 'Javito Jr.':'México vs Sudáfrica', 'Anita':'Corea del Sur vs República Checa', 'Pablete':'México vs Sudáfrica', 'Luki':'México vs Sudáfrica', 'Iñiguín':'Corea del Sur vs República Checa', 'Mateo':'Corea del Sur vs República Checa' };
+let PARTIDAZOS = { 'Mamá':'Canadá vs Bosnia y Herzegovina', 'Javi II':'Canadá vs Bosnia y Herzegovina', 'Dani y Espe Jr.':'Estados Unidos vs Paraguay', 'Leti I':'Canadá vs Bosnia y Herzegovina', 'Andrés IV':'Estados Unidos vs Paraguay', 'Tomás II':'Estados Unidos vs Paraguay', 'Luis II':'Estados Unidos vs Paraguay', 'Jorge II':'Estados Unidos vs Paraguay', 'Josito I':'Estados Unidos vs Paraguay', 'Cristina':'Estados Unidos vs Paraguay', 'Fernando II':'Estados Unidos vs Paraguay', 'Edu I':'Canadá vs Bosnia y Herzegovina', 'Javito Jr.':'Canadá vs Bosnia y Herzegovina', 'Anita':'Canadá vs Bosnia y Herzegovina', 'Pablete':'Estados Unidos vs Paraguay', 'Luki':'Canadá vs Bosnia y Herzegovina', 'Iñiguín':'Canadá vs Bosnia y Herzegovina', 'Mateo':'Estados Unidos vs Paraguay' };
 
 const GRUPOS_DATA = [
   { letra:'A', equipos:['Corea del Sur','República Checa','México','Sudáfrica'] },
@@ -2425,7 +2429,7 @@ function renderMungui() {
     </div>
     ${filas}
     <div class="mungui-footer">
-      <span class="mungui-footer-txt">Todo o nada · hay que acertar todos los dichos</span>
+      <span class="mungui-footer-txt">Todo o nada</span>
       <span class="mungui-footer-pts">+2 pts por goleador</span>
     </div>
   </div>`;

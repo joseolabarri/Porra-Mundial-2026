@@ -2215,9 +2215,9 @@ const USE_SHEETS = false;
 // Solo hay que indicar equipoA y equipoB. El "resultado" déjalo null
 // hasta que acabe el partido; entonces pon: resultado: '2-1'
 const PARTIDOS_HOY = [
-  { columna: 'Canadá vs Bosnia y Herzegovina',  equipoA: 'Canadá',        equipoB: 'Bosnia y Herzegovina', resultado: null,
+  { columna: 'Canadá vs Bosnia y Herzegovina',  equipoA: 'Canadá',        equipoB: 'Bosnia y Herzegovina', resultado: '1-1',
     pronosticos: { 'Mamá':'1-1', 'Javi II':'2-1', 'Dani y Espe Jr.':'1-1', 'Leti I':'1-0', 'Andrés IV':'1-1', 'Tomás II':'2-1', 'Luis II':'1-0', 'Jorge II':'2-1', 'Josito I':'1-1', 'Cristina':'1-0', 'Fernando II':'2-1', 'Edu I':'2-0', 'Javito Jr.':'2-0', 'Anita':'1-1', 'Pablete':'2-0', 'Luki':'2-0', 'Iñiguín':'2-3', 'Mateo':'2-0' } },
-  { columna: 'Estados Unidos vs Paraguay',       equipoA: 'Estados Unidos', equipoB: 'Paraguay',     resultado: null,
+  { columna: 'Estados Unidos vs Paraguay',       equipoA: 'Estados Unidos', equipoB: 'Paraguay',     resultado: '4-1',
     pronosticos: { 'Mamá':'0-1', 'Javi II':'1-1', 'Dani y Espe Jr.':'3-2', 'Leti I':'2-1', 'Andrés IV':'1-2', 'Tomás II':'2-0', 'Luis II':'2-1', 'Jorge II':'3-1', 'Josito I':'3-1', 'Cristina':'2-1', 'Fernando II':'1-2', 'Edu I':'1-0', 'Javito Jr.':'1-2', 'Anita':'1-2', 'Pablete':'3-2', 'Luki':'1-2', 'Iñiguín':'2-2', 'Mateo':'3-4' } },
 ];
 // Para añadir o quitar partidos, añade o borra líneas de este array.
@@ -2347,21 +2347,21 @@ const PREVIOS_DATA = {
 };
 
 const CLASIFICACION_DATA = [
-  { nombre:'Mamá', pts:1, pts1x2:1, ptsExacto:0, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Mamá', pts:9, pts1x2:3, ptsExacto:6, ptsMungui:0, ptsTablas:0 },
   { nombre:'Javi II', pts:1, pts1x2:1, ptsExacto:0, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Dani y Espe Jr.', pts:2, pts1x2:2, ptsExacto:0, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Leti I', pts:8, pts1x2:2, ptsExacto:6, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Andrés IV', pts:12, pts1x2:3, ptsExacto:9, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Tomás II', pts:6, pts1x2:3, ptsExacto:3, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Luis II', pts:2, pts1x2:2, ptsExacto:0, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Jorge II', pts:8, pts1x2:2, ptsExacto:6, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Josito I', pts:2, pts1x2:2, ptsExacto:0, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Cristina', pts:8, pts1x2:2, ptsExacto:6, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Dani y Espe Jr.', pts:8, pts1x2:5, ptsExacto:3, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Leti I', pts:9, pts1x2:3, ptsExacto:6, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Andrés IV', pts:16, pts1x2:4, ptsExacto:12, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Tomás II', pts:8, pts1x2:5, ptsExacto:3, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Luis II', pts:4, pts1x2:4, ptsExacto:0, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Jorge II', pts:10, pts1x2:4, ptsExacto:6, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Josito I', pts:8, pts1x2:5, ptsExacto:3, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Cristina', pts:10, pts1x2:4, ptsExacto:6, ptsMungui:0, ptsTablas:0 },
   { nombre:'Fernando II', pts:6, pts1x2:3, ptsExacto:3, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Edu I', pts:8, pts1x2:2, ptsExacto:6, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Edu I', pts:9, pts1x2:3, ptsExacto:6, ptsMungui:0, ptsTablas:0 },
   { nombre:'Javito Jr.', pts:8, pts1x2:2, ptsExacto:6, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Anita', pts:1, pts1x2:1, ptsExacto:0, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Pablete', pts:2, pts1x2:2, ptsExacto:0, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Anita', pts:9, pts1x2:3, ptsExacto:6, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Pablete', pts:4, pts1x2:4, ptsExacto:0, ptsMungui:0, ptsTablas:0 },
   { nombre:'Luki', pts:2, pts1x2:2, ptsExacto:0, ptsMungui:0, ptsTablas:0 },
   { nombre:'Iñiguín', pts:6, pts1x2:3, ptsExacto:3, ptsMungui:0, ptsTablas:0 },
   { nombre:'Mateo', pts:1, pts1x2:1, ptsExacto:0, ptsMungui:0, ptsTablas:0 },
@@ -2760,10 +2760,22 @@ function renderPrevios() {
 }
 
 // ─────────────────────────────────────────────
+//  ORDEN CON CRITERIOS DE DESEMPATE
+//  1º Pts totales · 2º Pts Mungui · 3º Pts Exacto · 4º Pts Tablas
+// ─────────────────────────────────────────────
+function compararClasificacion(a, b) {
+  if (b.pts !== a.pts) return b.pts - a.pts;
+  if ((b.ptsMungui||0) !== (a.ptsMungui||0)) return (b.ptsMungui||0) - (a.ptsMungui||0);
+  if ((b.ptsExacto||0) !== (a.ptsExacto||0)) return (b.ptsExacto||0) - (a.ptsExacto||0);
+  if ((b.ptsTablas||0) !== (a.ptsTablas||0)) return (b.ptsTablas||0) - (a.ptsTablas||0);
+  return 0;
+}
+
+// ─────────────────────────────────────────────
 //  RENDER CLASIFICACIÓN
 // ─────────────────────────────────────────────
 function renderClasificacion() {
-  const datos = [...CLASIFICACION_DATA].sort((a, b) => b.pts - a.pts);
+  const datos = [...CLASIFICACION_DATA].sort(compararClasificacion);
   const maxPts = datos[0]?.pts || 1;
 
   // Podio
@@ -2933,7 +2945,7 @@ async function actualizarDatos() {
 //  STATS
 // ─────────────────────────────────────────────
 function renderStats() {
-  const lider = [...CLASIFICACION_DATA].sort((a,b) => b.pts - a.pts)[0];
+  const lider = [...CLASIFICACION_DATA].sort(compararClasificacion)[0];
   document.getElementById('stat-lider').textContent = lider?.pts > 0 ? lider.nombre.split(' ')[0] : '—';
 }
 
@@ -2941,7 +2953,7 @@ function renderStats() {
 //  PERFIL DE PARTICIPANTE
 // ─────────────────────────────────────────────
 function abrirPerfil(nombre) {
-  const datos = [...CLASIFICACION_DATA].sort((a,b) => b.pts - a.pts);
+  const datos = [...CLASIFICACION_DATA].sort(compararClasificacion);
   const p = datos.find(d => d.nombre === nombre);
   const pos = datos.indexOf(p) + 1;
   const i = PARTICIPANTES.indexOf(nombre);

@@ -1551,6 +1551,28 @@
   .mungui-footer-txt { font-size: 11px; font-weight: 600; color: #ffffff; }
   .mungui-footer-pts { font-size: 11px; font-weight: 600; color: rgba(240,201,64,0.65); }
 
+  .mungui-gol-fallo {
+    text-decoration: line-through;
+    opacity: 0.5;
+    background: rgba(200,16,46,0.15) !important;
+    border-color: rgba(200,16,46,0.3) !important;
+    color: #ff9999 !important;
+  }
+  .mungui-gol-ok {
+    background: rgba(21,107,56,0.2) !important;
+    border-color: rgba(21,107,56,0.4) !important;
+    color: #7fe0a0 !important;
+  }
+  .mungui-estado {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 6px;
+    align-self: center;
+  }
+  .mungui-estado-fallo { background: rgba(200,16,46,0.2); color: #ff9999; }
+  .mungui-estado-ok { background: rgba(21,107,56,0.25); color: #7fe0a0; }
+
   /* ── PERFIL MODAL ── */
   .perfil-overlay {
     display: none;
@@ -2228,7 +2250,7 @@ const PARTIDOS_HOY = [
 const MUNGUI_HOY = {
   ptsDia: 12,
   munguis: [
-    { nombre: 'Andrés IV', goleadores: ['Jonathan David'] },
+    { nombre: 'Andrés IV', goleadores: ['Jonathan David'], acierto: false },
   ]
 };
 
@@ -2406,16 +2428,23 @@ function renderMungui() {
   const filas = lista.map(m => {
     const i = PARTICIPANTES.indexOf(m.nombre);
     const color = i >= 0 ? COLORES[i] : '#888';
+    // Estado: acierto true/false/undefined(pendiente)
+    const fallado = m.acierto === false;
+    const acertado = m.acierto === true;
+    const tagClass = fallado ? 'mungui-gol-tag mungui-gol-fallo' : (acertado ? 'mungui-gol-tag mungui-gol-ok' : 'mungui-gol-tag');
     const golesHTML = m.goleadores.length
-      ? m.goleadores.map(g => `<span class="mungui-gol-tag">${g}</span>`).join('')
+      ? m.goleadores.map(g => `<span class="${tagClass}">${g}</span>`).join('')
       : `<span class="mungui-sin-goles">Sin predicción</span>`;
+    let estadoHTML = '';
+    if (fallado)  estadoHTML = `<span class="mungui-estado mungui-estado-fallo">Falló · 0 pts</span>`;
+    if (acertado) estadoHTML = `<span class="mungui-estado mungui-estado-ok">¡Acertó! +${m.goleadores.length * 2} pts</span>`;
     return `<div class="mungui-row">
       <div class="mungui-persona-izq">
         <div class="chip-avatar" style="background:${color}1f;width:26px;height:26px;font-size:15px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">${avatar(m.nombre)}</div>
         <span class="mungui-persona-nombre">${m.nombre}</span>
       </div>
       <span class="mungui-flecha">→</span>
-      <div class="mungui-goles-lista">${golesHTML}</div>
+      <div class="mungui-goles-lista">${golesHTML}${estadoHTML}</div>
     </div>`;
   }).join('');
 

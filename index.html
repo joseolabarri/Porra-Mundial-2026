@@ -2253,13 +2253,13 @@ const USE_SHEETS = false;
 // Solo hay que indicar equipoA y equipoB. El "resultado" déjalo null
 // hasta que acabe el partido; entonces pon: resultado: '2-1'
 const PARTIDOS_HOY = [
-  { columna: 'Portugal vs República Democrática del Congo', equipoA: 'Portugal', equipoB: 'Rep. D. del Congo', resultado: null,
+  { columna: 'Portugal vs República Democrática del Congo', equipoA: 'Portugal', equipoB: 'Rep. D. del Congo', resultado: '1-1',
     pronosticos: { 'Mamá':'3-0', 'Javi II':'2-0', 'Dani y Espe Jr.':'4-0', 'Leti I':'3-1', 'Andrés IV':'3-0', 'Tomás II':'2-0', 'Luis II':'2-0', 'Jorge II':'4-0', 'Josito I':'3-0', 'Cristina':'2-1', 'Fernando II':'5-0', 'Edu I':'3-1', 'Javito Jr.':'3-0', 'Anita':'2-2', 'Pablete':'4-0', 'Luki':'3-0', 'Iñiguín':'2-1', 'Mateo':'3-0' } },
-  { columna: 'Inglaterra vs Croacia',      equipoA: 'Inglaterra', equipoB: 'Croacia',   resultado: null,
+  { columna: 'Inglaterra vs Croacia',      equipoA: 'Inglaterra', equipoB: 'Croacia',   resultado: '4-2',
     pronosticos: { 'Mamá':'1-1', 'Javi II':'1-1', 'Dani y Espe Jr.':'4-2', 'Leti I':'1-2', 'Andrés IV':'2-0', 'Tomás II':'1-0', 'Luis II':'1-0', 'Jorge II':'3-2', 'Josito I':'1-1', 'Cristina':'3-0', 'Fernando II':'2-1', 'Edu I':'2-1', 'Javito Jr.':'3-1', 'Anita':'3-2', 'Pablete':'2-2', 'Luki':'2-1', 'Iñiguín':'2-1', 'Mateo':'2-1' } },
-  { columna: 'Ghana vs Panamá',            equipoA: 'Ghana',      equipoB: 'Panamá',    resultado: null,
+  { columna: 'Ghana vs Panamá',            equipoA: 'Ghana',      equipoB: 'Panamá',    resultado: '1-0',
     pronosticos: { 'Mamá':'1-2', 'Javi II':'1-0', 'Dani y Espe Jr.':'2-0', 'Leti I':'0-2', 'Andrés IV':'3-0', 'Tomás II':'1-1', 'Luis II':'1-1', 'Jorge II':'0-0', 'Josito I':'2-1', 'Cristina':'1-1', 'Fernando II':'4-1', 'Edu I':'1-0', 'Javito Jr.':'0-0', 'Anita':'2-1', 'Pablete':'2-1', 'Luki':'1-1', 'Iñiguín':'2-1', 'Mateo':'2-3' } },
-  { columna: 'Uzbekistán vs Colombia',     equipoA: 'Uzbekistán', equipoB: 'Colombia',  resultado: null,
+  { columna: 'Uzbekistán vs Colombia',     equipoA: 'Uzbekistán', equipoB: 'Colombia',  resultado: '1-3',
     pronosticos: { 'Mamá':'0-2', 'Javi II':'1-2', 'Dani y Espe Jr.':'1-2', 'Leti I':'1-2', 'Andrés IV':'0-2', 'Tomás II':'0-3', 'Luis II':'0-1', 'Jorge II':'0-2', 'Josito I':'1-3', 'Cristina':'0-2', 'Fernando II':'1-3', 'Edu I':'0-2', 'Javito Jr.':'1-3', 'Anita':'1-2', 'Pablete':'1-2', 'Luki':'0-2', 'Iñiguín':'1-3', 'Mateo':'0-2' } },
 ];
 // Para añadir o quitar partidos, añade o borra líneas de este array.
@@ -2270,7 +2270,7 @@ const PARTIDOS_HOY = [
 const MUNGUI_HOY = {
   ptsDia: 18,
   munguis: [
-    { nombre: 'Mateo', goleadores: ['Cristiano Ronaldo'] },
+    { nombre: 'Mateo', goleadores: ['Cristiano Ronaldo'], acierto: false },
   ]
 };
 
@@ -2389,24 +2389,24 @@ const PREVIOS_DATA = {
 };
 
 const CLASIFICACION_DATA = [
-  { nombre:'Mamá', pts:22, pts1x2:11, ptsExacto:9, ptsMungui:2, ptsTablas:0 },
-  { nombre:'Javi II', pts:17, pts1x2:11, ptsExacto:6, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Dani y Espe Jr.', pts:18, pts1x2:15, ptsExacto:3, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Leti I', pts:27, pts1x2:12, ptsExacto:15, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Andrés IV', pts:31, pts1x2:13, ptsExacto:18, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Tomás II', pts:15, pts1x2:12, ptsExacto:3, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Luis II', pts:21, pts1x2:13, ptsExacto:8, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Jorge II', pts:18, pts1x2:12, ptsExacto:6, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Josito I', pts:24, pts1x2:15, ptsExacto:9, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Cristina', pts:22, pts1x2:13, ptsExacto:9, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Fernando II', pts:16, pts1x2:10, ptsExacto:6, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Edu I', pts:22, pts1x2:13, ptsExacto:9, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Javito Jr.', pts:24, pts1x2:13, ptsExacto:9, ptsMungui:2, ptsTablas:0 },
-  { nombre:'Anita', pts:23, pts1x2:15, ptsExacto:6, ptsMungui:2, ptsTablas:0 },
-  { nombre:'Pablete', pts:30, pts1x2:15, ptsExacto:11, ptsMungui:4, ptsTablas:0 },
-  { nombre:'Luki', pts:15, pts1x2:9, ptsExacto:6, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Iñiguín', pts:15, pts1x2:12, ptsExacto:3, ptsMungui:0, ptsTablas:0 },
-  { nombre:'Mateo', pts:21, pts1x2:7, ptsExacto:14, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Mamá', pts:23, pts1x2:12, ptsExacto:9, ptsMungui:2, ptsTablas:0 },
+  { nombre:'Javi II', pts:22, pts1x2:13, ptsExacto:9, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Dani y Espe Jr.', pts:30, pts1x2:19, ptsExacto:11, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Leti I', pts:28, pts1x2:13, ptsExacto:15, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Andrés IV', pts:34, pts1x2:16, ptsExacto:18, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Tomás II', pts:17, pts1x2:14, ptsExacto:3, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Luis II', pts:24, pts1x2:16, ptsExacto:8, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Jorge II', pts:20, pts1x2:14, ptsExacto:6, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Josito I', pts:29, pts1x2:17, ptsExacto:12, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Cristina', pts:24, pts1x2:15, ptsExacto:9, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Fernando II', pts:23, pts1x2:14, ptsExacto:9, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Edu I', pts:28, pts1x2:16, ptsExacto:12, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Javito Jr.', pts:29, pts1x2:15, ptsExacto:12, ptsMungui:2, ptsTablas:0 },
+  { nombre:'Anita', pts:28, pts1x2:20, ptsExacto:6, ptsMungui:2, ptsTablas:0 },
+  { nombre:'Pablete', pts:32, pts1x2:17, ptsExacto:11, ptsMungui:4, ptsTablas:0 },
+  { nombre:'Luki', pts:18, pts1x2:12, ptsExacto:6, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Iñiguín', pts:22, pts1x2:16, ptsExacto:6, ptsMungui:0, ptsTablas:0 },
+  { nombre:'Mateo', pts:24, pts1x2:10, ptsExacto:14, ptsMungui:0, ptsTablas:0 },
 ];
 
 // ─────────────────────────────────────────────

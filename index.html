@@ -2253,14 +2253,18 @@ const USE_SHEETS = false;
 // Solo hay que indicar equipoA y equipoB. El "resultado" déjalo null
 // hasta que acabe el partido; entonces pon: resultado: '2-1'
 const PARTIDOS_HOY = [
-  { columna: 'Portugal vs Uzbekistán', equipoA: 'Portugal', equipoB: 'Uzbekistán', resultado: '5-0',
-    pronosticos: { 'Javi II':'2-1', 'Luis II':'4-0', 'Cristina':'2-0', 'Fernando II':'5-0', 'Jorge II':'3-0', 'Tomás II':'3-0', 'Pablete':'3-0', 'Leti I':'3-0', 'Mateo':'3-1', 'Iñiguín':'2-0', 'Luki':'2-0', 'Javito Jr.':'3-0', 'Anita':'2-0', 'Mamá':'3-0', 'Edu I':'2-0', 'Andrés IV':'2-0', 'Josito I':'2-1', 'Dani y Espe Jr.':'4-0' } },
-  { columna: 'Inglaterra vs Ghana', equipoA: 'Inglaterra', equipoB: 'Ghana', resultado: '0-0',
-    pronosticos: { 'Javi II':'2-0', 'Luis II':'3-1', 'Cristina':'3-0', 'Fernando II':'3-0', 'Jorge II':'3-1', 'Tomás II':'3-0', 'Pablete':'3-1', 'Leti I':'4-1', 'Mateo':'3-1', 'Iñiguín':'1-0', 'Luki':'2-0', 'Javito Jr.':'3-0', 'Anita':'3-1', 'Mamá':'2-1', 'Edu I':'2-1', 'Andrés IV':'3-1', 'Josito I':'2-0', 'Dani y Espe Jr.':'3-0' } },
-  { columna: 'Panamá vs Croacia', equipoA: 'Panamá', equipoB: 'Croacia', resultado: '0-1',
-    pronosticos: { 'Javi II':'0-2', 'Luis II':'0-1', 'Cristina':'1-2', 'Fernando II':'0-2', 'Jorge II':'0-1', 'Tomás II':'1-3', 'Pablete':'1-2', 'Leti I':'1-2', 'Mateo':'0-2', 'Iñiguín':'0-1', 'Luki':'1-2', 'Javito Jr.':'1-2', 'Anita':'1-1', 'Mamá':'1-2', 'Edu I':'1-2', 'Andrés IV':'0-2', 'Josito I':'1-2', 'Dani y Espe Jr.':'0-1' } },
-  { columna: 'Colombia vs R.D. Congo', equipoA: 'Colombia', equipoB: 'R.D. Congo', resultado: '1-0',
-    pronosticos: { 'Javi II':'2-1', 'Luis II':'1-1', 'Cristina':'2-1', 'Fernando II':'3-1', 'Jorge II':'2-0', 'Tomás II':'3-2', 'Pablete':'2-1', 'Leti I':'2-0', 'Mateo':'3-0', 'Iñiguín':'1-2', 'Luki':'1-1', 'Javito Jr.':'2-1', 'Anita':'2-1', 'Mamá':'1-1', 'Edu I':'2-0', 'Andrés IV':'1-1', 'Josito I':'3-0', 'Dani y Espe Jr.':'2-0' } },
+  { columna: 'Suiza vs Canadá', equipoA: 'Suiza', equipoB: 'Canadá', resultado: null,
+    pronosticos: { 'Javi II':'2-1', 'Tomás II':'0-0', 'Mateo':'2-1', 'Luki':'1-1', 'Javito Jr.':'2-1', 'Iñiguín':'0-2', 'Leti I':'2-1', 'Luis II':'1-0', 'Andrés IV':'1-1', 'Edu I':'2-1', 'Cristina':'1-2', 'Jorge II':'1-2', 'Mamá':'2-0', 'Fernando II':'2-0', 'Anita':'2-2', 'Pablete':'2-2', 'Dani y Espe Jr.':'2-1', 'Josito I':'1-0' } },
+  { columna: 'Bosnia y Herzegovina vs Qatar', equipoA: 'Bosnia y Herzegovina', equipoB: 'Qatar', resultado: null,
+    pronosticos: { 'Javi II':'2-0', 'Tomás II':'2-0', 'Mateo':'2-1', 'Luki':'3-1', 'Javito Jr.':'1-0', 'Iñiguín':'1-0', 'Leti I':'2-0', 'Luis II':'2-0', 'Andrés IV':'2-0', 'Edu I':'2-0', 'Cristina':'1-1', 'Jorge II':'1-0', 'Mamá':'1-1', 'Fernando II':'2-0', 'Anita':'2-1', 'Pablete':'3-0', 'Dani y Espe Jr.':'2-0', 'Josito I':'2-0' } },
+  { columna: 'Escocia vs Brasil', equipoA: 'Escocia', equipoB: 'Brasil', resultado: null,
+    pronosticos: { 'Javi II':'0-3', 'Tomás II':'0-2', 'Mateo':'2-3', 'Luki':'1-4', 'Javito Jr.':'1-4', 'Iñiguín':'0-2', 'Leti I':'0-4', 'Luis II':'0-1', 'Andrés IV':'0-3', 'Edu I':'0-2', 'Cristina':'1-3', 'Jorge II':'1-3', 'Mamá':'1-3', 'Fernando II':'0-3', 'Anita':'1-3', 'Pablete':'1-4', 'Dani y Espe Jr.':'0-3', 'Josito I':'0-2' } },
+  { columna: 'Marruecos vs Haití', equipoA: 'Marruecos', equipoB: 'Haití', resultado: null,
+    pronosticos: { 'Javi II':'3-0', 'Tomás II':'4-0', 'Mateo':'2-1', 'Luki':'5-1', 'Javito Jr.':'4-0', 'Iñiguín':'3-1', 'Leti I':'3-1', 'Luis II':'2-0', 'Andrés IV':'3-0', 'Edu I':'3-0', 'Cristina':'2-0', 'Jorge II':'4-0', 'Mamá':'2-0', 'Fernando II':'4-0', 'Anita':'3-1', 'Pablete':'3-0', 'Dani y Espe Jr.':'3-0', 'Josito I':'2-0' } },
+  { columna: 'República Checa vs México', equipoA: 'República Checa', equipoB: 'México', resultado: null,
+    pronosticos: { 'Javi II':'0-2', 'Tomás II':'1-1', 'Mateo':'4-1', 'Luki':'0-2', 'Javito Jr.':'1-3', 'Iñiguín':'1-1', 'Leti I':'1-2', 'Luis II':'1-1', 'Andrés IV':'1-2', 'Edu I':'1-2', 'Cristina':'0-2', 'Jorge II':'0-1', 'Mamá':'0-2', 'Fernando II':'1-2', 'Anita':'1-2', 'Pablete':'2-2', 'Dani y Espe Jr.':'1-1', 'Josito I':'2-1' } },
+  { columna: 'Sudáfrica vs Corea del Sur', equipoA: 'Sudáfrica', equipoB: 'Corea del Sur', resultado: null,
+    pronosticos: { 'Javi II':'1-2', 'Tomás II':'0-2', 'Mateo':'2-1', 'Luki':'1-3', 'Javito Jr.':'0-2', 'Iñiguín':'2-2', 'Leti I':'1-1', 'Luis II':'0-1', 'Andrés IV':'0-2', 'Edu I':'0-2', 'Cristina':'1-0', 'Jorge II':'0-2', 'Mamá':'2-1', 'Fernando II':'0-3', 'Anita':'0-1', 'Pablete':'1-1', 'Dani y Espe Jr.':'0-2', 'Josito I':'1-2' } },
 ];
 // Para añadir o quitar partidos, añade o borra líneas de este array.
 
@@ -2268,9 +2272,9 @@ const PARTIDOS_HOY = [
 // Quien haya rellenado la pregunta de goleadores = es el Mungui ese día.
 // Solo hay que indicar los puntos que hizo el Mungui la jornada anterior.
 const MUNGUI_HOY = {
-  ptsDia: 3,
+  ptsDia: 9,
   munguis: [
-    { nombre: 'Edu I', goleadores: ['Harry Kane'], acierto: false },
+    { nombre: 'Luis II', goleadores: ['Brahim', 'Schick', 'Demirovic'] },
   ]
 };
 
@@ -2326,7 +2330,7 @@ let PARTIDOS_DIA = PARTIDOS_HOY.map(p => {
     pronosticos: p.pronosticos || {}
   };
 });
-let PARTIDAZOS = { 'Javi II':'Inglaterra vs Ghana', 'Luis II':'Panamá vs Croacia', 'Cristina':'Inglaterra vs Ghana', 'Fernando II':'Inglaterra vs Ghana', 'Jorge II':'Portugal vs Uzbekistán', 'Tomás II':'Panamá vs Croacia', 'Pablete':'Panamá vs Croacia', 'Leti I':'Inglaterra vs Ghana', 'Mateo':'Colombia vs R.D. Congo', 'Iñiguín':'Colombia vs R.D. Congo', 'Luki':'Panamá vs Croacia', 'Javito Jr.':'Colombia vs R.D. Congo', 'Anita':'Inglaterra vs Ghana', 'Mamá':'Portugal vs Uzbekistán', 'Edu I':'Inglaterra vs Ghana', 'Andrés IV':'Portugal vs Uzbekistán', 'Josito I':'Inglaterra vs Ghana', 'Dani y Espe Jr.':'Inglaterra vs Ghana' };
+let PARTIDAZOS = { 'Javi II':'Marruecos vs Haití', 'Tomás II':'Escocia vs Brasil', 'Mateo':'Marruecos vs Haití', 'Luki':'Suiza vs Canadá', 'Javito Jr.':'Suiza vs Canadá', 'Iñiguín':'Escocia vs Brasil', 'Leti I':'Escocia vs Brasil', 'Luis II':'Suiza vs Canadá', 'Andrés IV':'Escocia vs Brasil', 'Edu I':'Marruecos vs Haití', 'Cristina':'Escocia vs Brasil', 'Jorge II':'Marruecos vs Haití', 'Mamá':'Bosnia y Herzegovina vs Qatar', 'Fernando II':'Suiza vs Canadá', 'Anita':'Escocia vs Brasil', 'Pablete':'Bosnia y Herzegovina vs Qatar', 'Dani y Espe Jr.':'Escocia vs Brasil', 'Josito I':'Marruecos vs Haití' };
 
 const GRUPOS_DATA = [
   { letra:'A', equipos:['Corea del Sur','República Checa','México','Sudáfrica'] },

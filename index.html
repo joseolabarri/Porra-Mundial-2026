@@ -2174,6 +2174,9 @@
 // ═══════════════════════════════════════════════════════════════
 const CALENDARIO_GRUPOS = [
   { equipoA:'Sudáfrica', equipoB:'Canadá', grupo:'16avos', hora:'21:00', dia:28 },
+  { equipoA:'Brasil', equipoB:'Japón', grupo:'16avos', hora:'19:00', dia:29 },
+  { equipoA:'Alemania', equipoB:'Paraguay', grupo:'16avos', hora:'22:30', dia:29 },
+  { equipoA:'Países Bajos', equipoB:'Marruecos', grupo:'16avos', hora:'03:00', dia:30 },
   { equipoA:'México', equipoB:'Sudáfrica', grupo:'A', hora:'21:00', dia:11 },
   { equipoA:'Corea del Sur', equipoB:'República Checa', grupo:'A', hora:'04:00', dia:12 },
   { equipoA:'República Checa', equipoB:'Sudáfrica', grupo:'A', hora:'18:00', dia:18 },
@@ -2292,8 +2295,12 @@ const USE_SHEETS = false;
 // Solo hay que indicar equipoA y equipoB. El "resultado" déjalo null
 // hasta que acabe el partido; entonces pon: resultado: '2-1'
 const PARTIDOS_HOY = [
-  { columna: 'Sudáfrica vs Canadá', equipoA: 'Sudáfrica', equipoB: 'Canadá', resultado: '0-1',
-    pronosticos: { 'Mamá':'2-0', 'Javi II':'1-0', 'Dani y Espe Jr.':'1-2', 'Leti I':'1-3', 'Andrés IV':'1-2', 'Tomás II':'0-2', 'Luis II':'1-0', 'Jorge II':'0-3', 'Josito I':'2-1', 'Cristina':'1-2', 'Fernando II':'1-0', 'Edu I':'0-1', 'Javito Jr.':'1-2', 'Anita':'2-1', 'Pablete':'1-3', 'Luki':'2-2', 'Iñiguín':'2-1', 'Mateo':'1-2' } },
+  { columna: 'Brasil vs Japón', equipoA: 'Brasil', equipoB: 'Japón', resultado: null,
+    pronosticos: { 'Mamá':'2-1', 'Javi II':'3-1', 'Dani y Espe Jr.':'3-2', 'Leti I':'4-1', 'Andrés IV':'2-0', 'Tomás II':'2-0', 'Luis II':'1-0', 'Jorge II':'3-1', 'Josito I':'2-0', 'Cristina':'3-1', 'Fernando II':'2-1', 'Edu I':'2-1', 'Javito Jr.':'3-1', 'Anita':'3-1', 'Pablete':'3-3', 'Luki':'3-2', 'Iñiguín':'1-2', 'Mateo':'2-1' } },
+  { columna: 'Alemania vs Paraguay', equipoA: 'Alemania', equipoB: 'Paraguay', resultado: null,
+    pronosticos: { 'Mamá':'1-1', 'Javi II':'3-0', 'Dani y Espe Jr.':'4-0', 'Leti I':'3-1', 'Andrés IV':'2-0', 'Tomás II':'3-0', 'Luis II':'3-0', 'Jorge II':'3-0', 'Josito I':'2-0', 'Cristina':'3-0', 'Fernando II':'1-0', 'Edu I':'2-0', 'Javito Jr.':'4-1', 'Anita':'3-1', 'Pablete':'4-1', 'Luki':'3-1', 'Iñiguín':'1-0', 'Mateo':'3-2' } },
+  { columna: 'Países Bajos vs Marruecos', equipoA: 'Países Bajos', equipoB: 'Marruecos', resultado: null,
+    pronosticos: { 'Mamá':'1-1', 'Javi II':'2-1', 'Dani y Espe Jr.':'2-2', 'Leti I':'1-3', 'Andrés IV':'2-0', 'Tomás II':'2-2', 'Luis II':'2-0', 'Jorge II':'3-2', 'Josito I':'1-2', 'Cristina':'1-2', 'Fernando II':'1-2', 'Edu I':'1-1', 'Javito Jr.':'2-2', 'Anita':'2-2', 'Pablete':'2-2', 'Luki':'1-1', 'Iñiguín':'2-0', 'Mateo':'1-1' } },
 ];
 // Para añadir o quitar partidos, añade o borra líneas de este array.
 
@@ -2301,9 +2308,9 @@ const PARTIDOS_HOY = [
 // Quien haya rellenado la pregunta de goleadores = es el Mungui ese día.
 // Solo hay que indicar los puntos que hizo el Mungui la jornada anterior.
 const MUNGUI_HOY = {
-  ptsDia: 34,
+  ptsDia: 15,
   munguis: [
-    { nombre: 'Edu I', goleadores: ['Jonathan David'], acierto: false },
+    { nombre: 'Edu I', goleadores: ['Vini Jr.'] },
   ]
 };
 
@@ -2359,7 +2366,7 @@ let PARTIDOS_DIA = PARTIDOS_HOY.map(p => {
     pronosticos: p.pronosticos || {}
   };
 });
-let PARTIDAZOS = { 'Cristina':'Sudáfrica vs Canadá', 'Mateo':'Sudáfrica vs Canadá', 'Leti I':'Sudáfrica vs Canadá', 'Luki':'Sudáfrica vs Canadá', 'Javito Jr.':'Sudáfrica vs Canadá', 'Javi II':'Sudáfrica vs Canadá', 'Luis II':'Sudáfrica vs Canadá', 'Iñiguín':'Sudáfrica vs Canadá', 'Tomás II':'Sudáfrica vs Canadá', 'Edu I':'Sudáfrica vs Canadá', 'Jorge II':'Sudáfrica vs Canadá', 'Fernando II':'Sudáfrica vs Canadá', 'Pablete':'Sudáfrica vs Canadá', 'Dani y Espe Jr.':'Sudáfrica vs Canadá', 'Anita':'Sudáfrica vs Canadá', 'Andrés IV':'Sudáfrica vs Canadá', 'Mamá':'Sudáfrica vs Canadá', 'Josito I':'Sudáfrica vs Canadá' };
+let PARTIDAZOS = { 'Luis II':'Países Bajos vs Marruecos', 'Leti I':'Brasil vs Japón', 'Cristina':'Alemania vs Paraguay', 'Pablete':'Alemania vs Paraguay', 'Anita':'Brasil vs Japón', 'Dani y Espe Jr.':'Países Bajos vs Marruecos', 'Andrés IV':'Alemania vs Paraguay', 'Tomás II':'Brasil vs Japón', 'Mamá':'Brasil vs Japón', 'Javi II':'Alemania vs Paraguay', 'Edu I':'Alemania vs Paraguay', 'Jorge II':'Alemania vs Paraguay', 'Fernando II':'Brasil vs Japón', 'Javito Jr.':'Países Bajos vs Marruecos', 'Luki':'Brasil vs Japón', 'Iñiguín':'Países Bajos vs Marruecos', 'Mateo':'Alemania vs Paraguay', 'Josito I':'Alemania vs Paraguay' };
 
 const GRUPOS_DATA = [
   { letra:'A', equipos:['Corea del Sur','República Checa','México','Sudáfrica'] },

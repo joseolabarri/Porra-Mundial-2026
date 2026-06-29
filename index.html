@@ -1321,6 +1321,14 @@
   .fase-bloque-semis   .fase-equipo-tag { background: rgba(201,162,39,0.15); color: #7a5c00; }
   .fase-bloque-final   .fase-equipo-tag { background: rgba(200,16,46,0.1); color: var(--rojo-oscuro); font-size: 13px; }
 
+  /* Acierto confirmado en octavos: verde */
+  .fase-bloque-octavos .fase-equipo-tag.fase-equipo-acierto {
+    background: rgba(15,110,86,0.15);
+    color: #0F6E56;
+    font-weight: 700;
+  }
+  .fase-equipo-pts { font-weight: 700; font-size: 11px; }
+
   @media (max-width: 480px) {
     .previos-doble-grid { grid-template-columns: 1fr; }
     .grupos-previos-grid { grid-template-columns: 1fr; }
@@ -2284,7 +2292,7 @@ const USE_SHEETS = false;
 // Solo hay que indicar equipoA y equipoB. El "resultado" déjalo null
 // hasta que acabe el partido; entonces pon: resultado: '2-1'
 const PARTIDOS_HOY = [
-  { columna: 'Sudáfrica vs Canadá', equipoA: 'Sudáfrica', equipoB: 'Canadá', resultado: null,
+  { columna: 'Sudáfrica vs Canadá', equipoA: 'Sudáfrica', equipoB: 'Canadá', resultado: '0-1',
     pronosticos: { 'Mamá':'2-0', 'Javi II':'1-0', 'Dani y Espe Jr.':'1-2', 'Leti I':'1-3', 'Andrés IV':'1-2', 'Tomás II':'0-2', 'Luis II':'1-0', 'Jorge II':'0-3', 'Josito I':'2-1', 'Cristina':'1-2', 'Fernando II':'1-0', 'Edu I':'0-1', 'Javito Jr.':'1-2', 'Anita':'2-1', 'Pablete':'1-3', 'Luki':'2-2', 'Iñiguín':'2-1', 'Mateo':'1-2' } },
 ];
 // Para añadir o quitar partidos, añade o borra líneas de este array.
@@ -2295,7 +2303,7 @@ const PARTIDOS_HOY = [
 const MUNGUI_HOY = {
   ptsDia: 34,
   munguis: [
-    { nombre: 'Edu I', goleadores: ['Jonathan David'] },
+    { nombre: 'Edu I', goleadores: ['Jonathan David'], acierto: false },
   ]
 };
 
@@ -2391,6 +2399,10 @@ const EXCLUSIVAS_GRUPOS = {
   K: { 1: 'Mateo' }, // Mateo único en acertar Colombia 1º
 };
 
+// Selecciones YA confirmadas como clasificadas a octavos (ganadoras de dieciseisavos).
+// Se va rellenando según avanzan los cruces. Quien acertó (puso el equipo en su lista 'octavos') suma +5 y se ve en verde.
+const CLASIFICADOS_OCTAVOS = ['Canadá'];
+
 const PREVIOS_DATA = {
   pichichi: { 'Tomás II':'Raphinha','Fernando II':'Mbappé','Edu I':'Mbappé','Jorge II':'Harry Kane','Cristina':'Mbappé','Josito I':'Vinicius Junior','Pablete':'Cristiano Ronaldo','Anita':'Harry Kane','Dani y Espe Jr.':'Harry Kane','Javi II':'Oyarzábal','Luki':'Cristiano Ronaldo','Javito Jr.':'Mbappé','Iñiguín':'Mbappé','Mateo':'Oyarzábal','Leti I':'Mbappé','Andrés IV':'Mbappé','Mamá':'Mbappé' ,'Luis II':'Mbappé'},
   equipoGoleador: { 'Tomás II':'Brasil','Fernando II':'Portugal','Edu I':'Brasil','Jorge II':'Alemania','Cristina':'Francia','Josito I':'Alemania','Pablete':'Francia','Anita':'Brasil','Dani y Espe Jr.':'España','Javi II':'España','Luki':'Francia','Javito Jr.':'Argentina','Iñiguín':'España','Mateo':'España','Leti I':'Francia','Andrés IV':'España','Mamá':'Brasil' ,'Luis II':'Portugal'},
@@ -2437,22 +2449,22 @@ const PREVIOS_DATA = {
 };
 
 const CLASIFICACION_DATA = [
-  { nombre:'Edu I', pts:193, pts1x2:57, ptsExacto:42, ptsMungui:2, ptsTablas:92 },
-  { nombre:'Dani y Espe Jr.', pts:178, pts1x2:62, ptsExacto:37, ptsMungui:0, ptsTablas:79 },
-  { nombre:'Jorge II', pts:169, pts1x2:54, ptsExacto:39, ptsMungui:0, ptsTablas:76 },
+  { nombre:'Edu I', pts:208, pts1x2:59, ptsExacto:50, ptsMungui:2, ptsTablas:97 },
+  { nombre:'Dani y Espe Jr.', pts:180, pts1x2:64, ptsExacto:37, ptsMungui:0, ptsTablas:79 },
+  { nombre:'Jorge II', pts:171, pts1x2:56, ptsExacto:39, ptsMungui:0, ptsTablas:76 },
   { nombre:'Fernando II', pts:163, pts1x2:52, ptsExacto:32, ptsMungui:0, ptsTablas:79 },
   { nombre:'Javi II', pts:155, pts1x2:49, ptsExacto:27, ptsMungui:0, ptsTablas:79 },
-  { nombre:'Cristina', pts:153, pts1x2:51, ptsExacto:20, ptsMungui:0, ptsTablas:82 },
-  { nombre:'Mateo', pts:150, pts1x2:47, ptsExacto:28, ptsMungui:0, ptsTablas:75 },
-  { nombre:'Andrés IV', pts:148, pts1x2:51, ptsExacto:45, ptsMungui:0, ptsTablas:52 },
-  { nombre:'Pablete', pts:146, pts1x2:50, ptsExacto:29, ptsMungui:8, ptsTablas:59 },
-  { nombre:'Luis II', pts:143, pts1x2:50, ptsExacto:26, ptsMungui:0, ptsTablas:67 },
-  { nombre:'Leti I', pts:141, pts1x2:50, ptsExacto:21, ptsMungui:0, ptsTablas:70 },
-  { nombre:'Javito Jr.', pts:139, pts1x2:46, ptsExacto:30, ptsMungui:2, ptsTablas:61 },
-  { nombre:'Luki', pts:136, pts1x2:47, ptsExacto:29, ptsMungui:0, ptsTablas:60 },
+  { nombre:'Cristina', pts:155, pts1x2:53, ptsExacto:20, ptsMungui:0, ptsTablas:82 },
+  { nombre:'Mateo', pts:152, pts1x2:49, ptsExacto:28, ptsMungui:0, ptsTablas:75 },
+  { nombre:'Andrés IV', pts:150, pts1x2:53, ptsExacto:45, ptsMungui:0, ptsTablas:52 },
+  { nombre:'Pablete', pts:148, pts1x2:52, ptsExacto:29, ptsMungui:8, ptsTablas:59 },
+  { nombre:'Luis II', pts:148, pts1x2:50, ptsExacto:26, ptsMungui:0, ptsTablas:72 },
+  { nombre:'Leti I', pts:148, pts1x2:52, ptsExacto:21, ptsMungui:0, ptsTablas:75 },
+  { nombre:'Javito Jr.', pts:141, pts1x2:48, ptsExacto:30, ptsMungui:2, ptsTablas:61 },
+  { nombre:'Luki', pts:141, pts1x2:47, ptsExacto:29, ptsMungui:0, ptsTablas:65 },
+  { nombre:'Tomás II', pts:131, pts1x2:53, ptsExacto:12, ptsMungui:0, ptsTablas:66 },
   { nombre:'Anita', pts:130, pts1x2:54, ptsExacto:21, ptsMungui:2, ptsTablas:53 },
-  { nombre:'Tomás II', pts:124, pts1x2:51, ptsExacto:12, ptsMungui:0, ptsTablas:61 },
-  { nombre:'Mamá', pts:119, pts1x2:45, ptsExacto:15, ptsMungui:2, ptsTablas:57 },
+  { nombre:'Mamá', pts:124, pts1x2:45, ptsExacto:15, ptsMungui:2, ptsTablas:62 },
   { nombre:'Josito I', pts:114, pts1x2:54, ptsExacto:24, ptsMungui:0, ptsTablas:36 },
   { nombre:'Iñiguín', pts:108, pts1x2:48, ptsExacto:15, ptsMungui:0, ptsTablas:45 },
 ];
@@ -2868,7 +2880,14 @@ function renderFasePersona(nombre) {
         const esCampeon    = f.key === 'final' && idx === 0;
         const esSubcampeon = f.key === 'final' && idx === 1;
         const badge = esCampeon ? ' 🏆' : esSubcampeon ? ' 🥈' : '';
-        return `<span class="fase-equipo-tag">${eq}${badge}</span>`;
+        // En octavos: marcar en verde los equipos ya confirmados como clasificados (+5)
+        let claseAcierto = '';
+        let extraPts = '';
+        if (f.key === 'octavos' && CLASIFICADOS_OCTAVOS.some(c => normEquipo(c) === normEquipo(eq))) {
+          claseAcierto = ' fase-equipo-acierto';
+          extraPts = ' <span class="fase-equipo-pts">+5</span>';
+        }
+        return `<span class="fase-equipo-tag${claseAcierto}">${eq}${badge}${extraPts}</span>`;
       }).join('');
       return `<div class="fase-bloque-card ${f.cls}">
         <div class="fase-bloque-titulo">${f.icono} ${f.label}</div>

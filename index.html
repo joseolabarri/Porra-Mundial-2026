@@ -2298,11 +2298,11 @@ const USE_SHEETS = false;
 // Solo hay que indicar equipoA y equipoB. El "resultado" déjalo null
 // hasta que acabe el partido; entonces pon: resultado: '2-1'
 const PARTIDOS_HOY = [
-  { columna: 'Costa de Marfil vs Noruega', equipoA: 'Costa de Marfil', equipoB: 'Noruega', resultado: null,
+  { columna: 'Costa de Marfil vs Noruega', equipoA: 'Costa de Marfil', equipoB: 'Noruega', resultado: '1-2',
     pronosticos: { 'Mamá':'2-1', 'Javi II':'2-1', 'Dani y Espe Jr.':'2-3', 'Leti I':'1-2', 'Andrés IV':'1-2', 'Tomás II':'1-2', 'Luis II':'2-1', 'Jorge II':'0-2', 'Josito I':'2-2', 'Cristina':'0-2', 'Fernando II':'1-3', 'Edu I':'1-2', 'Javito Jr.':'2-3', 'Anita':'1-1', 'Pablete':'2-3', 'Luki':'1-3', 'Iñiguín':'0-2', 'Mateo':'1-1' } },
-  { columna: 'Francia vs Suecia', equipoA: 'Francia', equipoB: 'Suecia', resultado: null,
+  { columna: 'Francia vs Suecia', equipoA: 'Francia', equipoB: 'Suecia', resultado: '3-0',
     pronosticos: { 'Mamá':'2-1', 'Javi II':'3-1', 'Dani y Espe Jr.':'3-0', 'Leti I':'3-0', 'Andrés IV':'2-0', 'Tomás II':'3-1', 'Luis II':'3-0', 'Jorge II':'3-0', 'Josito I':'3-0', 'Cristina':'3-1', 'Fernando II':'4-1', 'Edu I':'2-1', 'Javito Jr.':'4-2', 'Anita':'3-1', 'Pablete':'3-1', 'Luki':'3-0', 'Iñiguín':'1-1', 'Mateo':'5-1' } },
-  { columna: 'México vs Ecuador', equipoA: 'México', equipoB: 'Ecuador', resultado: null,
+  { columna: 'México vs Ecuador', equipoA: 'México', equipoB: 'Ecuador', resultado: '2-0',
     pronosticos: { 'Mamá':'2-2', 'Javi II':'2-2', 'Dani y Espe Jr.':'2-1', 'Leti I':'2-0', 'Andrés IV':'1-0', 'Tomás II':'1-0', 'Luis II':'0-1', 'Jorge II':'1-2', 'Josito I':'1-0', 'Cristina':'2-2', 'Fernando II':'1-0', 'Edu I':'2-0', 'Javito Jr.':'1-2', 'Anita':'2-2', 'Pablete':'2-1', 'Luki':'2-1', 'Iñiguín':'1-2', 'Mateo':'1-0' } },
 ];
 // Para añadir o quitar partidos, añade o borra líneas de este array.
@@ -2313,7 +2313,7 @@ const PARTIDOS_HOY = [
 const MUNGUI_HOY = {
   ptsDia: 33,
   munguis: [
-    { nombre: 'Mamá', goleadores: ['Haaland', 'Mbappé'] },
+    { nombre: 'Mamá', goleadores: ['Haaland', 'Mbappé'], acierto: true },
   ]
 };
 
@@ -2411,7 +2411,7 @@ const EXCLUSIVAS_GRUPOS = {
 
 // Selecciones YA confirmadas como clasificadas a octavos (ganadoras de dieciseisavos).
 // Se va rellenando según avanzan los cruces. Quien acertó (puso el equipo en su lista 'octavos') suma +5 y se ve en verde.
-const CLASIFICADOS_OCTAVOS = ['Canadá', 'Brasil', 'Paraguay', 'Marruecos'];
+const CLASIFICADOS_OCTAVOS = ['Canadá', 'Brasil', 'Paraguay', 'Marruecos', 'Noruega', 'Francia', 'México'];
 
 const PREVIOS_DATA = {
   pichichi: { 'Tomás II':'Raphinha','Fernando II':'Mbappé','Edu I':'Mbappé','Jorge II':'Harry Kane','Cristina':'Mbappé','Josito I':'Vinicius Junior','Pablete':'Cristiano Ronaldo','Anita':'Harry Kane','Dani y Espe Jr.':'Harry Kane','Javi II':'Oyarzábal','Luki':'Cristiano Ronaldo','Javito Jr.':'Mbappé','Iñiguín':'Mbappé','Mateo':'Oyarzábal','Leti I':'Mbappé','Andrés IV':'Mbappé','Mamá':'Mbappé' ,'Luis II':'Mbappé'},
@@ -2459,24 +2459,24 @@ const PREVIOS_DATA = {
 };
 
 const CLASIFICACION_DATA = [
-  { nombre:'Edu I', pts:221, pts1x2:61, ptsExacto:56, ptsMungui:2, ptsTablas:102 },
-  { nombre:'Dani y Espe Jr.', pts:193, pts1x2:67, ptsExacto:37, ptsMungui:0, ptsTablas:89 },
-  { nombre:'Jorge II', pts:182, pts1x2:57, ptsExacto:39, ptsMungui:0, ptsTablas:86 },
-  { nombre:'Fernando II', pts:181, pts1x2:54, ptsExacto:38, ptsMungui:0, ptsTablas:89 },
-  { nombre:'Mateo', pts:175, pts1x2:51, ptsExacto:34, ptsMungui:0, ptsTablas:90 },
-  { nombre:'Javi II', pts:166, pts1x2:50, ptsExacto:27, ptsMungui:0, ptsTablas:89 },
-  { nombre:'Cristina', pts:166, pts1x2:54, ptsExacto:20, ptsMungui:0, ptsTablas:92 },
-  { nombre:'Andrés IV', pts:161, pts1x2:54, ptsExacto:45, ptsMungui:0, ptsTablas:62 },
-  { nombre:'Leti I', pts:160, pts1x2:54, ptsExacto:21, ptsMungui:0, ptsTablas:85 },
-  { nombre:'Pablete', pts:159, pts1x2:53, ptsExacto:29, ptsMungui:8, ptsTablas:69 },
-  { nombre:'Javito Jr.', pts:159, pts1x2:51, ptsExacto:30, ptsMungui:2, ptsTablas:76 },
-  { nombre:'Luis II', pts:159, pts1x2:51, ptsExacto:26, ptsMungui:0, ptsTablas:82 },
-  { nombre:'Mamá', pts:157, pts1x2:49, ptsExacto:29, ptsMungui:2, ptsTablas:77 },
-  { nombre:'Luki', pts:157, pts1x2:50, ptsExacto:32, ptsMungui:0, ptsTablas:75 },
-  { nombre:'Tomás II', pts:144, pts1x2:56, ptsExacto:12, ptsMungui:0, ptsTablas:76 },
-  { nombre:'Anita', pts:143, pts1x2:57, ptsExacto:21, ptsMungui:2, ptsTablas:63 },
-  { nombre:'Josito I', pts:125, pts1x2:55, ptsExacto:24, ptsMungui:0, ptsTablas:46 },
-  { nombre:'Iñiguín', pts:123, pts1x2:48, ptsExacto:15, ptsMungui:0, ptsTablas:60 },
+  { nombre:'Edu I', pts:241, pts1x2:65, ptsExacto:62, ptsMungui:2, ptsTablas:112 },
+  { nombre:'Dani y Espe Jr.', pts:210, pts1x2:71, ptsExacto:40, ptsMungui:0, ptsTablas:99 },
+  { nombre:'Jorge II', pts:206, pts1x2:60, ptsExacto:45, ptsMungui:0, ptsTablas:101 },
+  { nombre:'Fernando II', pts:200, pts1x2:58, ptsExacto:38, ptsMungui:0, ptsTablas:104 },
+  { nombre:'Leti I', pts:186, pts1x2:58, ptsExacto:33, ptsMungui:0, ptsTablas:95 },
+  { nombre:'Mateo', pts:182, pts1x2:53, ptsExacto:34, ptsMungui:0, ptsTablas:95 },
+  { nombre:'Cristina', pts:179, pts1x2:57, ptsExacto:20, ptsMungui:0, ptsTablas:102 },
+  { nombre:'Pablete', pts:178, pts1x2:57, ptsExacto:29, ptsMungui:8, ptsTablas:84 },
+  { nombre:'Andrés IV', pts:178, pts1x2:58, ptsExacto:48, ptsMungui:0, ptsTablas:72 },
+  { nombre:'Javi II', pts:178, pts1x2:52, ptsExacto:27, ptsMungui:0, ptsTablas:99 },
+  { nombre:'Luki', pts:174, pts1x2:54, ptsExacto:35, ptsMungui:0, ptsTablas:85 },
+  { nombre:'Luis II', pts:173, pts1x2:52, ptsExacto:29, ptsMungui:0, ptsTablas:92 },
+  { nombre:'Javito Jr.', pts:172, pts1x2:54, ptsExacto:30, ptsMungui:2, ptsTablas:86 },
+  { nombre:'Mamá', pts:167, pts1x2:50, ptsExacto:29, ptsMungui:6, ptsTablas:82 },
+  { nombre:'Tomás II', pts:156, pts1x2:60, ptsExacto:15, ptsMungui:0, ptsTablas:81 },
+  { nombre:'Anita', pts:150, pts1x2:59, ptsExacto:21, ptsMungui:2, ptsTablas:68 },
+  { nombre:'Josito I', pts:144, pts1x2:58, ptsExacto:30, ptsMungui:0, ptsTablas:56 },
+  { nombre:'Iñiguín', pts:129, pts1x2:49, ptsExacto:15, ptsMungui:0, ptsTablas:65 },
 ];
 
 // ─────────────────────────────────────────────

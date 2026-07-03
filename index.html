@@ -2285,6 +2285,19 @@ function infoPartido(equipoA, equipoB) {
   return m ? { hora: m.hora, grupo: m.grupo } : null;
 }
 
+// Convierte el valor 'grupo' de un partido en su etiqueta para el badge de Inicio.
+// Los grupos normales (A-L) salen como "Grupo X"; las fases eliminatorias, con su nombre.
+function etiquetaFase(grupo) {
+  const fases = {
+    '16avos': 'Dieciseisavos',
+    'octavos': 'Octavos',
+    'cuartos': 'Cuartos',
+    'semis': 'Semifinales',
+    'final': 'Final',
+  };
+  return fases[grupo] || ('Grupo ' + grupo);
+}
+
 // ═══════════════════════════════════════════════════════════════
 //  ▼▼▼  CAMBIA SOLO ESTO CADA DÍA DE PARTIDO  ▼▼▼
 // ═══════════════════════════════════════════════════════════════
@@ -2304,11 +2317,11 @@ const USE_SHEETS = false;
 // Solo hay que indicar equipoA y equipoB. El "resultado" déjalo null
 // hasta que acabe el partido; entonces pon: resultado: '2-1'
 const PARTIDOS_HOY = [
-  { columna: 'España vs Austria', equipoA: 'España', equipoB: 'Austria', resultado: null,
+  { columna: 'España vs Austria', equipoA: 'España', equipoB: 'Austria', resultado: '3-0',
     pronosticos: { 'Mamá':'2-1', 'Javi II':'2-0', 'Dani y Espe Jr.':'3-1', 'Leti I':'2-1', 'Andrés IV':'4-0', 'Tomás II':'2-0', 'Luis II':'2-0', 'Jorge II':'3-0', 'Josito I':'2-0', 'Cristina':'1-0', 'Fernando II':'2-1', 'Edu I':'2-0', 'Javito Jr.':'3-1', 'Anita':'3-2', 'Pablete':'3-1', 'Luki':'2-1', 'Iñiguín':'2-0', 'Mateo':'6-4' } },
-  { columna: 'Portugal vs Croacia', equipoA: 'Portugal', equipoB: 'Croacia', resultado: null,
+  { columna: 'Portugal vs Croacia', equipoA: 'Portugal', equipoB: 'Croacia', resultado: '2-1',
     pronosticos: { 'Mamá':'1-1', 'Javi II':'1-2', 'Dani y Espe Jr.':'2-0', 'Leti I':'3-1', 'Andrés IV':'2-0', 'Tomás II':'2-1', 'Luis II':'1-0', 'Jorge II':'2-0', 'Josito I':'3-2', 'Cristina':'2-1', 'Fernando II':'1-0', 'Edu I':'2-1', 'Javito Jr.':'3-1', 'Anita':'2-1', 'Pablete':'4-2', 'Luki':'2-3', 'Iñiguín':'2-1', 'Mateo':'1-1' } },
-  { columna: 'Suiza vs Argelia', equipoA: 'Suiza', equipoB: 'Argelia', resultado: null,
+  { columna: 'Suiza vs Argelia', equipoA: 'Suiza', equipoB: 'Argelia', resultado: '2-0',
     pronosticos: { 'Mamá':'2-1', 'Javi II':'2-0', 'Dani y Espe Jr.':'2-2', 'Leti I':'2-1', 'Andrés IV':'0-1', 'Tomás II':'3-1', 'Luis II':'2-0', 'Jorge II':'2-1', 'Josito I':'0-1', 'Cristina':'2-0', 'Fernando II':'3-0', 'Edu I':'2-1', 'Javito Jr.':'3-1', 'Anita':'1-1', 'Pablete':'2-2', 'Luki':'2-2', 'Iñiguín':'1-1', 'Mateo':'1-2' } },
 ];
 // Para añadir o quitar partidos, añade o borra líneas de este array.
@@ -2319,7 +2332,7 @@ const PARTIDOS_HOY = [
 const MUNGUI_HOY = {
   ptsDia: 22,
   munguis: [
-    { nombre: 'Luis II', goleadores: ['Ferrán Torres', 'Embolo', 'Gonçalo Ramos'] },
+    { nombre: 'Luis II', goleadores: ['Ferrán Torres', 'Embolo', 'Gonçalo Ramos'], acierto: false },
   ]
 };
 
@@ -2417,7 +2430,7 @@ const EXCLUSIVAS_GRUPOS = {
 
 // Selecciones YA confirmadas como clasificadas a octavos (ganadoras de dieciseisavos).
 // Se va rellenando según avanzan los cruces. Quien acertó (puso el equipo en su lista 'octavos') suma +5 y se ve en verde.
-const CLASIFICADOS_OCTAVOS = ['Canadá', 'Brasil', 'Paraguay', 'Marruecos', 'Noruega', 'Francia', 'México', 'Inglaterra', 'Bélgica', 'Estados Unidos'];
+const CLASIFICADOS_OCTAVOS = ['Canadá', 'Brasil', 'Paraguay', 'Marruecos', 'Noruega', 'Francia', 'México', 'Inglaterra', 'Bélgica', 'Estados Unidos', 'España', 'Portugal', 'Suiza'];
 
 const PREVIOS_DATA = {
   pichichi: { 'Tomás II':'Raphinha','Fernando II':'Mbappé','Edu I':'Mbappé','Jorge II':'Harry Kane','Cristina':'Mbappé','Josito I':'Vinicius Junior','Pablete':'Cristiano Ronaldo','Anita':'Harry Kane','Dani y Espe Jr.':'Harry Kane','Javi II':'Oyarzábal','Luki':'Cristiano Ronaldo','Javito Jr.':'Mbappé','Iñiguín':'Mbappé','Mateo':'Oyarzábal','Leti I':'Mbappé','Andrés IV':'Mbappé','Mamá':'Mbappé' ,'Luis II':'Mbappé'},
@@ -2465,24 +2478,24 @@ const PREVIOS_DATA = {
 };
 
 const CLASIFICACION_DATA = [
-  { nombre:'Edu I', pts:255, pts1x2:69, ptsExacto:62, ptsMungui:2, ptsTablas:122 },
-  { nombre:'Jorge II', pts:227, pts1x2:63, ptsExacto:48, ptsMungui:0, ptsTablas:116 },
-  { nombre:'Dani y Espe Jr.', pts:224, pts1x2:75, ptsExacto:40, ptsMungui:0, ptsTablas:109 },
-  { nombre:'Fernando II', pts:214, pts1x2:62, ptsExacto:38, ptsMungui:0, ptsTablas:114 },
-  { nombre:'Leti I', pts:205, pts1x2:61, ptsExacto:42, ptsMungui:2, ptsTablas:100 },
-  { nombre:'Javi II', pts:197, pts1x2:56, ptsExacto:27, ptsMungui:0, ptsTablas:114 },
-  { nombre:'Luis II', pts:195, pts1x2:56, ptsExacto:32, ptsMungui:0, ptsTablas:107 },
-  { nombre:'Andrés IV', pts:193, pts1x2:62, ptsExacto:54, ptsMungui:0, ptsTablas:77 },
-  { nombre:'Mateo', pts:192, pts1x2:53, ptsExacto:34, ptsMungui:0, ptsTablas:105 },
-  { nombre:'Cristina', pts:192, pts1x2:60, ptsExacto:20, ptsMungui:0, ptsTablas:112 },
-  { nombre:'Pablete', pts:189, pts1x2:58, ptsExacto:29, ptsMungui:8, ptsTablas:94 },
-  { nombre:'Luki', pts:188, pts1x2:58, ptsExacto:35, ptsMungui:0, ptsTablas:95 },
-  { nombre:'Javito Jr.', pts:185, pts1x2:57, ptsExacto:30, ptsMungui:2, ptsTablas:96 },
-  { nombre:'Mamá', pts:182, pts1x2:52, ptsExacto:32, ptsMungui:6, ptsTablas:92 },
-  { nombre:'Tomás II', pts:173, pts1x2:62, ptsExacto:15, ptsMungui:0, ptsTablas:96 },
-  { nombre:'Anita', pts:163, pts1x2:62, ptsExacto:21, ptsMungui:2, ptsTablas:78 },
-  { nombre:'Josito I', pts:151, pts1x2:60, ptsExacto:30, ptsMungui:0, ptsTablas:61 },
-  { nombre:'Iñiguín', pts:147, pts1x2:53, ptsExacto:24, ptsMungui:0, ptsTablas:70 },
+  { nombre:'Edu I', pts:272, pts1x2:73, ptsExacto:65, ptsMungui:2, ptsTablas:132 },
+  { nombre:'Jorge II', pts:249, pts1x2:67, ptsExacto:56, ptsMungui:0, ptsTablas:126 },
+  { nombre:'Dani y Espe Jr.', pts:237, pts1x2:78, ptsExacto:40, ptsMungui:0, ptsTablas:119 },
+  { nombre:'Fernando II', pts:233, pts1x2:66, ptsExacto:38, ptsMungui:0, ptsTablas:129 },
+  { nombre:'Leti I', pts:224, pts1x2:65, ptsExacto:42, ptsMungui:2, ptsTablas:115 },
+  { nombre:'Javi II', pts:218, pts1x2:59, ptsExacto:30, ptsMungui:0, ptsTablas:129 },
+  { nombre:'Luis II', pts:217, pts1x2:60, ptsExacto:35, ptsMungui:0, ptsTablas:122 },
+  { nombre:'Cristina', pts:215, pts1x2:64, ptsExacto:29, ptsMungui:0, ptsTablas:122 },
+  { nombre:'Mateo', pts:209, pts1x2:55, ptsExacto:34, ptsMungui:0, ptsTablas:120 },
+  { nombre:'Andrés IV', pts:206, pts1x2:65, ptsExacto:54, ptsMungui:0, ptsTablas:87 },
+  { nombre:'Pablete', pts:201, pts1x2:60, ptsExacto:29, ptsMungui:8, ptsTablas:104 },
+  { nombre:'Javito Jr.', pts:199, pts1x2:61, ptsExacto:30, ptsMungui:2, ptsTablas:106 },
+  { nombre:'Luki', pts:199, pts1x2:59, ptsExacto:35, ptsMungui:0, ptsTablas:105 },
+  { nombre:'Mamá', pts:195, pts1x2:55, ptsExacto:32, ptsMungui:6, ptsTablas:102 },
+  { nombre:'Tomás II', pts:190, pts1x2:66, ptsExacto:18, ptsMungui:0, ptsTablas:106 },
+  { nombre:'Anita', pts:179, pts1x2:65, ptsExacto:24, ptsMungui:2, ptsTablas:88 },
+  { nombre:'Josito I', pts:164, pts1x2:63, ptsExacto:30, ptsMungui:0, ptsTablas:71 },
+  { nombre:'Iñiguín', pts:158, pts1x2:56, ptsExacto:27, ptsMungui:0, ptsTablas:75 },
 ];
 
 // ─────────────────────────────────────────────
@@ -2609,7 +2622,7 @@ function renderPartidos() {
     card.innerHTML = `
       <div class="partido-top">
         <div class="partido-meta-row">
-          <span class="partido-grupo-badge">Grupo ${p.grupo}</span>
+          <span class="partido-grupo-badge">${etiquetaFase(p.grupo)}</span>
           <span class="partido-hora">${p.hora}</span>
         </div>
         <div class="partido-enfrentamiento">

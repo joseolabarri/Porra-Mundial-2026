@@ -2186,6 +2186,9 @@ const CALENDARIO_GRUPOS = [
   { equipoA:'España', equipoB:'Austria', grupo:'16avos', hora:'21:00', dia:2 },
   { equipoA:'Portugal', equipoB:'Croacia', grupo:'16avos', hora:'01:00', dia:3 },
   { equipoA:'Suiza', equipoB:'Argelia', grupo:'16avos', hora:'05:00', dia:3 },
+  { equipoA:'Australia', equipoB:'Egipto', grupo:'16avos', hora:'20:00', dia:3 },
+  { equipoA:'Argentina', equipoB:'Cabo Verde', grupo:'16avos', hora:'00:00', dia:4 },
+  { equipoA:'Colombia', equipoB:'Ghana', grupo:'16avos', hora:'03:30', dia:4 },
   { equipoA:'México', equipoB:'Sudáfrica', grupo:'A', hora:'21:00', dia:11 },
   { equipoA:'Corea del Sur', equipoB:'República Checa', grupo:'A', hora:'04:00', dia:12 },
   { equipoA:'República Checa', equipoB:'Sudáfrica', grupo:'A', hora:'18:00', dia:18 },
@@ -2317,12 +2320,12 @@ const USE_SHEETS = false;
 // Solo hay que indicar equipoA y equipoB. El "resultado" déjalo null
 // hasta que acabe el partido; entonces pon: resultado: '2-1'
 const PARTIDOS_HOY = [
-  { columna: 'España vs Austria', equipoA: 'España', equipoB: 'Austria', resultado: '3-0',
-    pronosticos: { 'Mamá':'2-1', 'Javi II':'2-0', 'Dani y Espe Jr.':'3-1', 'Leti I':'2-1', 'Andrés IV':'4-0', 'Tomás II':'2-0', 'Luis II':'2-0', 'Jorge II':'3-0', 'Josito I':'2-0', 'Cristina':'1-0', 'Fernando II':'2-1', 'Edu I':'2-0', 'Javito Jr.':'3-1', 'Anita':'3-2', 'Pablete':'3-1', 'Luki':'2-1', 'Iñiguín':'2-0', 'Mateo':'6-4' } },
-  { columna: 'Portugal vs Croacia', equipoA: 'Portugal', equipoB: 'Croacia', resultado: '2-1',
-    pronosticos: { 'Mamá':'1-1', 'Javi II':'1-2', 'Dani y Espe Jr.':'2-0', 'Leti I':'3-1', 'Andrés IV':'2-0', 'Tomás II':'2-1', 'Luis II':'1-0', 'Jorge II':'2-0', 'Josito I':'3-2', 'Cristina':'2-1', 'Fernando II':'1-0', 'Edu I':'2-1', 'Javito Jr.':'3-1', 'Anita':'2-1', 'Pablete':'4-2', 'Luki':'2-3', 'Iñiguín':'2-1', 'Mateo':'1-1' } },
-  { columna: 'Suiza vs Argelia', equipoA: 'Suiza', equipoB: 'Argelia', resultado: '2-0',
-    pronosticos: { 'Mamá':'2-1', 'Javi II':'2-0', 'Dani y Espe Jr.':'2-2', 'Leti I':'2-1', 'Andrés IV':'0-1', 'Tomás II':'3-1', 'Luis II':'2-0', 'Jorge II':'2-1', 'Josito I':'0-1', 'Cristina':'2-0', 'Fernando II':'3-0', 'Edu I':'2-1', 'Javito Jr.':'3-1', 'Anita':'1-1', 'Pablete':'2-2', 'Luki':'2-2', 'Iñiguín':'1-1', 'Mateo':'1-2' } },
+  { columna: 'Australia vs Egipto', equipoA: 'Australia', equipoB: 'Egipto', resultado: null,
+    pronosticos: { 'Mamá':'1-2', 'Javi II':'1-1', 'Dani y Espe Jr.':'1-2', 'Leti I':'0-2', 'Andrés IV':'0-2', 'Tomás II':'1-1', 'Luis II':'1-1', 'Jorge II':'0-1', 'Josito I':'2-1', 'Cristina':'2-1', 'Fernando II':'2-2', 'Edu I':'1-1', 'Javito Jr.':'1-1', 'Anita':'1-2', 'Pablete':'1-2', 'Luki':'2-2', 'Iñiguín':'0-2', 'Mateo':'0-1' } },
+  { columna: 'Argentina vs Cabo Verde', equipoA: 'Argentina', equipoB: 'Cabo Verde', resultado: null,
+    pronosticos: { 'Mamá':'3-1', 'Javi II':'3-0', 'Dani y Espe Jr.':'3-0', 'Leti I':'3-0', 'Andrés IV':'2-0', 'Tomás II':'3-0', 'Luis II':'2-0', 'Jorge II':'4-0', 'Josito I':'1-0', 'Cristina':'3-0', 'Fernando II':'3-0', 'Edu I':'2-0', 'Javito Jr.':'3-0', 'Anita':'3-2', 'Pablete':'5-0', 'Luki':'2-0', 'Iñiguín':'2-1', 'Mateo':'1-1' } },
+  { columna: 'Colombia vs Ghana', equipoA: 'Colombia', equipoB: 'Ghana', resultado: null,
+    pronosticos: { 'Mamá':'1-0', 'Javi II':'2-0', 'Dani y Espe Jr.':'2-2', 'Leti I':'4-1', 'Andrés IV':'2-0', 'Tomás II':'2-0', 'Luis II':'1-0', 'Jorge II':'2-1', 'Josito I':'1-2', 'Cristina':'2-1', 'Fernando II':'3-1', 'Edu I':'2-1', 'Javito Jr.':'2-0', 'Anita':'2-2', 'Pablete':'2-2', 'Luki':'2-1', 'Iñiguín':'1-1', 'Mateo':'0-2' } },
 ];
 // Para añadir o quitar partidos, añade o borra líneas de este array.
 
@@ -2330,9 +2333,9 @@ const PARTIDOS_HOY = [
 // Quien haya rellenado la pregunta de goleadores = es el Mungui ese día.
 // Solo hay que indicar los puntos que hizo el Mungui la jornada anterior.
 const MUNGUI_HOY = {
-  ptsDia: 22,
+  ptsDia: 23,
   munguis: [
-    { nombre: 'Luis II', goleadores: ['Ferrán Torres', 'Embolo', 'Gonçalo Ramos'], acierto: false },
+    { nombre: 'Cristina', goleadores: ['Messi', 'Luis Díaz'] },
   ]
 };
 
@@ -2388,7 +2391,7 @@ let PARTIDOS_DIA = PARTIDOS_HOY.map(p => {
     pronosticos: p.pronosticos || {}
   };
 });
-let PARTIDAZOS = { 'Leti I':'Portugal vs Croacia', 'Andrés IV':'España vs Austria', 'Pablete':'Suiza vs Argelia', 'Anita':'España vs Austria', 'Dani y Espe Jr.':'España vs Austria', 'Cristina':'Portugal vs Croacia', 'Javi II':'España vs Austria', 'Tomás II':'Suiza vs Argelia', 'Edu I':'Suiza vs Argelia', 'Mamá':'Suiza vs Argelia', 'Luki':'Suiza vs Argelia', 'Javito Jr.':'España vs Austria', 'Iñiguín':'España vs Austria', 'Mateo':'España vs Austria', 'Jorge II':'España vs Austria', 'Fernando II':'Portugal vs Croacia', 'Luis II':'Portugal vs Croacia', 'Josito I':'España vs Austria' };
+let PARTIDAZOS = { 'Leti I':'Argentina vs Cabo Verde', 'Cristina':'Argentina vs Cabo Verde', 'Pablete':'Australia vs Egipto', 'Luis II':'Colombia vs Ghana', 'Andrés IV':'Argentina vs Cabo Verde', 'Tomás II':'Australia vs Egipto', 'Javi II':'Argentina vs Cabo Verde', 'Jorge II':'Argentina vs Cabo Verde', 'Josito I':'Argentina vs Cabo Verde', 'Anita':'Argentina vs Cabo Verde', 'Dani y Espe Jr.':'Australia vs Egipto', 'Javito Jr.':'Colombia vs Ghana', 'Luki':'Argentina vs Cabo Verde', 'Iñiguín':'Australia vs Egipto', 'Mateo':'Colombia vs Ghana', 'Edu I':'Argentina vs Cabo Verde', 'Fernando II':'Argentina vs Cabo Verde', 'Mamá':'Argentina vs Cabo Verde' };
 
 const GRUPOS_DATA = [
   { letra:'A', equipos:['Corea del Sur','República Checa','México','Sudáfrica'] },

@@ -956,6 +956,12 @@
     color: var(--rojo);
     line-height: 1.2;
   }
+  .pichichi-chip-valor.pichichi-valor-eliminado {
+    color: #A32D2D;
+    text-decoration: line-through;
+    text-decoration-color: rgba(163,45,45,0.5);
+    opacity: 0.85;
+  }
 
   @media (max-width: 680px) {
     .pichichi-grid { grid-template-columns: 1fr; }
@@ -1326,6 +1332,16 @@
     background: rgba(15,110,86,0.15);
     color: #0F6E56;
     font-weight: 700;
+  }
+  .fase-bloque-octavos .fase-equipo-tag.fase-equipo-fallo,
+  .fase-bloque-cuartos .fase-equipo-tag.fase-equipo-fallo,
+  .fase-bloque-semis   .fase-equipo-tag.fase-equipo-fallo,
+  .fase-bloque-final   .fase-equipo-tag.fase-equipo-fallo {
+    background: rgba(163,45,45,0.08);
+    color: #A32D2D;
+    font-weight: 600;
+    text-decoration: line-through;
+    text-decoration-color: rgba(163,45,45,0.45);
   }
   .fase-equipo-pts { font-weight: 700; font-size: 11px; }
 
@@ -2320,11 +2336,11 @@ const USE_SHEETS = false;
 // Solo hay que indicar equipoA y equipoB. El "resultado" déjalo null
 // hasta que acabe el partido; entonces pon: resultado: '2-1'
 const PARTIDOS_HOY = [
-  { columna: 'Australia vs Egipto', equipoA: 'Australia', equipoB: 'Egipto', resultado: null,
+  { columna: 'Australia vs Egipto', equipoA: 'Australia', equipoB: 'Egipto', resultado: '1-1',
     pronosticos: { 'Mamá':'1-2', 'Javi II':'1-1', 'Dani y Espe Jr.':'1-2', 'Leti I':'0-2', 'Andrés IV':'0-2', 'Tomás II':'1-1', 'Luis II':'1-1', 'Jorge II':'0-1', 'Josito I':'2-1', 'Cristina':'2-1', 'Fernando II':'2-2', 'Edu I':'1-1', 'Javito Jr.':'1-1', 'Anita':'1-2', 'Pablete':'1-2', 'Luki':'2-2', 'Iñiguín':'0-2', 'Mateo':'0-1' } },
-  { columna: 'Argentina vs Cabo Verde', equipoA: 'Argentina', equipoB: 'Cabo Verde', resultado: null,
+  { columna: 'Argentina vs Cabo Verde', equipoA: 'Argentina', equipoB: 'Cabo Verde', resultado: '3-2',
     pronosticos: { 'Mamá':'3-1', 'Javi II':'3-0', 'Dani y Espe Jr.':'3-0', 'Leti I':'3-0', 'Andrés IV':'2-0', 'Tomás II':'3-0', 'Luis II':'2-0', 'Jorge II':'4-0', 'Josito I':'1-0', 'Cristina':'3-0', 'Fernando II':'3-0', 'Edu I':'2-0', 'Javito Jr.':'3-0', 'Anita':'3-2', 'Pablete':'5-0', 'Luki':'2-0', 'Iñiguín':'2-1', 'Mateo':'1-1' } },
-  { columna: 'Colombia vs Ghana', equipoA: 'Colombia', equipoB: 'Ghana', resultado: null,
+  { columna: 'Colombia vs Ghana', equipoA: 'Colombia', equipoB: 'Ghana', resultado: '1-0',
     pronosticos: { 'Mamá':'1-0', 'Javi II':'2-0', 'Dani y Espe Jr.':'2-2', 'Leti I':'4-1', 'Andrés IV':'2-0', 'Tomás II':'2-0', 'Luis II':'1-0', 'Jorge II':'2-1', 'Josito I':'1-2', 'Cristina':'2-1', 'Fernando II':'3-1', 'Edu I':'2-1', 'Javito Jr.':'2-0', 'Anita':'2-2', 'Pablete':'2-2', 'Luki':'2-1', 'Iñiguín':'1-1', 'Mateo':'0-2' } },
 ];
 // Para añadir o quitar partidos, añade o borra líneas de este array.
@@ -2335,7 +2351,7 @@ const PARTIDOS_HOY = [
 const MUNGUI_HOY = {
   ptsDia: 23,
   munguis: [
-    { nombre: 'Cristina', goleadores: ['Messi', 'Luis Díaz'] },
+    { nombre: 'Cristina', goleadores: ['Messi', 'Luis Díaz'], acierto: false },
   ]
 };
 
@@ -2433,7 +2449,9 @@ const EXCLUSIVAS_GRUPOS = {
 
 // Selecciones YA confirmadas como clasificadas a octavos (ganadoras de dieciseisavos).
 // Se va rellenando según avanzan los cruces. Quien acertó (puso el equipo en su lista 'octavos') suma +5 y se ve en verde.
-const CLASIFICADOS_OCTAVOS = ['Canadá', 'Brasil', 'Paraguay', 'Marruecos', 'Noruega', 'Francia', 'México', 'Inglaterra', 'Bélgica', 'Estados Unidos', 'España', 'Portugal', 'Suiza'];
+const CLASIFICADOS_OCTAVOS = ['Canadá', 'Brasil', 'Paraguay', 'Marruecos', 'Noruega', 'Francia', 'México', 'Inglaterra', 'Bélgica', 'Estados Unidos', 'España', 'Portugal', 'Suiza', 'Egipto', 'Argentina', 'Colombia'];
+// Poner en true cuando ya se conozcan los 16 clasificados a octavos: los equipos NO clasificados se pintan en rojo tachado en pronósticos previos.
+const OCTAVOS_COMPLETOS = true;
 
 const PREVIOS_DATA = {
   pichichi: { 'Tomás II':'Raphinha','Fernando II':'Mbappé','Edu I':'Mbappé','Jorge II':'Harry Kane','Cristina':'Mbappé','Josito I':'Vinicius Junior','Pablete':'Cristiano Ronaldo','Anita':'Harry Kane','Dani y Espe Jr.':'Harry Kane','Javi II':'Oyarzábal','Luki':'Cristiano Ronaldo','Javito Jr.':'Mbappé','Iñiguín':'Mbappé','Mateo':'Oyarzábal','Leti I':'Mbappé','Andrés IV':'Mbappé','Mamá':'Mbappé' ,'Luis II':'Mbappé'},
@@ -2481,24 +2499,24 @@ const PREVIOS_DATA = {
 };
 
 const CLASIFICACION_DATA = [
-  { nombre:'Edu I', pts:272, pts1x2:73, ptsExacto:65, ptsMungui:2, ptsTablas:132 },
-  { nombre:'Jorge II', pts:249, pts1x2:67, ptsExacto:56, ptsMungui:0, ptsTablas:126 },
-  { nombre:'Dani y Espe Jr.', pts:237, pts1x2:78, ptsExacto:40, ptsMungui:0, ptsTablas:119 },
-  { nombre:'Fernando II', pts:233, pts1x2:66, ptsExacto:38, ptsMungui:0, ptsTablas:129 },
-  { nombre:'Leti I', pts:224, pts1x2:65, ptsExacto:42, ptsMungui:2, ptsTablas:115 },
-  { nombre:'Javi II', pts:218, pts1x2:59, ptsExacto:30, ptsMungui:0, ptsTablas:129 },
-  { nombre:'Luis II', pts:217, pts1x2:60, ptsExacto:35, ptsMungui:0, ptsTablas:122 },
-  { nombre:'Cristina', pts:215, pts1x2:64, ptsExacto:29, ptsMungui:0, ptsTablas:122 },
-  { nombre:'Mateo', pts:209, pts1x2:55, ptsExacto:34, ptsMungui:0, ptsTablas:120 },
-  { nombre:'Andrés IV', pts:206, pts1x2:65, ptsExacto:54, ptsMungui:0, ptsTablas:87 },
-  { nombre:'Pablete', pts:201, pts1x2:60, ptsExacto:29, ptsMungui:8, ptsTablas:104 },
-  { nombre:'Javito Jr.', pts:199, pts1x2:61, ptsExacto:30, ptsMungui:2, ptsTablas:106 },
-  { nombre:'Luki', pts:199, pts1x2:59, ptsExacto:35, ptsMungui:0, ptsTablas:105 },
-  { nombre:'Mamá', pts:195, pts1x2:55, ptsExacto:32, ptsMungui:6, ptsTablas:102 },
-  { nombre:'Tomás II', pts:190, pts1x2:66, ptsExacto:18, ptsMungui:0, ptsTablas:106 },
-  { nombre:'Anita', pts:179, pts1x2:65, ptsExacto:24, ptsMungui:2, ptsTablas:88 },
-  { nombre:'Josito I', pts:164, pts1x2:63, ptsExacto:30, ptsMungui:0, ptsTablas:71 },
-  { nombre:'Iñiguín', pts:158, pts1x2:56, ptsExacto:27, ptsMungui:0, ptsTablas:75 },
+  { nombre:'Edu I', pts:284, pts1x2:77, ptsExacto:68, ptsMungui:2, ptsTablas:137 },
+  { nombre:'Jorge II', pts:262, pts1x2:70, ptsExacto:56, ptsMungui:0, ptsTablas:136 },
+  { nombre:'Fernando II', pts:247, pts1x2:70, ptsExacto:38, ptsMungui:0, ptsTablas:139 },
+  { nombre:'Dani y Espe Jr.', pts:243, pts1x2:79, ptsExacto:40, ptsMungui:0, ptsTablas:124 },
+  { nombre:'Leti I', pts:242, pts1x2:68, ptsExacto:42, ptsMungui:2, ptsTablas:130 },
+  { nombre:'Javi II', pts:235, pts1x2:63, ptsExacto:33, ptsMungui:0, ptsTablas:139 },
+  { nombre:'Cristina', pts:233, pts1x2:67, ptsExacto:29, ptsMungui:0, ptsTablas:137 },
+  { nombre:'Luis II', pts:230, pts1x2:64, ptsExacto:44, ptsMungui:0, ptsTablas:122 },
+  { nombre:'Andrés IV', pts:219, pts1x2:68, ptsExacto:54, ptsMungui:0, ptsTablas:97 },
+  { nombre:'Mateo', pts:219, pts1x2:55, ptsExacto:34, ptsMungui:0, ptsTablas:130 },
+  { nombre:'Pablete', pts:217, pts1x2:61, ptsExacto:29, ptsMungui:8, ptsTablas:119 },
+  { nombre:'Javito Jr.', pts:216, pts1x2:65, ptsExacto:33, ptsMungui:2, ptsTablas:116 },
+  { nombre:'Luki', pts:213, pts1x2:63, ptsExacto:35, ptsMungui:0, ptsTablas:115 },
+  { nombre:'Mamá', pts:211, pts1x2:58, ptsExacto:35, ptsMungui:6, ptsTablas:112 },
+  { nombre:'Tomás II', pts:205, pts1x2:70, ptsExacto:24, ptsMungui:0, ptsTablas:111 },
+  { nombre:'Anita', pts:194, pts1x2:67, ptsExacto:32, ptsMungui:2, ptsTablas:93 },
+  { nombre:'Josito I', pts:176, pts1x2:65, ptsExacto:30, ptsMungui:0, ptsTablas:81 },
+  { nombre:'Iñiguín', pts:169, pts1x2:57, ptsExacto:27, ptsMungui:0, ptsTablas:85 },
 ];
 
 // ─────────────────────────────────────────────
@@ -2696,14 +2714,23 @@ function renderPichichi() {
   const wrap = document.getElementById('prev-pichichi-wrap');
 
   const mkCard = (titulo, subtitulo, campo, icono) => {
-    const chips = PARTICIPANTES.map((n, i) => `
+    const chips = PARTICIPANTES.map((n, i) => {
+      const valor = PREVIOS_DATA[campo][n] || '—';
+      // Solo en 'equipo goleador': si el equipo ya está eliminado (no clasificado a octavos), rojo tachado
+      let claseValor = 'pichichi-chip-valor';
+      if (campo === 'equipoGoleador' && OCTAVOS_COMPLETOS && valor !== '—'
+          && !CLASIFICADOS_OCTAVOS.some(c => normEquipo(c) === normEquipo(valor))) {
+        claseValor += ' pichichi-valor-eliminado';
+      }
+      return `
       <div class="pichichi-chip">
         <div class="chip-avatar" style="background:${COLORES[i]}1f;width:24px;height:24px;font-size:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">${avatar(n)}</div>
         <div class="pichichi-chip-info">
           <div class="pichichi-chip-nombre">${n}</div>
-          <div class="pichichi-chip-valor">${PREVIOS_DATA[campo][n] || '—'}</div>
+          <div class="${claseValor}">${valor}</div>
         </div>
-      </div>`).join('');
+      </div>`;
+    }).join('');
 
     return `<div class="pichichi-card">
       <div class="pichichi-top" data-icono="${icono}">
@@ -2912,14 +2939,23 @@ function renderFasePersona(nombre) {
         const esCampeon    = f.key === 'final' && idx === 0;
         const esSubcampeon = f.key === 'final' && idx === 1;
         const badge = esCampeon ? ' 🏆' : esSubcampeon ? ' 🥈' : '';
-        // En octavos: marcar en verde los equipos ya confirmados como clasificados (+5)
-        let claseAcierto = '';
+        // En octavos: verde+5 los clasificados; rojo tachado los NO clasificados (cuando ya se conocen los 16)
+        let claseEstado = '';
         let extraPts = '';
-        if (f.key === 'octavos' && CLASIFICADOS_OCTAVOS.some(c => normEquipo(c) === normEquipo(eq))) {
-          claseAcierto = ' fase-equipo-acierto';
-          extraPts = ' <span class="fase-equipo-pts">+5</span>';
+        if (f.key === 'octavos') {
+          const clasificado = CLASIFICADOS_OCTAVOS.some(c => normEquipo(c) === normEquipo(eq));
+          if (clasificado) {
+            claseEstado = ' fase-equipo-acierto';
+            extraPts = ' <span class="fase-equipo-pts">+5</span>';
+          } else if (OCTAVOS_COMPLETOS) {
+            claseEstado = ' fase-equipo-fallo';
+          }
+        } else if (f.key === 'cuartos' || f.key === 'semis' || f.key === 'final') {
+          // En rondas posteriores: equipos ya eliminados (no clasificados a octavos) en rojo tachado
+          const eliminado = OCTAVOS_COMPLETOS && !CLASIFICADOS_OCTAVOS.some(c => normEquipo(c) === normEquipo(eq));
+          if (eliminado) claseEstado = ' fase-equipo-fallo';
         }
-        return `<span class="fase-equipo-tag${claseAcierto}">${eq}${badge}${extraPts}</span>`;
+        return `<span class="fase-equipo-tag${claseEstado}">${eq}${badge}${extraPts}</span>`;
       }).join('');
       return `<div class="fase-bloque-card ${f.cls}">
         <div class="fase-bloque-titulo">${f.icono} ${f.label}</div>

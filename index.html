@@ -2342,13 +2342,13 @@ const USE_SHEETS = false;
 // Solo hay que indicar equipoA y equipoB. El "resultado" déjalo null
 // hasta que acabe el partido; entonces pon: resultado: '2-1'
 const PARTIDOS_HOY = [
-  { columna: 'Brasil vs Noruega', equipoA: 'Brasil', equipoB: 'Noruega', resultado: null,
-    pronosticos: { 'Mamá':'2-1', 'Javi II':'1-2', 'Dani y Espe Jr.':'4-2', 'Leti I':'3-1', 'Andrés IV':'2-0', 'Tomás II':'2-2', 'Jorge II':'3-2', 'Josito I':'3-3', 'Cristina':'2-1', 'Fernando II':'3-1', 'Edu I':'2-1', 'Javito Jr.':'2-3', 'Anita':'3-2', 'Pablete':'3-2', 'Luki':'3-3', 'Iñiguín':'0-2', 'Mateo':'1-1' } },
-  { columna: 'México vs Inglaterra', equipoA: 'México', equipoB: 'Inglaterra', resultado: null,
-    pronosticos: { 'Mamá':'2-1', 'Javi II':'1-2', 'Dani y Espe Jr.':'1-2', 'Leti I':'1-3', 'Andrés IV':'0-2', 'Tomás II':'1-2', 'Jorge II':'0-1', 'Josito I':'2-0', 'Cristina':'0-2', 'Fernando II':'0-3', 'Edu I':'0-1', 'Javito Jr.':'0-3', 'Anita':'2-1', 'Pablete':'1-2', 'Luki':'0-2', 'Iñiguín':'1-1', 'Mateo':'2-3' } },
+  { columna: 'Brasil vs Noruega', equipoA: 'Brasil', equipoB: 'Noruega', resultado: '1-2',
+    pronosticos: { 'Mamá':'2-1', 'Javi II':'1-2', 'Dani y Espe Jr.':'4-2', 'Leti I':'3-1', 'Andrés IV':'2-0', 'Tomás II':'2-2', 'Luis II':'—', 'Jorge II':'3-2', 'Josito I':'3-3', 'Cristina':'2-1', 'Fernando II':'3-1', 'Edu I':'2-1', 'Javito Jr.':'2-3', 'Anita':'3-2', 'Pablete':'3-2', 'Luki':'3-3', 'Iñiguín':'0-2', 'Mateo':'1-1' } },
+  { columna: 'México vs Inglaterra', equipoA: 'México', equipoB: 'Inglaterra', resultado: '2-3',
+    pronosticos: { 'Mamá':'2-1', 'Javi II':'1-2', 'Dani y Espe Jr.':'1-2', 'Leti I':'1-3', 'Andrés IV':'0-2', 'Tomás II':'1-2', 'Luis II':'—', 'Jorge II':'0-1', 'Josito I':'2-0', 'Cristina':'0-2', 'Fernando II':'0-3', 'Edu I':'0-1', 'Javito Jr.':'0-3', 'Anita':'2-1', 'Pablete':'1-2', 'Luki':'0-2', 'Iñiguín':'1-1', 'Mateo':'2-3' } },
 ];
 // Para añadir o quitar partidos, añade o borra líneas de este array.
-// NOTA: Luis II no envió pronósticos hoy (no aparece en las listas → casilla en blanco).
+// NOTA: Luis II no envió pronósticos → casilla en rojo con "—" (fallo, 0 puntos).
 
 // Mungui: se detecta automáticamente desde el formulario.
 // Quien haya rellenado la pregunta de goleadores = es el Mungui ese día.
@@ -2356,11 +2356,11 @@ const PARTIDOS_HOY = [
 const MUNGUI_HOY = {
   ptsDia: 15,
   munguis: [
-    { nombre: 'Javi II', goleadores: ['Haaland', 'Kane', 'Ficticius'] },
-    { nombre: 'Andrés IV', goleadores: ['Vini Jr.', 'Raphinha', 'Haaland', 'Bellingham'] },
-    { nombre: 'Leti I', goleadores: ['Harry Kane', 'Vinicius'] },
-    { nombre: 'Tomás II', goleadores: ['Haaland', 'Quiñones', 'Cunha'] },
-    { nombre: 'Fernando II', goleadores: ['Harry Kane', 'Vini Jr.'] },
+    { nombre: 'Javi II', goleadores: ['Haaland', 'Kane', 'Ficticius'], acierto: false },
+    { nombre: 'Andrés IV', goleadores: ['Vini Jr.', 'Raphinha', 'Haaland', 'Bellingham'], acierto: false },
+    { nombre: 'Leti I', goleadores: ['Harry Kane', 'Vinicius'], acierto: false },
+    { nombre: 'Tomás II', goleadores: ['Haaland', 'Quiñones', 'Cunha'], acierto: false },
+    { nombre: 'Fernando II', goleadores: ['Harry Kane', 'Vini Jr.'], acierto: false },
   ]
 };
 
@@ -2464,7 +2464,7 @@ const OCTAVOS_COMPLETOS = true;
 
 // Selecciones YA confirmadas como clasificadas a CUARTOS (ganadoras de octavos). Se van añadiendo según avanzan los cruces.
 // Quien acertó (puso el equipo en su lista 'cuartos') suma +6 y se ve en verde. Cuando estén los 8, poner CUARTOS_COMPLETOS en true.
-const CLASIFICADOS_CUARTOS = ['Marruecos', 'Francia'];
+const CLASIFICADOS_CUARTOS = ['Marruecos', 'Francia', 'Noruega', 'Inglaterra'];
 const CUARTOS_COMPLETOS = false;
 
 const PREVIOS_DATA = {
@@ -2513,24 +2513,24 @@ const PREVIOS_DATA = {
 };
 
 const CLASIFICACION_DATA = [
-  { nombre:'Edu I', pts:293, pts1x2:80, ptsExacto:68, ptsMungui:2, ptsTablas:143 },
-  { nombre:'Jorge II', pts:271, pts1x2:73, ptsExacto:56, ptsMungui:0, ptsTablas:142 },
-  { nombre:'Fernando II', pts:262, pts1x2:73, ptsExacto:38, ptsMungui:0, ptsTablas:151 },
-  { nombre:'Leti I', pts:257, pts1x2:71, ptsExacto:42, ptsMungui:2, ptsTablas:142 },
-  { nombre:'Dani y Espe Jr.', pts:252, pts1x2:82, ptsExacto:40, ptsMungui:0, ptsTablas:130 },
-  { nombre:'Javi II', pts:250, pts1x2:66, ptsExacto:33, ptsMungui:0, ptsTablas:151 },
-  { nombre:'Cristina', pts:242, pts1x2:70, ptsExacto:29, ptsMungui:0, ptsTablas:143 },
-  { nombre:'Luis II', pts:239, pts1x2:67, ptsExacto:44, ptsMungui:0, ptsTablas:128 },
-  { nombre:'Andrés IV', pts:234, pts1x2:71, ptsExacto:54, ptsMungui:0, ptsTablas:109 },
-  { nombre:'Pablete', pts:226, pts1x2:64, ptsExacto:29, ptsMungui:8, ptsTablas:125 },
-  { nombre:'Javito Jr.', pts:223, pts1x2:66, ptsExacto:33, ptsMungui:2, ptsTablas:122 },
-  { nombre:'Luki', pts:222, pts1x2:66, ptsExacto:35, ptsMungui:0, ptsTablas:121 },
-  { nombre:'Mamá', pts:220, pts1x2:61, ptsExacto:35, ptsMungui:6, ptsTablas:118 },
-  { nombre:'Tomás II', pts:220, pts1x2:73, ptsExacto:24, ptsMungui:0, ptsTablas:123 },
-  { nombre:'Mateo', pts:219, pts1x2:55, ptsExacto:34, ptsMungui:0, ptsTablas:130 },
-  { nombre:'Anita', pts:203, pts1x2:70, ptsExacto:32, ptsMungui:2, ptsTablas:99 },
-  { nombre:'Josito I', pts:185, pts1x2:68, ptsExacto:30, ptsMungui:0, ptsTablas:87 },
-  { nombre:'Iñiguín', pts:171, pts1x2:59, ptsExacto:27, ptsMungui:0, ptsTablas:85 },
+  { nombre:'Edu I', pts:300, pts1x2:81, ptsExacto:68, ptsMungui:2, ptsTablas:149 },
+  { nombre:'Jorge II', pts:278, pts1x2:74, ptsExacto:56, ptsMungui:0, ptsTablas:148 },
+  { nombre:'Javi II', pts:273, pts1x2:69, ptsExacto:41, ptsMungui:0, ptsTablas:163 },
+  { nombre:'Fernando II', pts:269, pts1x2:74, ptsExacto:38, ptsMungui:0, ptsTablas:157 },
+  { nombre:'Leti I', pts:259, pts1x2:73, ptsExacto:42, ptsMungui:2, ptsTablas:142 },
+  { nombre:'Dani y Espe Jr.', pts:259, pts1x2:83, ptsExacto:40, ptsMungui:0, ptsTablas:136 },
+  { nombre:'Cristina', pts:249, pts1x2:71, ptsExacto:29, ptsMungui:0, ptsTablas:149 },
+  { nombre:'Luis II', pts:245, pts1x2:67, ptsExacto:44, ptsMungui:0, ptsTablas:134 },
+  { nombre:'Andrés IV', pts:241, pts1x2:72, ptsExacto:54, ptsMungui:0, ptsTablas:115 },
+  { nombre:'Pablete', pts:240, pts1x2:66, ptsExacto:29, ptsMungui:8, ptsTablas:137 },
+  { nombre:'Javito Jr.', pts:232, pts1x2:69, ptsExacto:33, ptsMungui:2, ptsTablas:128 },
+  { nombre:'Luki', pts:230, pts1x2:68, ptsExacto:35, ptsMungui:0, ptsTablas:127 },
+  { nombre:'Mateo', pts:229, pts1x2:57, ptsExacto:42, ptsMungui:0, ptsTablas:130 },
+  { nombre:'Mamá', pts:226, pts1x2:61, ptsExacto:35, ptsMungui:6, ptsTablas:124 },
+  { nombre:'Tomás II', pts:221, pts1x2:74, ptsExacto:24, ptsMungui:0, ptsTablas:123 },
+  { nombre:'Anita', pts:209, pts1x2:70, ptsExacto:32, ptsMungui:2, ptsTablas:105 },
+  { nombre:'Josito I', pts:191, pts1x2:68, ptsExacto:30, ptsMungui:0, ptsTablas:93 },
+  { nombre:'Iñiguín', pts:179, pts1x2:61, ptsExacto:27, ptsMungui:0, ptsTablas:91 },
 ];
 
 // ─────────────────────────────────────────────
@@ -2552,6 +2552,7 @@ function avatar(name) {
 
 function evaluarPronostico(prono, resultado) {
   if (!resultado) return 'pendiente';
+  if (prono === '—') return 'fallo'; // no envió pronóstico: cuenta como fallo con "—" en rojo
   if (!prono || prono === '?' || !prono.includes('-')) return 'sin-prono';
   if (prono === resultado) return 'exacto';
   const [ga, gb] = prono.split('-').map(Number);

@@ -1330,7 +1330,8 @@
 
   /* Acierto confirmado en octavos: verde */
   .fase-bloque-octavos .fase-equipo-tag.fase-equipo-acierto,
-  .fase-bloque-cuartos .fase-equipo-tag.fase-equipo-acierto {
+  .fase-bloque-cuartos .fase-equipo-tag.fase-equipo-acierto,
+  .fase-bloque-semis   .fase-equipo-tag.fase-equipo-acierto {
     background: rgba(15,110,86,0.15);
     color: #0F6E56;
     font-weight: 700;
@@ -2347,7 +2348,7 @@ const USE_SHEETS = false;
 // Solo hay que indicar equipoA y equipoB. El "resultado" déjalo null
 // hasta que acabe el partido; entonces pon: resultado: '2-1'
 const PARTIDOS_HOY = [
-  { columna: 'Francia vs Marruecos', equipoA: 'Francia', equipoB: 'Marruecos', resultado: null,
+  { columna: 'Francia vs Marruecos', equipoA: 'Francia', equipoB: 'Marruecos', resultado: '2-0',
     pronosticos: { 'Mamá':'2-1', 'Javi II':'2-1', 'Dani y Espe Jr.':'2-0', 'Leti I':'3-1', 'Andrés IV':'3-0', 'Tomás II':'2-0', 'Luis II':'3-1', 'Jorge II':'1-2', 'Josito I':'2-3', 'Cristina':'2-1', 'Fernando II':'4-1', 'Edu I':'1-0', 'Javito Jr.':'2-2', 'Anita':'4-2', 'Pablete':'2-3', 'Luki':'0-2', 'Iñiguín':'0-1', 'Mateo':'0-1' } },
 ];
 // Para añadir o quitar partidos, añade o borra líneas de este array.
@@ -2358,7 +2359,7 @@ const PARTIDOS_HOY = [
 const MUNGUI_HOY = {
   ptsDia: 9,
   munguis: [
-    { nombre: 'Jorge II', goleadores: ['Mbappé'] },
+    { nombre: 'Jorge II', goleadores: ['Mbappé'], acierto: true },
   ]
 };
 
@@ -2465,6 +2466,11 @@ const OCTAVOS_COMPLETOS = true;
 const CLASIFICADOS_CUARTOS = ['Marruecos', 'Francia', 'Noruega', 'Inglaterra', 'España', 'Bélgica', 'Argentina', 'Suiza'];
 const CUARTOS_COMPLETOS = true;
 
+// Selecciones YA confirmadas como clasificadas a SEMIFINALES (ganadoras de cuartos). Se van añadiendo según avanzan los cruces.
+// Quien acertó (puso el equipo en su lista 'semis') suma +7 y se ve en verde. Cuando estén las 4, poner SEMIS_COMPLETAS en true.
+const CLASIFICADOS_SEMIS = ['Francia'];
+const SEMIS_COMPLETAS = false;
+
 // Pichichis (goleador individual) ya eliminados → se tachan en rojo en pronósticos previos. Se va ampliando según José.
 const PICHICHIS_ELIMINADOS = ['Raphinha', 'Vinicius Junior', 'Cristiano Ronaldo'];
 // Equipos de "equipo máximo goleador" ya eliminados → se tachan en rojo. Se va ampliando según José.
@@ -2516,22 +2522,22 @@ const PREVIOS_DATA = {
 };
 
 const CLASIFICACION_DATA = [
-  { nombre:'Edu I', pts:317, pts1x2:86, ptsExacto:68, ptsMungui:2, ptsTablas:161 },
-  { nombre:'Jorge II', pts:302, pts1x2:80, ptsExacto:56, ptsMungui:0, ptsTablas:166 },
-  { nombre:'Fernando II', pts:284, pts1x2:77, ptsExacto:38, ptsMungui:0, ptsTablas:169 },
-  { nombre:'Javi II', pts:282, pts1x2:72, ptsExacto:41, ptsMungui:0, ptsTablas:169 },
-  { nombre:'Dani y Espe Jr.', pts:275, pts1x2:87, ptsExacto:40, ptsMungui:0, ptsTablas:148 },
-  { nombre:'Leti I', pts:274, pts1x2:76, ptsExacto:42, ptsMungui:2, ptsTablas:154 },
-  { nombre:'Cristina', pts:266, pts1x2:76, ptsExacto:29, ptsMungui:0, ptsTablas:161 },
-  { nombre:'Luis II', pts:258, pts1x2:68, ptsExacto:44, ptsMungui:0, ptsTablas:146 },
-  { nombre:'Pablete', pts:256, pts1x2:70, ptsExacto:29, ptsMungui:8, ptsTablas:149 },
-  { nombre:'Luki', pts:252, pts1x2:72, ptsExacto:35, ptsMungui:0, ptsTablas:145 },
+  { nombre:'Edu I', pts:326, pts1x2:88, ptsExacto:68, ptsMungui:2, ptsTablas:168 },
+  { nombre:'Jorge II', pts:304, pts1x2:80, ptsExacto:56, ptsMungui:2, ptsTablas:166 },
+  { nombre:'Fernando II', pts:293, pts1x2:79, ptsExacto:38, ptsMungui:0, ptsTablas:176 },
+  { nombre:'Javi II', pts:291, pts1x2:74, ptsExacto:41, ptsMungui:0, ptsTablas:176 },
+  { nombre:'Dani y Espe Jr.', pts:283, pts1x2:89, ptsExacto:46, ptsMungui:0, ptsTablas:148 },
+  { nombre:'Leti I', pts:276, pts1x2:78, ptsExacto:42, ptsMungui:2, ptsTablas:154 },
+  { nombre:'Cristina', pts:275, pts1x2:78, ptsExacto:29, ptsMungui:0, ptsTablas:168 },
+  { nombre:'Pablete', pts:263, pts1x2:70, ptsExacto:29, ptsMungui:8, ptsTablas:156 },
+  { nombre:'Luis II', pts:260, pts1x2:70, ptsExacto:44, ptsMungui:0, ptsTablas:146 },
+  { nombre:'Luki', pts:259, pts1x2:72, ptsExacto:35, ptsMungui:0, ptsTablas:152 },
+  { nombre:'Andrés IV', pts:258, pts1x2:76, ptsExacto:54, ptsMungui:0, ptsTablas:128 },
+  { nombre:'Javito Jr.', pts:256, pts1x2:74, ptsExacto:33, ptsMungui:2, ptsTablas:147 },
   { nombre:'Mateo', pts:250, pts1x2:60, ptsExacto:42, ptsMungui:0, ptsTablas:148 },
-  { nombre:'Javito Jr.', pts:249, pts1x2:74, ptsExacto:33, ptsMungui:2, ptsTablas:140 },
-  { nombre:'Andrés IV', pts:249, pts1x2:74, ptsExacto:54, ptsMungui:0, ptsTablas:121 },
-  { nombre:'Mamá', pts:240, pts1x2:63, ptsExacto:35, ptsMungui:6, ptsTablas:136 },
-  { nombre:'Tomás II', pts:234, pts1x2:75, ptsExacto:24, ptsMungui:0, ptsTablas:135 },
-  { nombre:'Anita', pts:226, pts1x2:75, ptsExacto:32, ptsMungui:2, ptsTablas:117 },
+  { nombre:'Mamá', pts:249, pts1x2:65, ptsExacto:35, ptsMungui:6, ptsTablas:143 },
+  { nombre:'Tomás II', pts:249, pts1x2:77, ptsExacto:30, ptsMungui:0, ptsTablas:142 },
+  { nombre:'Anita', pts:228, pts1x2:77, ptsExacto:32, ptsMungui:2, ptsTablas:117 },
   { nombre:'Josito I', pts:215, pts1x2:72, ptsExacto:38, ptsMungui:0, ptsTablas:105 },
   { nombre:'Iñiguín', pts:188, pts1x2:64, ptsExacto:27, ptsMungui:0, ptsTablas:97 },
 ];
@@ -2987,9 +2993,23 @@ function renderFasePersona(nombre) {
           } else if (CUARTOS_COMPLETOS) {
             claseEstado = ' fase-equipo-fallo';
           }
-        } else if (f.key === 'semis' || f.key === 'final') {
-          // equipos ya eliminados en rojo tachado: primero los que no pasaron de octavos;
-          // y una vez conocidos los 8 de cuartos, también los que no están entre ellos
+        } else if (f.key === 'semis') {
+          // verde+7 los clasificados a semis; rojo tachado los ya eliminados
+          const clasifSemis = CLASIFICADOS_SEMIS.some(c => normEquipo(c) === normEquipo(eq));
+          const vivoCuartos = CLASIFICADOS_CUARTOS.some(c => normEquipo(c) === normEquipo(eq));
+          const vivoOctavos = CLASIFICADOS_OCTAVOS.some(c => normEquipo(c) === normEquipo(eq));
+          if (clasifSemis) {
+            claseEstado = ' fase-equipo-acierto';
+            extraPts = ' <span class="fase-equipo-pts">+7</span>';
+          } else if (CUARTOS_COMPLETOS && !vivoCuartos) {
+            claseEstado = ' fase-equipo-fallo';
+          } else if (OCTAVOS_COMPLETOS && !vivoOctavos) {
+            claseEstado = ' fase-equipo-fallo';
+          } else if (SEMIS_COMPLETAS) {
+            claseEstado = ' fase-equipo-fallo';
+          }
+        } else if (f.key === 'final') {
+          // equipos ya eliminados en rojo tachado
           const vivoCuartos = CLASIFICADOS_CUARTOS.some(c => normEquipo(c) === normEquipo(eq));
           const vivoOctavos = CLASIFICADOS_OCTAVOS.some(c => normEquipo(c) === normEquipo(eq));
           if (CUARTOS_COMPLETOS && !vivoCuartos) {

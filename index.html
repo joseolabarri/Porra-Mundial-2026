@@ -2351,9 +2351,9 @@ const USE_SHEETS = false;
 // Solo hay que indicar equipoA y equipoB. El "resultado" déjalo null
 // hasta que acabe el partido; entonces pon: resultado: '2-1'
 const PARTIDOS_HOY = [
-  { columna: 'Noruega vs Inglaterra', equipoA: 'Noruega', equipoB: 'Inglaterra', resultado: null,
+  { columna: 'Noruega vs Inglaterra', equipoA: 'Noruega', equipoB: 'Inglaterra', resultado: '1-2',
     pronosticos: { 'Mamá':'1-2', 'Javi II':'2-1', 'Dani y Espe Jr.':'1-3', 'Leti I':'2-2', 'Andrés IV':'2-0', 'Tomás II':'2-2', 'Luis II':'0-2', 'Jorge II':'1-2', 'Josito I':'1-1', 'Cristina':'2-1', 'Fernando II':'3-1', 'Edu I':'1-2', 'Javito Jr.':'1-1', 'Anita':'1-2', 'Pablete':'2-2', 'Luki':'2-1', 'Iñiguín':'2-1', 'Mateo':'1-1' } },
-  { columna: 'Argentina vs Suiza', equipoA: 'Argentina', equipoB: 'Suiza', resultado: null,
+  { columna: 'Argentina vs Suiza', equipoA: 'Argentina', equipoB: 'Suiza', resultado: '3-1',
     pronosticos: { 'Mamá':'2-1', 'Javi II':'1-0', 'Dani y Espe Jr.':'3-0', 'Leti I':'2-0', 'Andrés IV':'0-2', 'Tomás II':'1-1', 'Luis II':'0-1', 'Jorge II':'1-0', 'Josito I':'1-1', 'Cristina':'3-1', 'Fernando II':'1-2', 'Edu I':'2-0', 'Javito Jr.':'3-2', 'Anita':'2-0', 'Pablete':'3-1', 'Luki':'3-1', 'Iñiguín':'3-1', 'Mateo':'3-2' } },
 ];
 // Para añadir o quitar partidos, añade o borra líneas de este array.
@@ -2364,7 +2364,7 @@ const PARTIDOS_HOY = [
 const MUNGUI_HOY = {
   ptsDia: 17,
   munguis: [
-    { nombre: 'Mamá', goleadores: ['Messi', 'Haaland', 'Harry Kane'] },
+    { nombre: 'Mamá', goleadores: ['Messi', 'Haaland', 'Harry Kane'], acierto: false },
   ]
 };
 
@@ -2473,11 +2473,11 @@ const CUARTOS_COMPLETOS = true;
 
 // Selecciones YA confirmadas como clasificadas a SEMIFINALES (ganadoras de cuartos). Se van añadiendo según avanzan los cruces.
 // Quien acertó (puso el equipo en su lista 'semis') suma +7 y se ve en verde. Cuando estén las 4, poner SEMIS_COMPLETAS en true.
-const CLASIFICADOS_SEMIS = ['Francia', 'España'];
-const SEMIS_COMPLETAS = false;
+const CLASIFICADOS_SEMIS = ['Francia', 'España', 'Inglaterra', 'Argentina'];
+const SEMIS_COMPLETAS = true;
 // Equipos que llegaron a cuartos pero YA cayeron ahí (cruce de cuartos jugado y perdido).
 // Se pintan en rojo tachado en la sección Semifinales de pronósticos previos. Se va ampliando según avanzan los cuartos.
-const ELIMINADOS_CUARTOS = ['Marruecos', 'Bélgica'];
+const ELIMINADOS_CUARTOS = ['Marruecos', 'Bélgica', 'Noruega', 'Suiza'];
 
 // Pichichis (goleador individual) ya eliminados → se tachan en rojo en pronósticos previos. Se va ampliando según José.
 const PICHICHIS_ELIMINADOS = ['Raphinha', 'Vinicius Junior', 'Cristiano Ronaldo'];
@@ -2530,24 +2530,24 @@ const PREVIOS_DATA = {
 };
 
 const CLASIFICACION_DATA = [
-  { nombre:'Edu I', pts:335, pts1x2:90, ptsExacto:68, ptsMungui:2, ptsTablas:175 },
-  { nombre:'Jorge II', pts:313, pts1x2:82, ptsExacto:56, ptsMungui:2, ptsTablas:173 },
+  { nombre:'Edu I', pts:341, pts1x2:93, ptsExacto:71, ptsMungui:2, ptsTablas:175 },
+  { nombre:'Jorge II', pts:329, pts1x2:85, ptsExacto:62, ptsMungui:2, ptsTablas:180 },
+  { nombre:'Dani y Espe Jr.', pts:309, pts1x2:94, ptsExacto:46, ptsMungui:0, ptsTablas:169 },
+  { nombre:'Javi II', pts:309, pts1x2:78, ptsExacto:41, ptsMungui:0, ptsTablas:190 },
   { nombre:'Fernando II', pts:302, pts1x2:81, ptsExacto:38, ptsMungui:0, ptsTablas:183 },
-  { nombre:'Javi II', pts:300, pts1x2:76, ptsExacto:41, ptsMungui:0, ptsTablas:183 },
-  { nombre:'Dani y Espe Jr.', pts:292, pts1x2:91, ptsExacto:46, ptsMungui:0, ptsTablas:155 },
-  { nombre:'Leti I', pts:285, pts1x2:80, ptsExacto:42, ptsMungui:2, ptsTablas:161 },
-  { nombre:'Cristina', pts:284, pts1x2:80, ptsExacto:29, ptsMungui:0, ptsTablas:175 },
-  { nombre:'Pablete', pts:272, pts1x2:72, ptsExacto:29, ptsMungui:8, ptsTablas:163 },
-  { nombre:'Luis II', pts:269, pts1x2:72, ptsExacto:44, ptsMungui:0, ptsTablas:153 },
-  { nombre:'Luki', pts:268, pts1x2:74, ptsExacto:35, ptsMungui:0, ptsTablas:159 },
-  { nombre:'Andrés IV', pts:267, pts1x2:78, ptsExacto:54, ptsMungui:0, ptsTablas:135 },
-  { nombre:'Mamá', pts:266, pts1x2:67, ptsExacto:43, ptsMungui:6, ptsTablas:150 },
-  { nombre:'Javito Jr.', pts:265, pts1x2:76, ptsExacto:33, ptsMungui:2, ptsTablas:154 },
-  { nombre:'Mateo', pts:259, pts1x2:62, ptsExacto:42, ptsMungui:0, ptsTablas:155 },
+  { nombre:'Cristina', pts:295, pts1x2:81, ptsExacto:32, ptsMungui:0, ptsTablas:182 },
+  { nombre:'Leti I', pts:286, pts1x2:81, ptsExacto:42, ptsMungui:2, ptsTablas:161 },
+  { nombre:'Pablete', pts:283, pts1x2:73, ptsExacto:32, ptsMungui:8, ptsTablas:170 },
+  { nombre:'Luki', pts:283, pts1x2:76, ptsExacto:41, ptsMungui:0, ptsTablas:166 },
+  { nombre:'Mamá', pts:282, pts1x2:70, ptsExacto:49, ptsMungui:6, ptsTablas:157 },
+  { nombre:'Luis II', pts:277, pts1x2:73, ptsExacto:44, ptsMungui:0, ptsTablas:160 },
+  { nombre:'Andrés IV', pts:274, pts1x2:78, ptsExacto:54, ptsMungui:0, ptsTablas:142 },
+  { nombre:'Javito Jr.', pts:273, pts1x2:77, ptsExacto:33, ptsMungui:2, ptsTablas:161 },
+  { nombre:'Mateo', pts:261, pts1x2:64, ptsExacto:42, ptsMungui:0, ptsTablas:155 },
   { nombre:'Tomás II', pts:258, pts1x2:79, ptsExacto:30, ptsMungui:0, ptsTablas:149 },
-  { nombre:'Anita', pts:237, pts1x2:79, ptsExacto:32, ptsMungui:2, ptsTablas:124 },
+  { nombre:'Anita', pts:243, pts1x2:82, ptsExacto:35, ptsMungui:2, ptsTablas:124 },
   { nombre:'Josito I', pts:224, pts1x2:74, ptsExacto:38, ptsMungui:0, ptsTablas:112 },
-  { nombre:'Iñiguín', pts:197, pts1x2:66, ptsExacto:27, ptsMungui:0, ptsTablas:104 },
+  { nombre:'Iñiguín', pts:212, pts1x2:68, ptsExacto:33, ptsMungui:0, ptsTablas:111 },
 ];
 
 // ─────────────────────────────────────────────

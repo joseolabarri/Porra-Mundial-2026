@@ -2222,6 +2222,7 @@ const CALENDARIO_GRUPOS = [
   { equipoA:'Noruega', equipoB:'Inglaterra', grupo:'cuartos', hora:'23:00', dia:11 },
   { equipoA:'Argentina', equipoB:'Suiza', grupo:'cuartos', hora:'03:00', dia:12 },
   { equipoA:'Francia', equipoB:'España', grupo:'semis', hora:'21:00', dia:14 },
+  { equipoA:'Inglaterra', equipoB:'Argentina', grupo:'semis', hora:'21:00', dia:15 },
   { equipoA:'México', equipoB:'Sudáfrica', grupo:'A', hora:'21:00', dia:11 },
   { equipoA:'Corea del Sur', equipoB:'República Checa', grupo:'A', hora:'04:00', dia:12 },
   { equipoA:'República Checa', equipoB:'Sudáfrica', grupo:'A', hora:'18:00', dia:18 },
@@ -2353,19 +2354,18 @@ const USE_SHEETS = false;
 // Solo hay que indicar equipoA y equipoB. El "resultado" déjalo null
 // hasta que acabe el partido; entonces pon: resultado: '2-1'
 const PARTIDOS_HOY = [
-  { columna: 'Francia vs España', equipoA: 'Francia', equipoB: 'España', resultado: '0-2',
-    pronosticos: { 'Mamá':'1-2', 'Javi II':'0-1', 'Dani y Espe Jr.':'1-2', 'Leti I':'2-2', 'Andrés IV':'3-0', 'Tomás II':'2-2', 'Luis II':'—', 'Jorge II':'1-2', 'Josito I':'0-3', 'Cristina':'2-2', 'Fernando II':'1-4', 'Edu I':'1-1', 'Javito Jr.':'1-2', 'Anita':'2-2', 'Pablete':'1-1', 'Luki':'1-2', 'Iñiguín':'0-2', 'Mateo':'0-3' } },
+  { columna: 'Inglaterra vs Argentina', equipoA: 'Inglaterra', equipoB: 'Argentina', resultado: null,
+    pronosticos: { 'Mamá':'2-2', 'Javi II':'0-2', 'Dani y Espe Jr.':'2-1', 'Leti I':'3-1', 'Andrés IV':'3-0', 'Tomás II':'2-1', 'Luis II':'1-0', 'Jorge II':'1-0', 'Josito I':'4-0', 'Cristina':'2-1', 'Fernando II':'0-0', 'Edu I':'1-2', 'Javito Jr.':'1-3', 'Anita':'1-1', 'Pablete':'1-2', 'Luki':'2-1', 'Iñiguín':'1-2', 'Mateo':'3-1' } },
 ];
 // Para añadir o quitar partidos, añade o borra líneas de este array.
-// NOTA: Luis II no envió pronóstico → casilla en rojo con "—" (fallo, 0 puntos).
 
 // Mungui: se detecta automáticamente desde el formulario.
 // Quien haya rellenado la pregunta de goleadores = es el Mungui ese día.
 // Solo hay que indicar los puntos que hizo el Mungui la jornada anterior.
 const MUNGUI_HOY = {
-  ptsDia: 17,
+  ptsDia: 18,
   munguis: [
-    { nombre: 'Dani y Espe Jr.', goleadores: ['Lamine Yamal'], acierto: false },
+    { nombre: 'Iñiguín', goleadores: ['Messi'] },
   ]
 };
 
@@ -2421,7 +2421,7 @@ let PARTIDOS_DIA = PARTIDOS_HOY.map(p => {
     pronosticos: p.pronosticos || {}
   };
 });
-let PARTIDAZOS = { 'Leti I':'Francia vs España', 'Edu I':'Francia vs España', 'Jorge II':'Francia vs España', 'Tomás II':'Francia vs España', 'Josito I':'Francia vs España', 'Javito Jr.':'Francia vs España', 'Javi II':'Francia vs España', 'Luki':'Francia vs España', 'Iñiguín':'Francia vs España', 'Mateo':'Francia vs España', 'Andrés IV':'Francia vs España', 'Dani y Espe Jr.':'Francia vs España', 'Pablete':'Francia vs España', 'Anita':'Francia vs España', 'Cristina':'Francia vs España', 'Fernando II':'Francia vs España', 'Mamá':'Francia vs España' };
+let PARTIDAZOS = { 'Leti I':'Inglaterra vs Argentina', 'Edu I':'Inglaterra vs Argentina', 'Jorge II':'Inglaterra vs Argentina', 'Tomás II':'Inglaterra vs Argentina', 'Josito I':'Inglaterra vs Argentina', 'Javito Jr.':'Inglaterra vs Argentina', 'Javi II':'Inglaterra vs Argentina', 'Luki':'Inglaterra vs Argentina', 'Iñiguín':'Inglaterra vs Argentina', 'Mateo':'Inglaterra vs Argentina', 'Andrés IV':'Inglaterra vs Argentina', 'Dani y Espe Jr.':'Inglaterra vs Argentina', 'Pablete':'Inglaterra vs Argentina', 'Anita':'Inglaterra vs Argentina', 'Cristina':'Inglaterra vs Argentina', 'Fernando II':'Inglaterra vs Argentina', 'Mamá':'Inglaterra vs Argentina', 'Luis II':'Inglaterra vs Argentina' };
 
 const GRUPOS_DATA = [
   { letra:'A', equipos:['Corea del Sur','República Checa','México','Sudáfrica'] },
@@ -2550,7 +2550,7 @@ const CLASIFICACION_DATA = [
   { nombre:'Leti I', pts:286, pts1x2:81, ptsExacto:42, ptsMungui:2, ptsTablas:161 },
   { nombre:'Javito Jr.', pts:283, pts1x2:79, ptsExacto:33, ptsMungui:2, ptsTablas:169 },
   { nombre:'Andrés IV', pts:282, pts1x2:78, ptsExacto:54, ptsMungui:0, ptsTablas:150 },
-  { nombre:'Luis II', pts:277, pts1x2:73, ptsExacto:44, ptsMungui:0, ptsTablas:160 },
+  { nombre:'Luis II', pts:279, pts1x2:75, ptsExacto:44, ptsMungui:0, ptsTablas:160 },
   { nombre:'Mateo', pts:271, pts1x2:66, ptsExacto:42, ptsMungui:0, ptsTablas:163 },
   { nombre:'Tomás II', pts:266, pts1x2:79, ptsExacto:30, ptsMungui:0, ptsTablas:157 },
   { nombre:'Anita', pts:251, pts1x2:82, ptsExacto:35, ptsMungui:2, ptsTablas:132 },

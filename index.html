@@ -3148,11 +3148,20 @@ function renderClasificacion() {
   // Podio
   const podioNames = document.querySelectorAll('.podium-name');
   const podioPts   = document.querySelectorAll('.podium-pts');
-  const orden = [1, 0, 2];
+  const podioPos   = document.querySelectorAll('.podium-pos');
+  const orden = [1, 0, 2];  // posiciones visuales: [2º izquierda, 1º centro, 3º derecha]
   orden.forEach((idx, pos) => {
     if (datos[idx]) {
-      podioNames[pos].textContent = datos[idx].nombre;
+      let nombreMostrar = datos[idx].nombre;
+      // Solo en el podio: el campeón se muestra como "Edu II"
+      if (idx === 0 && nombreMostrar === 'Edu I') nombreMostrar = 'Edu II';
+      podioNames[pos].textContent = nombreMostrar;
       podioPts[pos].textContent   = datos[idx].pts;
+      // Torneo terminado: etiquetas Campeón / Subcampeón en el podio
+      if (podioPos[pos]) {
+        if (TORNEO_TERMINADO && idx === 0)      podioPos[pos].textContent = 'Campeón';
+        else if (TORNEO_TERMINADO && idx === 1) podioPos[pos].textContent = 'Subcampeón';
+      }
     }
   });
 

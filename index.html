@@ -698,6 +698,19 @@
   .pos-plata .clasif-pos-num { color: var(--plata); }
   .pos-bronce .clasif-pos-num { color: var(--bronce); }
 
+  .clasif-titulo-txt {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 3px;
+    white-space: nowrap;
+  }
+  .clasif-card.pos-oro .clasif-pos-num,
+  .clasif-card.pos-plata .clasif-pos-num { min-width: 70px; }
+
   .clasif-nombre-wrap { flex: 1; min-width: 0; }
 
   .clasif-nombre {
@@ -963,6 +976,11 @@
     text-decoration-color: rgba(163,45,45,0.5);
     opacity: 0.85;
   }
+  .pichichi-chip-valor.pichichi-valor-acierto {
+    color: #0F6E56;
+    font-weight: 700;
+  }
+  .pichichi-valor-pts { font-weight: 700; font-size: 11px; color: #0F6E56; }
 
   @media (max-width: 680px) {
     .pichichi-grid { grid-template-columns: 1fr; }
@@ -2224,6 +2242,7 @@ const CALENDARIO_GRUPOS = [
   { equipoA:'Francia', equipoB:'España', grupo:'semis', hora:'21:00', dia:14 },
   { equipoA:'Inglaterra', equipoB:'Argentina', grupo:'semis', hora:'21:00', dia:15 },
   { equipoA:'Francia', equipoB:'Inglaterra', grupo:'3puesto', hora:'21:00', dia:18 },
+  { equipoA:'España', equipoB:'Argentina', grupo:'final', hora:'21:00', dia:19 },
   { equipoA:'México', equipoB:'Sudáfrica', grupo:'A', hora:'21:00', dia:11 },
   { equipoA:'Corea del Sur', equipoB:'República Checa', grupo:'A', hora:'04:00', dia:12 },
   { equipoA:'República Checa', equipoB:'Sudáfrica', grupo:'A', hora:'18:00', dia:18 },
@@ -2356,11 +2375,11 @@ const USE_SHEETS = false;
 // Solo hay que indicar equipoA y equipoB. El "resultado" déjalo null
 // hasta que acabe el partido; entonces pon: resultado: '2-1'
 const PARTIDOS_HOY = [
-  { columna: 'Francia vs Inglaterra', equipoA: 'Francia', equipoB: 'Inglaterra', resultado: '4-6',
-    pronosticos: { 'Mamá':'2-1', 'Javi II':'2-1', 'Dani y Espe Jr.':'4-2', 'Leti I':'3-1', 'Andrés IV':'1-0', 'Tomás II':'2-0', 'Luis II':'1-0', 'Jorge II':'1-3', 'Josito I':'0-3', 'Cristina':'2-1', 'Fernando II':'3-2', 'Edu I':'2-1', 'Javito Jr.':'2-1', 'Anita':'2-0', 'Pablete':'2-2', 'Luki':'2-3', 'Iñiguín':'2-0', 'Mateo':'2-0' } },
+  { columna: 'España vs Argentina', equipoA: 'España', equipoB: 'Argentina', resultado: '1-0',
+    pronosticos: { 'Mamá':'2-1', 'Javi II':'3-0', 'Dani y Espe Jr.':'2-1', 'Leti I':'3-1', 'Andrés IV':'4-0', 'Tomás II':'1-0', 'Luis II':'1-0', 'Jorge II':'3-0', 'Josito I':'1-0', 'Cristina':'2-0', 'Fernando II':'4-0', 'Edu I':'2-1', 'Javito Jr.':'2-1', 'Anita':'2-1', 'Pablete':'3-1', 'Luki':'2-0', 'Iñiguín':'2-1', 'Mateo':'3-0' } },
 ];
 // Para añadir o quitar partidos, añade o borra líneas de este array.
-// NOTA: partido por el 3er/4º puesto. No otorga clasificados (no toca ptsTablas).
+// ¡GRAN FINAL! España campeona del Mundial 2026.
 
 // Mungui: se detecta automáticamente desde el formulario.
 // Quien haya rellenado la pregunta de goleadores = es el Mungui ese día.
@@ -2368,9 +2387,12 @@ const PARTIDOS_HOY = [
 const MUNGUI_HOY = {
   ptsDia: 8,
   munguis: [
-    { nombre: 'Edu I', goleadores: ['Mbappé'], acierto: true },
-    { nombre: 'Iñiguín', goleadores: ['Mbappé'], acierto: true },
-    { nombre: 'Pablete', goleadores: ['Mbappé'], acierto: true },
+    { nombre: 'Edu I', goleadores: ['Messi'], acierto: false },
+    { nombre: 'Pablete', goleadores: ['Messi'], acierto: false },
+    { nombre: 'Luki', goleadores: ['Messi', 'Oyarzábal'], acierto: false },
+    { nombre: 'Iñiguín', goleadores: ['Oyarzábal'], acierto: false },
+    { nombre: 'Josito I', goleadores: ['Lamine Yamal', 'Messi'], acierto: false },
+    { nombre: 'Jorge II', goleadores: ['Lamine Yamal', 'Oyarzábal'], acierto: false },
   ]
 };
 
@@ -2426,7 +2448,7 @@ let PARTIDOS_DIA = PARTIDOS_HOY.map(p => {
     pronosticos: p.pronosticos || {}
   };
 });
-let PARTIDAZOS = { 'Leti I':'Francia vs Inglaterra', 'Edu I':'Francia vs Inglaterra', 'Jorge II':'Francia vs Inglaterra', 'Tomás II':'Francia vs Inglaterra', 'Josito I':'Francia vs Inglaterra', 'Javito Jr.':'Francia vs Inglaterra', 'Javi II':'Francia vs Inglaterra', 'Luki':'Francia vs Inglaterra', 'Iñiguín':'Francia vs Inglaterra', 'Mateo':'Francia vs Inglaterra', 'Andrés IV':'Francia vs Inglaterra', 'Dani y Espe Jr.':'Francia vs Inglaterra', 'Pablete':'Francia vs Inglaterra', 'Anita':'Francia vs Inglaterra', 'Cristina':'Francia vs Inglaterra', 'Fernando II':'Francia vs Inglaterra', 'Mamá':'Francia vs Inglaterra', 'Luis II':'Francia vs Inglaterra' };
+let PARTIDAZOS = { 'Leti I':'España vs Argentina', 'Edu I':'España vs Argentina', 'Jorge II':'España vs Argentina', 'Tomás II':'España vs Argentina', 'Josito I':'España vs Argentina', 'Javito Jr.':'España vs Argentina', 'Javi II':'España vs Argentina', 'Luki':'España vs Argentina', 'Iñiguín':'España vs Argentina', 'Mateo':'España vs Argentina', 'Andrés IV':'España vs Argentina', 'Dani y Espe Jr.':'España vs Argentina', 'Pablete':'España vs Argentina', 'Anita':'España vs Argentina', 'Cristina':'España vs Argentina', 'Fernando II':'España vs Argentina', 'Mamá':'España vs Argentina', 'Luis II':'España vs Argentina' };
 
 const GRUPOS_DATA = [
   { letra:'A', equipos:['Corea del Sur','República Checa','México','Sudáfrica'] },
@@ -2497,6 +2519,13 @@ const PICHICHIS_ELIMINADOS = ['Raphinha', 'Vinicius Junior', 'Cristiano Ronaldo'
 // Equipos de "equipo máximo goleador" ya eliminados → se tachan en rojo. Se va ampliando según José.
 const EQUIPOS_GOLEADOR_ELIMINADOS = ['Brasil', 'Portugal', 'Alemania'];
 
+// ── RESULTADOS FINALES DEL TORNEO (para colorear aciertos/fallos en pronósticos previos) ──
+// Cuando el torneo ha terminado: el pichichi/equipo goleador acertado sale en verde (+10), los fallados en rojo tachado.
+const TORNEO_TERMINADO = true;
+const PICHICHI_REAL = 'Mbappé';       // pichichi acertado = +10
+const GOLEADOR_REAL = 'Inglaterra';   // país máximo goleador acertado = +10
+const CAMPEON_REAL = 'España';        // campeón del Mundial (quien lo puso ya sumó +12; en 'final' se muestra +20 = 8 final + 12 campeón)
+
 const PREVIOS_DATA = {
   pichichi: { 'Tomás II':'Raphinha','Fernando II':'Mbappé','Edu I':'Mbappé','Jorge II':'Harry Kane','Cristina':'Mbappé','Josito I':'Vinicius Junior','Pablete':'Cristiano Ronaldo','Anita':'Harry Kane','Dani y Espe Jr.':'Harry Kane','Javi II':'Oyarzábal','Luki':'Cristiano Ronaldo','Javito Jr.':'Mbappé','Iñiguín':'Mbappé','Mateo':'Oyarzábal','Leti I':'Mbappé','Andrés IV':'Mbappé','Mamá':'Mbappé' ,'Luis II':'Mbappé'},
   equipoGoleador: { 'Tomás II':'Brasil','Fernando II':'Portugal','Edu I':'Brasil','Jorge II':'Alemania','Cristina':'Francia','Josito I':'Alemania','Pablete':'Francia','Anita':'Brasil','Dani y Espe Jr.':'España','Javi II':'España','Luki':'Francia','Javito Jr.':'Argentina','Iñiguín':'España','Mateo':'España','Leti I':'Francia','Andrés IV':'España','Mamá':'Brasil' ,'Luis II':'Portugal'},
@@ -2543,24 +2572,24 @@ const PREVIOS_DATA = {
 };
 
 const CLASIFICACION_DATA = [
-  { nombre:'Edu I', pts:359, pts1x2:95, ptsExacto:77, ptsMungui:4, ptsTablas:183 },
-  { nombre:'Jorge II', pts:341, pts1x2:89, ptsExacto:62, ptsMungui:2, ptsTablas:188 },
-  { nombre:'Javi II', pts:321, pts1x2:82, ptsExacto:41, ptsMungui:0, ptsTablas:198 },
-  { nombre:'Dani y Espe Jr.', pts:319, pts1x2:96, ptsExacto:46, ptsMungui:0, ptsTablas:177 },
-  { nombre:'Fernando II', pts:312, pts1x2:83, ptsExacto:38, ptsMungui:0, ptsTablas:191 },
-  { nombre:'Cristina', pts:303, pts1x2:81, ptsExacto:32, ptsMungui:0, ptsTablas:190 },
-  { nombre:'Pablete', pts:301, pts1x2:75, ptsExacto:38, ptsMungui:10, ptsTablas:178 },
-  { nombre:'Luki', pts:295, pts1x2:80, ptsExacto:41, ptsMungui:0, ptsTablas:174 },
-  { nombre:'Mamá', pts:292, pts1x2:72, ptsExacto:49, ptsMungui:6, ptsTablas:165 },
-  { nombre:'Leti I', pts:286, pts1x2:81, ptsExacto:42, ptsMungui:2, ptsTablas:161 },
-  { nombre:'Javito Jr.', pts:285, pts1x2:81, ptsExacto:33, ptsMungui:2, ptsTablas:169 },
-  { nombre:'Andrés IV', pts:282, pts1x2:78, ptsExacto:54, ptsMungui:0, ptsTablas:150 },
-  { nombre:'Luis II', pts:279, pts1x2:75, ptsExacto:44, ptsMungui:0, ptsTablas:160 },
-  { nombre:'Mateo', pts:271, pts1x2:66, ptsExacto:42, ptsMungui:0, ptsTablas:163 },
-  { nombre:'Tomás II', pts:266, pts1x2:79, ptsExacto:30, ptsMungui:0, ptsTablas:157 },
-  { nombre:'Anita', pts:251, pts1x2:82, ptsExacto:35, ptsMungui:2, ptsTablas:132 },
-  { nombre:'Iñiguín', pts:240, pts1x2:72, ptsExacto:47, ptsMungui:2, ptsTablas:119 },
-  { nombre:'Josito I', pts:228, pts1x2:78, ptsExacto:38, ptsMungui:0, ptsTablas:112 },
+  { nombre:'Edu I', pts:383, pts1x2:97, ptsExacto:77, ptsMungui:4, ptsTablas:205 },
+  { nombre:'Jorge II', pts:355, pts1x2:91, ptsExacto:62, ptsMungui:2, ptsTablas:200 },
+  { nombre:'Fernando II', pts:336, pts1x2:85, ptsExacto:38, ptsMungui:0, ptsTablas:213 },
+  { nombre:'Javi II', pts:335, pts1x2:84, ptsExacto:41, ptsMungui:0, ptsTablas:210 },
+  { nombre:'Dani y Espe Jr.', pts:333, pts1x2:98, ptsExacto:46, ptsMungui:0, ptsTablas:189 },
+  { nombre:'Cristina', pts:327, pts1x2:83, ptsExacto:32, ptsMungui:0, ptsTablas:212 },
+  { nombre:'Mamá', pts:316, pts1x2:74, ptsExacto:49, ptsMungui:6, ptsTablas:187 },
+  { nombre:'Pablete', pts:315, pts1x2:77, ptsExacto:38, ptsMungui:10, ptsTablas:190 },
+  { nombre:'Javito Jr.', pts:309, pts1x2:83, ptsExacto:33, ptsMungui:2, ptsTablas:191 },
+  { nombre:'Andrés IV', pts:306, pts1x2:80, ptsExacto:54, ptsMungui:0, ptsTablas:172 },
+  { nombre:'Leti I', pts:298, pts1x2:83, ptsExacto:42, ptsMungui:2, ptsTablas:171 },
+  { nombre:'Luis II', pts:297, pts1x2:77, ptsExacto:50, ptsMungui:0, ptsTablas:170 },
+  { nombre:'Luki', pts:297, pts1x2:82, ptsExacto:41, ptsMungui:0, ptsTablas:174 },
+  { nombre:'Tomás II', pts:286, pts1x2:81, ptsExacto:36, ptsMungui:0, ptsTablas:169 },
+  { nombre:'Mateo', pts:285, pts1x2:68, ptsExacto:42, ptsMungui:0, ptsTablas:175 },
+  { nombre:'Anita', pts:265, pts1x2:84, ptsExacto:35, ptsMungui:2, ptsTablas:144 },
+  { nombre:'Iñiguín', pts:252, pts1x2:74, ptsExacto:47, ptsMungui:2, ptsTablas:129 },
+  { nombre:'Josito I', pts:236, pts1x2:80, ptsExacto:44, ptsMungui:0, ptsTablas:112 },
 ];
 
 // ─────────────────────────────────────────────
@@ -2763,22 +2792,33 @@ function renderPichichi() {
     const chips = PARTICIPANTES.map((n, i) => {
       const valor = PREVIOS_DATA[campo][n] || '—';
       let claseValor = 'pichichi-chip-valor';
-      // Equipo goleador: rojo tachado si el equipo ya está eliminado
-      if (campo === 'equipoGoleador' && valor !== '—'
-          && EQUIPOS_GOLEADOR_ELIMINADOS.some(e => normEquipo(e) === normEquipo(valor))) {
-        claseValor += ' pichichi-valor-eliminado';
-      }
-      // Pichichi: rojo tachado si el jugador ya está eliminado
-      if (campo === 'pichichi' && valor !== '—'
-          && PICHICHIS_ELIMINADOS.some(j => j.toLowerCase() === valor.toLowerCase())) {
-        claseValor += ' pichichi-valor-eliminado';
+      let extra = '';
+      const real = campo === 'pichichi' ? PICHICHI_REAL : (campo === 'equipoGoleador' ? GOLEADOR_REAL : null);
+      if (TORNEO_TERMINADO && real && valor !== '—') {
+        // Torneo terminado: verde+10 si acertó el valor real, rojo tachado si falló
+        if (valor.toLowerCase() === real.toLowerCase()) {
+          claseValor += ' pichichi-valor-acierto';
+          extra = ' <span class="pichichi-valor-pts">+10</span>';
+        } else {
+          claseValor += ' pichichi-valor-eliminado';
+        }
+      } else {
+        // Durante el torneo: rojo tachado solo si el pichichi/equipo ya está eliminado
+        if (campo === 'equipoGoleador' && valor !== '—'
+            && EQUIPOS_GOLEADOR_ELIMINADOS.some(e => normEquipo(e) === normEquipo(valor))) {
+          claseValor += ' pichichi-valor-eliminado';
+        }
+        if (campo === 'pichichi' && valor !== '—'
+            && PICHICHIS_ELIMINADOS.some(j => j.toLowerCase() === valor.toLowerCase())) {
+          claseValor += ' pichichi-valor-eliminado';
+        }
       }
       return `
       <div class="pichichi-chip">
         <div class="chip-avatar" style="background:${COLORES[i]}1f;width:24px;height:24px;font-size:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">${avatar(n)}</div>
         <div class="pichichi-chip-info">
           <div class="pichichi-chip-nombre">${n}</div>
-          <div class="${claseValor}">${valor}</div>
+          <div class="${claseValor}">${valor}${extra}</div>
         </div>
       </div>`;
     }).join('');
@@ -3041,7 +3081,12 @@ function renderFasePersona(nombre) {
           const eliminadoEnSemis = ELIMINADOS_SEMIS.some(c => normEquipo(c) === normEquipo(eq));
           if (clasifFinal) {
             claseEstado = ' fase-equipo-acierto';
-            extraPts = ' <span class="fase-equipo-pts">+8</span>';
+            // Torneo terminado: +20 solo si esta persona puso al campeón real COMO CAMPEÓN (8 final + 12 campeón).
+            // Si puso al campeón real como subcampeón, solo acertó la final → +8.
+            const esCampeonReal = TORNEO_TERMINADO && esCampeon && normEquipo(eq) === normEquipo(CAMPEON_REAL);
+            extraPts = esCampeonReal
+              ? ' <span class="fase-equipo-pts">+20</span>'
+              : ' <span class="fase-equipo-pts">+8</span>';
           } else if (eliminadoEnSemis) {
             claseEstado = ' fase-equipo-fallo';
           } else if (eliminadoEnCuartos) {
@@ -3116,7 +3161,10 @@ function renderClasificacion() {
   tabla.innerHTML = datos.map((p, i) => {
     const pct     = maxPts > 0 ? Math.round((p.pts / maxPts) * 100) : 0;
     const posClass = i === 0 ? 'pos-oro' : i === 1 ? 'pos-plata' : i === 2 ? 'pos-bronce' : '';
-    const posLabel = i === 0 ? '🏆' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i+1}º`;
+    let posLabel = i === 0 ? '🏆' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i+1}º`;
+    // Torneo terminado: el 1º es "Campeón" y el 2º "Subcampeón"
+    if (TORNEO_TERMINADO && i === 0) posLabel = '🏆<span class="clasif-titulo-txt">Campeón</span>';
+    if (TORNEO_TERMINADO && i === 1) posLabel = '🥈<span class="clasif-titulo-txt">Subcampeón</span>';
 
     const col = (val, label, cls) => {
       const esCero = !val || val === 0;
